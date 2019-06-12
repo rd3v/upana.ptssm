@@ -139,6 +139,8 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     # Stock
     $route['gudang/stock/manajemen']['get'] = 'gudang/stock/manajemen';
     $route['gudang/stock/master']['get'] = 'gudang/stock/master';
+    $route['gudang/stock/master/tambahsubmit']['post'] = 'gudang/stock/store';
+    $route['gudang/stock/master/getdata']['get'] = 'gudang/stock/getdatamaster';
 
 # TEKNISI
 

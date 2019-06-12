@@ -39,35 +39,137 @@
 			<?php } 
 				
 				if($data['route'] == "finance/invoice/masuk/tambah") { ?>
+					var Select2 = function() {
+						var demos = function(){
+						// basic
+							$('.dropdown_search, .dropdown_search_validate').select2({
+								placeholder: "Pilih item barang"
+							});
+						}
+						var modalDemos = function() {
+							$('#m_select2_modal').on('shown.bs.modal', function () {
+						// basic
+							$('.dropdown_search_modal').select2({
+								placeholder: "Pilih item barang"
+							});
+						});
+						}
+						return {
+							init: function() {
+								demos();
+								modalDemos();
+							}
+						};
+					}();				
+					jQuery(document).ready(function() {
+						Select2.init();
+					});
 					$("li#invoice_masuk").addClass("m-menu__item--active");
+					$("table#tbl_list_invoice_masuk tbody").html("");
+					var listitem = [];
 
 					$('#btn_simpan_data').click(function(e) {
+						
+						if($("#no_invoice").val() == "") {
+							swal('Invoice Kosong!');
+						} else if($("#tanggal_pembuatan_invoice").val() == "") {
+							swal('Tanggal Invoice Kosong!');
+						} else if($("#nama_supplier").val() == "") {
+							swal('Nama Supplier Kosong!');
+						} else if($("#no_telpon").val() == "") {
+							swal('Nomor Telepon Kosong!');
+						} else if($("#email_supplier").val() == "") {
+							swal('Email Supplier Kosong!');
+						} else if($("#alamat_supplier").val() == "") {
+							swal('Alamat Supplier Kosong!');
+						} else if($("#npwp_supplier").val() == "") {
+							swal('NPWP Supplier Kosong!');
+						} else if($("select#status").val() == "") {
+							swal('Status Pembayaran Kosong!');
+						} else if($("select#gudang").val() == "") {
+							swal('Tipe Gudang Kosong!');
+						} else {
 
-						$.ajax({
-							url:"<?= base_url() ?>finance/invoice/masuk/tambahsubmit",
-							type:"post",
-							data:{
-								no_invoice:$("#no_invoice").val(),
-								tanggal_pembuatan_invoice:$("#tanggal_pembuatan_invoice").val(),
-								tanggal_pembuatan_invoice:$("#tanggal_pembuatan_invoice").val(),
-								nama_supplier:$("#nama_supplier").val(),
-								no_telpon:$("#no_telpon").val(),
-								email_supllier:$("#email_supllier").val(),
-								alamat_supllier:$("#alamat_supllier").val(),
-								npwp_supllier:$("#npwp_supllier").val(),
-								status:$("select#status").val(),
-								gudang:$("select#gudang").val(),
-							},
-							dataType:"json"
-						}).done(function(res) {
-							swal("Berhasil!", "Data Invoice Telah Tersimpan","success");
-						}).fail(function(res) {
-							
-						});
+							$.ajax({
+								url:"<?= base_url() ?>finance/invoice/masuk/tambahsubmit",
+								type:"post",
+								data:{
+									// Invoice Masuk
+									no_invoice:$("#no_invoice").val(),
+									tanggal:$("#tanggal_pembuatan_invoice").val(),
+									nama_supplier:$("#nama_supplier").val(),
+									telepon:$("#no_telpon").val(),
+									email:$("#email_supplier").val(),
+									alamat:$("#alamat_supplier").val(),
+									npwp:$("#npwp_supplier").val(),
+									status:$("select#status").val(),
+									gudang:$("select#gudang").val(),
+
+									// Invoice Masuk List barang
+									listitem:listitem
+
+								},
+								dataType:"json"
+							}).done(function(res) {
+								console.log(res);
+
+								swal({
+								title:res.title,
+								message:res.message,
+								type:res.status,
+								confirmButtonText: 'Ok'
+								}).then(function(result) {
+									if (result.value) {
+										document.location = '<?= base_url() ?>finance/invoice/masuk';
+									}
+								});
+
+							}).fail(function(res) {
+								console.log(res);
+							});							
+
+						}
+
 					});
 					
 					$('#btn_tambah').click(function(e) {
-						swal("Berhasil!", "data yang anda inputkan telah dimasukkan ke list item barang", "success");
+						
+						var kode_item = $("select[name=nama_item] option:selected").val();
+						var nama_item = $("select[name=nama_item] option:selected").text();
+						var jumlah_item = $("input#jumlah_item").val();
+						var satuan = $("select[name=satuan] option:selected").val();
+						var harga_jual = $("input#harga_jual").val();
+						var potongan_harga_item = $("input#potongan_harga_item").val();
+						var total_harga_item = $("input#total_harga_item").val();
+
+						listitem.push({
+							kode_item:kode_item,
+							nama_item:nama_item,
+							jumlah_item:jumlah_item,
+							satuan:satuan,
+							harga_jual:harga_jual,
+							potongan_harga_item:potongan_harga_item,
+							total_harga_item:total_harga_item
+						});
+
+						var table_tbl_list_invoice_masuk = "";
+						for(var i = 0;i < listitem.length;i++) {
+							table_tbl_list_invoice_masuk = "<tr>";
+							table_tbl_list_invoice_masuk += "<td>"+(i+1)+"</td>";
+							table_tbl_list_invoice_masuk += "<td>"+listitem[i].nama_item+"</td>";
+							table_tbl_list_invoice_masuk += "<td>3</td>";
+							table_tbl_list_invoice_masuk += "<td>4</td>";
+							table_tbl_list_invoice_masuk += "<td>5</td>";
+							table_tbl_list_invoice_masuk += "<td>6</td>";
+							table_tbl_list_invoice_masuk += "<td>6</td>";
+							table_tbl_list_invoice_masuk += "<td>6</td>";
+							table_tbl_list_invoice_masuk += "</tr>";
+
+						}
+						$("table#tbl_list_invoice_masuk tbody").html(table_tbl_list_invoice_masuk);
+						
+						//swal("Berhasil!", "data yang anda inputkan telah dimasukkan ke list item barang", "success");
+					
 					});					
 
 				<?php }
@@ -471,7 +573,196 @@
 		
 				<?php } if($data['route'] == "gudang/stock/master") { ?>
 					$("li#stock-master").addClass("m-menu__item--active");
-		
+
+					$('#btn_tambah').click(function() {
+
+						var input_kode_barang = $("input[name=input_kode_barang]").val();
+						var kategori_item = $("select[name=kategori_item] option:selected").val();
+						var nama_barang = $("input[name=nama_barang]").val();
+						var input_satuan_barang = $("input[name=input_satuan_barang]").val();
+						var stock_minimal = $("input[name=stock_minimal]").val();
+						
+						if(input_kode_barang == "") {
+							swal('Kode barang kosong !!!');
+						} else if(kategori_item == "") {
+							swal('Kategori barang kosong !!!');
+						} else if(nama_barang == "") {
+							swal('Nama barang kosong !!!');
+						} else if(input_satuan_barang == "") {
+							swal('Satuan barang kosong !!!');
+						} else if(stock_minimal == "") {
+							swal('Stock Minimal kosong !!!');
+						} else {
+
+							swal({
+								title: 'Apakah anda yakin menambahkan barang ini?',
+								type: 'warning',
+								showCancelButton: true,
+								confirmButtonText: 'Ya, Tambahkan!'
+							}).then(function(result) {
+								if (result.value) {
+									 
+									$("#formstock").trigger("submit");
+
+								}
+							});
+
+						}
+
+					});
+
+					function previewImage() {
+						document.getElementById("image-preview").style.display = "block";
+						var oFReader = new FileReader();
+						oFReader.readAsDataURL(document.getElementById("image_source").files[0]);
+
+						oFReader.onload = function(oFREvent) {
+							document.getElementById("image-preview").src = oFREvent.target.result;
+						};
+					};					
+					var Select2 = function() {
+							var demos = function(){
+							// basic
+							$('.dropdown_search, .dropdown_search_validate').select2({
+								placeholder: "Select a state"
+							});
+							}
+							var modalDemos = function(){
+								$('#m_select2_modal').on('shown.bs.modal', function () {
+							// basic
+							$('.dropdown_search_modal').select2({
+								placeholder: "Select a state"
+							});
+						});
+							}
+							return {
+								init: function() {
+									demos();
+									modalDemos();
+								}
+							};
+						}();
+					//== Initialization
+					jQuery(document).ready(function() {
+						Select2.init();
+					});		
+						var tbl_list_master_stock = $('#tbl_list_master_stock').mDatatable({
+							data: {
+					saveState: {cookie: false},
+							type: 'remote',
+							source: {
+							  read: {
+								// sample GET method
+								method: 'GET',
+								// url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
+								url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
+								map: function(raw) {
+								  // sample data mapping
+								  var dataSet = raw;
+								  if (typeof raw.data !== 'undefined') {
+									dataSet = raw.data;
+								  }
+								  return dataSet;
+								},
+							  },
+							},
+							pageSize: 10,
+							serverPaging: true,
+							serverFiltering: true,
+							serverSorting: true,
+						},
+								// layout definition
+								layout: {
+									theme: 'default', // datatable theme
+									class: '', // custom wrapper class
+									scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+									// height: 450, // datatable's body's fixed height
+									footer: false, // display/hide footer
+								},
+
+								// column sorting
+								sortable: true,
+								search: {
+									input: $('#generalSearch'),
+								},
+								columns: [
+
+								{
+									field: "no",
+									template: function(data, type, row, meta) {
+										return data.getIndex() + 1;						
+									},
+									textAlign: "center",									
+								},
+								{
+									field: "kategori",
+									textAlign: "center",
+										
+								},
+								{
+									field: 'kode',
+									textAlign: 'center',
+								},
+								{
+									field: 'nama',
+									textAlign: 'center',
+								},
+								{
+									field: "tipe_gudang",
+									template: function(data, type, row, meta) {
+										var html = ""
+										if(data.tipe_gudang == 1) {
+											html = "Toko (Non Pajak)";
+										} else if(data.tipe_gudang == 2) {
+											html = "Kantor (Pajak)";
+										}
+										return html;						
+									},
+									textAlign: "center",
+								},
+								{
+									field: 'tipe',
+									textAlign: 'center'
+								},
+								{
+									field: 'merk',
+									textAlign: 'center'
+								},
+								{
+									field: 'daya_listrik',
+									textAlign: 'center'
+								},
+								{
+									field: 'satuan',
+									textAlign: 'center'
+								},
+								{
+									field: 'keterangan',
+									textAlign: 'center',
+								},
+								{
+									field: 'gambar',
+									template: function(data, type, row, meta) {
+										if(data.gambar == "" || data.gambar == null) {
+											return "Tidak ada Gambar";
+										} else {
+											return "<img src='<?= base_url() ?>assets/img/"+data.gambar+"' width='75px'>";						
+										}
+									},
+									textAlign: 'center',
+										
+								},
+								{
+									field: 'aksi',
+									template: function(data, type, row, meta) {
+										return "<a class='btn btn-sm btn-primary' style='color:white; width:80px;'>Edit</a><a class='btn btn-sm btn-secondary' style='width:80px;'>Hapus</a>"
+									},
+									textAlign: 'center',
+								}
+
+								],
+							});
+
 				<?php }				
 
 				# END GUDANG

@@ -25,9 +25,9 @@ class InvoiceMasuk extends MY_Controller {
     public function index() {
         
         $content['data'] = [
-
+            
         ];
-
+        
         $footer['data'] = [
             "route" => $this->getRoute(),
             "accesstype" => $this->header['data']['user']['accesstype']
@@ -39,10 +39,14 @@ class InvoiceMasuk extends MY_Controller {
     }
 
     public function tambah() {
-
+        
+        $this->load->model('finance/StockModel');
+        $master_stock = $this->StockModel->getdatamaster();
         $content['data'] = [
-
+            "stock" => $master_stock
         ];
+
+        // die(var_dump($content['data']['stock']));
 
         $footer['data'] = [
             "route" => $this->getRoute(),
@@ -55,27 +59,25 @@ class InvoiceMasuk extends MY_Controller {
     }
 
     public function store() {
-        $this->load->model('InvoiceMasukModel');
-
-        $id = $this->input->post('id');
-        $nama = $this->input->post('nama');
-        $telepon = $this->input->post('telepon');
-        $alamat = $this->input->post('alamat');
-        $tipe = $this->input->post('tipe');
+        $this->load->model('finance/InvoiceMasukModel');
 
         $request = [
-            "id" => $id,
-            "nama" => $nama,
-            "telepon" => $telepon,
-            "alamat" => $alamat,
-            "tipe" => $tipe
+            "no_invoice" => $this->input->post('no_invoice'),
+            "tanggal" => $this->input->post('tanggal'),
+            "nama_supplier" => $this->input->post('nama_supplier'),
+            "telepon" => $this->input->post('telepon'),
+            "email" => $this->input->post('email'),
+            "alamat" => $this->input->post('alamat'),
+            "npwp_supplier" => $this->input->post('npwp'),
+            "status" => $this->input->post('status'),
+            "gudang" => $this->input->post('gudang'),
         ];
 
         $result = $this->InvoiceMasukModel->store($request);
         if($result) {
             $response = [
                 'title' => 'Berhasil',
-                'message' => 'Data Pelanggan telah di Tambahkan',
+                'message' => 'Data Invoice telah Tersimpan',
                 'status' => 'success'
             ];
         } else {

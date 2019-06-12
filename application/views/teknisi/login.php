@@ -45,8 +45,8 @@
 		var username = $("#user-input").val();
 		var password = $("#password-input").val();
 		$.ajax({
-			// url:"http://localhost/ptssm/app2/teknisi/checklogin",
-			url:"https://projects.upanastudio.com/ptssm/app/teknisi/checklogin",
+			url:"http://localhost/ptssm/app2/teknisi/checklogin",
+			// url:"https://projects.upanastudio.com/ptssm/app/teknisi/checklogin",
 			type:"get",
 			data:{
 				username:username,
@@ -59,8 +59,8 @@
 				$("#message").addClass("alert-success");
 				$("#message").text("Selamat Datang");
 				setTimeout(function() {
-					// document.location = 'http://localhost/ptssm/app2/teknisi';
-					document.location = 'https://projects.upanastudio.com/ptssm/app/teknisi';
+					document.location = 'http://localhost/ptssm/app2/teknisi';
+					// document.location = 'https://projects.upanastudio.com/ptssm/app/teknisi';
 				},1500);
 			} else {
 				$("#message").removeClass("alert-success");

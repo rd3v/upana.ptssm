@@ -8,7 +8,7 @@
 								</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
-										<a href="<?= base_url() ?>" class="m-nav__link m-nav__link--icon">
+										<a href="<?= base_url() ?>gudang" class="m-nav__link m-nav__link--icon">
 											<i class="m-nav__link-icon la la-home"></i>
 										</a>
 									</li>
@@ -16,7 +16,7 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= base_url() ?>stock/master" class="m-nav__link">
+										<a href="<?= base_url() ?>gudang/stock/master" class="m-nav__link">
 											<span class="m-nav__link-text">
 												Master Stock
 											</span>
@@ -38,13 +38,15 @@
 													<i class="la la-gear"></i>
 												</span>
 												<h3 class="m-portlet__head-text">
-													Input Master Stock
+													Input Master Stock <br><?php if($this->session->flashdata('status')) {
+														echo "<div class='alert alert-".$this->session->flashdata('status')."'>".$this->session->flashdata('flsh_msg')."</div>";
+													} ?>
 												</h3>
 											</div>
 										</div>
 									</div>
 									<!--begin::Form-->
-									<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed">
+									<form id="formstock" action="<?= base_url() ?>gudang/stock/master/tambahsubmit" method="post" enctype="multipart/form-data" class="form">
 										<div class="m-portlet__body">
 											<div class="form-group m-form__group row">
 												<div class="col-lg-6">
@@ -59,8 +61,8 @@
 														Kategori*:
 													</label>
 													<select style="width: 100%" class="form-control m-select2 dropdown_search" name="kategori_item">
-														<option value="0">
-															--Pilih Kategori--
+														<option value="">
+															-- Pilih Kategori --
 														</option>
 														<option value="1">
 															Unit
@@ -86,7 +88,7 @@
 													<label class="">
 														Satuan *:
 													</label>
-													<input type="text" name="input_satuan_barang" class="form-control m-input" placeholder="satuan barang">
+													<input type="number" name="input_satuan_barang" class="form-control m-input" placeholder="satuan barang">
 												</div>
 												<div class="col-lg-6">
 													<label class="">
@@ -98,9 +100,8 @@
 													<label class="">
 														Tipe:
 													</label>
-													<input type="text" name="Type" class="form-control m-input">
+													<input type="text" name="tipe" class="form-control m-input">
 
-													
 												</div>
 												<div class="col-lg-6">
 													<label class="">
@@ -113,7 +114,8 @@
 													<label class="">
 														Tipe Gudang*:
 													</label>
-													<select style="width: 100%" class="form-control " name="Tipe Pajak">
+													<select style="width: 100%" class="form-control " name="tipe_gudang">
+														<option value=""></option>
 														<option value="1">
 															Toko (Pajak)
 														</option>
@@ -143,15 +145,16 @@
 													<label class="">
 														Keterangan:
 													</label>
-													<textarea style="resize: none; height: 90px" class="form-control m-input m-input--solid" id="keterangan_barang" rows="3"></textarea>
+													<textarea style="resize: none;" class="form-control" name="keterangan_barang" id="keterangan_barang" rows="5"></textarea>
 												</div>
 												<div align="center" style="margin-top: 30px" class="offset-lg-3 col-lg-6">
 													<img style="display: none" id="image-preview" alt="image preview"/>
 													<br/>
-													<input type="file" id="image-source" onchange="previewImage();"/>
+													<input type="file" id="image_source" name="image_source" onchange="previewImage();"/>
 												</div>
-												<div  class="offset-lg-3 col-lg-6">
-													<button type="button" style="width:inherit;" class="btn btn-success" id="btn_tambah" >tambahkan</button>
+												<div class="offset-lg-3 col-lg-6">
+													<br>
+													<button type="button" style="width:inherit;" class="btn btn-success" id="btn_tambah">Tambahkan</button>
 												</div>
 											</div>
 										</div>
@@ -208,83 +211,6 @@
 													<tr>
 														<td>1</td>
 														<td>Unit</td>
-														<td>#14253617</td>
-														<td>Thermistor RKD25GVM</td>
-														<td>Kantor</td>
-														<td>Thermistor</td>
-														<td>Daikin</td>
-														<td>20</td>
-														<td>unit</td>
-														<td>-</td>
-														<td>
-															<img class="gambar_inventory" src="https://s0.bukalapak.com/img/5371113482/w-1000/Freonr22ACR22isi5kgpraktisfreetabung_1_scaledjpg_scaled.jpg">
-														</td>
-														<td>
-															<a class="btn btn-sm btn-primary" style="color:white; width:80px;">Edit</a>
-															<a class="btn btn-sm btn-secondary" style="	 width:80px;">Hapus</a>
-														</td>
-													</tr>
-													<tr>
-														<td>2</td>
-														<td>Material</td>
-														<td>#14253617</td>
-														<td>Thermistor RKD25GVM</td>
-														<td>Kantor</td>
-														<td>Thermistor</td>
-														<td>Daikin</td>
-														<td>20</td>
-														<td>unit</td>
-														<td>-</td>
-														<td>
-															<img class="gambar_inventory" src="https://s0.bukalapak.com/img/5371113482/w-1000/Freonr22ACR22isi5kgpraktisfreetabung_1_scaledjpg_scaled.jpg">
-														</td>
-														<td>
-															<a class="btn btn-sm btn-primary" style="color:white; width:80px;">Edit</a>
-															<a class="btn btn-sm btn-secondary" style="	 width:80px;">Hapus</a>
-														</td>
-														
-													</tr>
-													<tr>
-														<td>3</td>
-														<td>Jasa</td>
-														<td>#J12</td>
-														<td>Cuci AC Dalam</td>
-														<td>Toko</td>
-														<td> - </td>
-														<td>Daikin</td>
-														<td> - </td>
-														<td>unit</td>
-														<td> Jasa pekerjaan </td>
-														<td>
-															<img class="gambar_inventory" src="">
-														</td>
-														<td>
-															<a class="btn btn-sm btn-primary" style="color:white; width:80px;">Edit</a>
-															<a class="btn btn-sm btn-secondary" style="	 width:80px;">Hapus</a>
-														</td>
-													</tr>
-													<tr>
-														<td>4</td>
-														<td>Sparepart</td>
-														<td>#14253617</td>
-														<td>Thermistor RKD25GVM</td>
-														<td>Kantor</td>
-														<td>Thermistor</td>
-														<td>Daikin</td>
-														<td>20</td>
-														<td>unit</td>
-														<td>-</td>
-														<td>
-															<img class="gambar_inventory" src="https://s0.bukalapak.com/img/5371113482/w-1000/Freonr22ACR22isi5kgpraktisfreetabung_1_scaledjpg_scaled.jpg">
-														</td>
-														<td>
-															<a class="btn btn-sm btn-primary" style="color:white; width:80px;">Edit</a>
-															<a class="btn btn-sm btn-secondary" style="	 width:80px;">Hapus</a>
-														</td>
-													</tr>
-													<tr>
-														<td>5</td>
-														<td>Sparepart</td>
 														<td>#14253617</td>
 														<td>Thermistor RKD25GVM</td>
 														<td>Kantor</td>
