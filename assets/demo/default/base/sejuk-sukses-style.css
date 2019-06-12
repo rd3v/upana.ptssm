@@ -1,0 +1,205 @@
+.m-brand.m-brand--skin-dark {
+    background: #1973c5;
+}
+
+.m-aside-left.m-aside-left--skin-dark {
+    background: #334366;
+}
+
+.btn.m-btn--label-brand {
+    color: #334366;
+}
+
+.btn.btn-secondary:hover:not(:disabled) {
+    border-color: none;
+    background-color: #334366;
+    color: #1ddd30;
+}
+
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+    color: whitesmoke !important;
+}
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text {
+ color: whitesmoke !important;
+}
+
+
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item.m-menu__item--active > .m-menu__link .m-menu__link-icon {
+    color: #1ddd30 !important;
+}
+.m-aside-menu .m-menu__nav .m-menu__item > .m-menu__link:hover {
+    background-color: #2d3a58;
+}
+
+
+ .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text:hover {
+    color: whitesmoke !important;
+ }
+ .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon:hover{
+    color: whitesmoke !important;
+}
+
+.colorized-header {
+    background-color: #2d3a58;
+}
+
+.m--bg-accent-hijau {
+    background-color: #18bb28 !important;
+}
+.m--bg-accent-merah {
+    background-color: #bb183e !important;
+}
+.m--bg-accent-kuning {
+    background-color: #eaad21 !important;
+}
+.m--bg-accent-biru {
+    background-color: #21b2ea !important;
+}
+
+.item-font {
+    font-size: 4rem;
+    font-weight : 500;
+}
+
+.m-portlet .m-portlet__body {
+    padding: 2rem 2rem;
+}
+
+.m-menu__ver-arrow {
+    color: white !important;
+}
+
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
+    color: whitesmoke !important;
+}
+
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item.m-menu__item--active > .m-menu__link .m-menu__link-text {
+    color: #1ddd30 !important;
+}
+
+.btn_tambahSPK {
+    width: 185px;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #334366;
+    border-color: #334366;
+}
+
+.header-pesanan-no {
+    float: left;
+    font-family: roboto;
+    font-weight: 500;
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+.nav-pills .nav-link.active {
+    color: #fff;
+    background-color: #1973c5;
+}
+
+.input_material {
+    width: 65px !important;
+    text-align: center;
+}
+
+.input_nama_material {
+    width: 250px !important;
+    text-align: center;
+}
+.m-datatable__table {
+    min-height: 0 !important;
+}
+
+#btn_simpan {
+    width: 250px;
+}
+
+.ttd {
+    display: inline-block;
+}
+
+.header-pesanan {
+font-size: 1.6rem;
+margin-top: 1rem;
+font-family: roboto;
+font-weight: 500;
+}
+
+.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler span {
+    background: #ffffff; 
+}
+
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item.m-menu__item--active > .m-menu__link .m-menu__link-text {
+    color: #18bb28 !important;
+    }
+
+.info {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn_tambah_spk {
+    width: 260px;
+    border-color: transparent ;
+}
+
+.btn_pemasangan {
+    width: 260px;
+    height: 50px;
+}
+
+.btn_tambah_ac {
+    width: 260px !important;
+    height: 50px !important;
+}
+
+.gambar {
+    width: 100%;
+    height: auto;
+    margin : 20px 0px;
+}
+
+.heading {
+   margin-top: 30px;
+}
+
+.btn_buat_spk_komplain {
+    font-size: 1.2rem;
+    width: 300px;
+    height: 50px;
+}
+
+.jenis_barang,
+.m-input{
+    font-size: 1.2rem !important;
+}
+
+.gambar_inventory {
+    height: auto !important;
+    width: inherit !important;
+}
+
+.background-foto {
+    width:100%;
+    height:100px;
+    background-color: #1973c5;
+}
+
+#image-preview{
+    display:none;
+    width : 250px;
+    height : auto;
+}
+
+.m-form.m-form--label-align-right .m-form__group > label {
+    text-align: left;
+}
+
+
+.table_riwayat{
+        transform: scaleX(0.8) scaleY(0.8);
+}
+

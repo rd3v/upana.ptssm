@@ -1,0 +1,110 @@
+body.m-content--skin-light2 {
+	background-color: white;
+}
+
+
+.m-portlet.m-portlet--skin-dark {
+	background-color: transparent;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}	
+
+.m-content {
+	align-items: center !important;
+	display: flex !important;
+	justify-content: center;
+	margin-top: 2vh !important;
+}
+
+.body_menu_1 {
+	/* background-image: url("http://localhost/ptssm/app/teknisi/assets/img/menu_1.png"); */
+	height: 180px !important;
+	padding-top: 40px !important;
+	border-radius: 10px;
+}
+.body_menu_1a {
+	/* background-image: url("../img/menu_1.png"); */
+	height: 90px !important;
+	/*padding-top: 40px !important;*/
+	border-radius: 10px;
+}
+.body_menu_2 {
+	/* background-image: url("../img/menu_2.png"); */
+	height: 180px !important;
+	padding-top: 40px !important;
+	border-radius: 10px;
+}
+.body_menu_2a {
+	/* background-image: url("../img/menu_2.png"); */
+	height: 90px !important;
+	/*padding-top: 40px !important;*/
+	border-radius: 10px;
+}
+.body_menu_3 {
+	/* background-image: url("../img/menu_3.png"); */
+	height: 180px !important;
+	padding-top: 40px !important;
+	border-radius: 10px;
+}
+.body_menu_3a {
+	/* background-image: url("../img/menu_3.png"); */
+	height: 90px !important;
+	/*padding-top: 40px !important;*/
+	border-radius: 10px;
+}
+
+.m-portlet {
+	margin-bottom: 1.3rem;
+}
+
+.menu_utama {
+	animation-name: example;
+	animation-delay: 0;
+	animation-iteration-count: infinite;
+	animation-duration: 2s;
+	animation-direction: alternate;
+}
+.warna-biru {
+	background-color: #34bfa3!important;
+	border-color: transparent;
+}
+
+@keyframes example {
+	from {margin-top : 0px}
+	to {margin-top : 10px}
+}
+
+@media (max-width: 768px){
+.m-subheader {
+    padding: 10px 20px 0 20px;
+}
+
+.nama-pelanggan {
+	font-size: 1.3rem;
+	color: #4f4f4f !important;
+	font-weight: 600;
+	margin-left: 20px;
+}
+
+.tipe-kerjaan {
+	font-size: 1.2rem;
+	color: #212121;
+	margin-left: 20px;
+}
+
+.swal2-show {
+	margin-right: 15px !important;
+}
+
+.btn_keterangan {
+	font-size: .8rem !important;
+}
+
+.modal-dialog {
+	margin-right: 10px!important;
+}
+
+.nav-link {
+	font-size: 1.4rem !important;
+ 	font-weight: 600;
+}

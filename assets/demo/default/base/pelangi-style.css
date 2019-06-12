@@ -1,0 +1,416 @@
+#sub-header-form {
+	font-size: 1.5rem;
+	font-weight: 500;
+	font-family: roboto;
+}
+
+.m-portlet .m-portlet__body {
+	padding-top : 1.2rem;
+}
+
+.m-form .m-form__group {
+	padding-bottom: 2px;
+}
+
+.btn-tambahPesanan {
+	width: 100%;
+}
+
+.btn-tambahPesanan-modal {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+
+.btn-kirimPesan {
+	width: 100%;
+}
+
+.blmLunas-detail {
+	border-radius: 20px;
+    background-color: #716aca;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+}
+
+.blmLunas-detail:hover {
+	background-color: #544ea0;
+}
+
+
+
+
+
+div .info p {
+	margin-bottom: 3px;
+}
+
+div .header button {
+	float: right;
+    width: 120px;
+    color: white;
+    background-color: #716aca;
+    border: none;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+div .header button:hover {
+   background-color: #544ea0;
+}
+
+.m-badge-DesignGrafis {
+	background-color: #34bfa3;
+    color: #ffffff;
+    padding: 5px 10px !important;
+}
+
+#html_table {
+	min-height: 100px;
+}
+
+.btn-lunas {
+	float: right;
+    width: 120px;
+    color: white;
+    background-color: #716aca;
+    border: none;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.btn-use{
+    float: right;
+    width: 120px;
+    color: white;
+    background-color: #716aca;
+    border: none;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.btn-lunas:hover {
+	background-color: #544ea0;
+}
+
+.container-ttd {
+	border-top: 1px solid rgba(0,0,0,.2);
+	float: left;
+	width: 17vw;
+	padding: 10px;
+	font-weight: 500;
+}
+
+.kotakKehadiran {
+	height: 35vh; 
+}
+
+.kotakKehadiran h4 {
+	text-align: center;
+	font-size: 1.4rem;
+	padding: 15px 5px;
+}
+
+.kotakKehadiran span{
+	text-align: center;
+	font-size: 6rem;
+	font-weight: 500;
+}
+
+.kotakKehadiran p {
+	margin-top: 6%;
+}
+
+.tepatWaktu {
+	background-color: #36a3f7;
+	color: white;
+}
+
+.btn-lunas2 {
+    width: 120px;
+    color: white;
+    background-color: #716aca;
+    border: none;
+    padding: 4px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.btn-lunas2:hover {
+	background-color: #544ea0;
+}
+
+.m-akun-title {
+	margin: 15px;
+	font-size: 2rem;
+}
+
+.container-ttd-head {
+
+	float: left;
+	width: 17vw;
+	padding: 10px;
+	font-weight: 500;
+}
+
+.m-font-karyawan {
+  font-size: 1.8rem;
+
+}
+
+.list-karyawan-terlambat {
+    margin-bottom: 7px;
+    font-size: 1.1rem;
+    display: block;
+    padding: 2px !important;
+}
+
+.btn-terima{
+    color: white;
+    background-color: #716aca;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.btn-desain-terima:hover {
+	background-color: #4f4a8e;
+}
+
+.btn-desain-tolak{
+    color: white;
+    background-color: tomato;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.btn-desain-tolak:hover {
+	background-color: #c54c36;
+}
+
+.btn-produksi-selesai{
+float: right;
+    width: 120px;
+    height: 35px;
+    color: white;
+    background-color: #716aca;
+    border: none;
+    padding: 4px;
+    border-radius: 5px;
+
+}
+
+.btn-produksi-selesai:hover{
+	background-color: #544ea0;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn-upload-data-karyawan:hover {
+    background-color:#544ea0; 
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.m-font-karyawan a {
+    text-decoration: none;
+    color: #263238;
+}
+
+.list-karyawan-terlambat a{
+    text-decoration: none;
+    color: white;
+}
+
+.list-karyawan {
+    text-decoration: none;
+    color: #263238;
+}
+
+.header_rincian_customer {
+    padding-bottom: 20px !important;
+}
+
+.modal-title-modif {
+    margin-bottom: 15px;
+}
+
+.btn-hapus-karywan {
+    background-color: tomato;
+    border-color: transparent;
+}
+
+.btn-hapus-karywan:hover {
+    background-color: #f23454;
+    border-color: transparent;
+}
+
+@media (max-width: 992px) {
+    .m-portlet,
+    .m-portlet__head,
+    .m-portlet__head-caption,
+    .m-portlet__head-title, 
+    .m-portlet__head-text {
+        font-size: 1rem;
+    }
+}
+
+.tampilan-modal {
+    padding-right: 0px !important;
+}
+
+.user_wrapper {
+    padding-top: 20%;
+    padding-bottom: 5%
+}
+
+.logout_wrapper {
+    padding-top: 12%;
+    padding-bottom: 5%
+}
+
+.portlet_head_color {
+    background-color: #4DD0E1;
+}
+
+.portlet_profil_color {
+    background-color: #00BFA5;
+    color: white !important;
+}
+
+.center_item {
+    width: 90vw; 
+    text-align: center;
+}
+
+.select2-selection__rendered {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.colorized-header {
+    background-color: #D81B60;
+}
+
+.colorized-header-blue {
+    background-color: #0288D1;
+}
+
+.colorized-header-yellow {
+    background-color: #d6b818eb;
+}
+
+.colorized-header-green {
+    background-color: #7CB342;
+}
+
+.nav-link {
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.bottom_line {
+    border-bottom: 1px solid #ebedf2;
+}
+
+.dropdown_search {
+    width: 100%;
+}
+
+.m-badge--hijau {
+    background-color: #558B2F;
+    color: white;
+}
+
+.m-badge--merah {
+    background-color: #E53935;
+    color: white;
+}
+
+.m-badge--cs {
+    background-color: #5E1742;
+    color: white;
+}
+
+
+.btn_rincian {
+    color:white; 
+    width:80px;
+}
+
+#btn_pending {
+    margin-left : 10px;
+    border-radius : 20px;
+}
+
+#btn_terima {
+    border-radius : 20px;
+}
+
+#m_aside_header_menu_mobile_toggle {
+    display: none !important;
+}
+
+.badge-size {
+    font-size: 1rem !important;
+    padding: 5px 15px !important;
+}
+
+#btn_lunas {
+ border-radius :20px;
+}
+
+#btn_selesai_desain {
+    border-radius : 20px;
+}
+
+.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler span::before,
+.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler span::after {
+    background: #ffffff;
+}
+
+.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler:hover span::before, 
+.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler:hover span::after {
+    background: #5BE649;
+}
+.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler:hover span {
+    background: #5be647;
+}
+
+.merek_kendaraan {
+    font-weight: 600 !important;
+}
+.dd_kendaraan {
+    font-weight: 600 !important;
+}
+
+.icon_aksi {
+    color : red;
+    font-size: 1.4rem;
+}
+
+.btn_edit {
+    border-color: transparent;
+}
+.btn_edit:hover {
+    color: white !important;
+}
+.btn_hapus {
+    border-color: transparent;
+}
