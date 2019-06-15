@@ -96,8 +96,11 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
 
     # Invoice Masuk
     $route['finance/invoice/masuk']['get'] = 'finance/InvoiceMasuk/index'; # Dashboard
+    $route['finance/invoice/masuk/getdata']['post'] = 'finance/InvoiceMasuk/getdata';
     $route['finance/invoice/masuk/tambah']['get'] = 'finance/InvoiceMasuk/tambah';
     $route['finance/invoice/masuk/tambahsubmit']['post'] = 'finance/InvoiceMasuk/store';
+    $route['finance/invoice/masuk/rincian/(:num)']['get'] = 'finance/InvoiceMasuk/rincian/$1';
+    $route['finance/invoice/masuk/hapus']['post'] = 'finance/InvoiceMasuk/hapus';
 
     # Invoice Keluar
     $route['finance/invoice/keluar/barang']['get'] = 'finance/InvoiceKeluar/barang_index';

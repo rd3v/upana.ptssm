@@ -35,7 +35,120 @@
 			# FINANCE
 			if($data['route'] == "finance/invoice/masuk") { ?>			
 				$("li#invoice_masuk").addClass("m-menu__item--active");
-					
+				var tbl_list_invoice_masuk = $('#tbl_list_invoice_masuk').mDatatable({
+				data: {
+					saveState: {cookie: false},
+						type: 'remote',
+				        source: {
+				          read: {
+				            // sample GET method
+				            method: 'POST',
+				            url: '<?= base_url() ?>finance/invoice/masuk/getdata',
+				            map: function(raw) {
+				              // sample data mapping
+				              var dataSet = raw;
+				              if (typeof raw.data !== 'undefined') {
+				                dataSet = raw.data;
+				              }
+				              return dataSet;
+				            },
+				          },
+				        },
+				        pageSize: 10,
+				        serverPaging: true,
+				        serverFiltering: true,
+				        serverSorting: true,
+				    },
+					// layout definition
+					layout: {
+						theme: 'default', // datatable theme
+						class: '', // custom wrapper class
+						scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+						// height: 450, // datatable's body's fixed height
+						footer: false, // display/hide footer
+					},
+
+					// column sorting
+					sortable: true,
+					filterable:true,
+					search: {
+						input: $('#generalSearch'),
+					},
+					columns: [
+					{
+						field: "no",
+						template: function(data, type, row, meta) {
+							return data.getIndex() + 1;						
+						},
+						textAlign: "center",
+					},
+					{
+						field: 'tanggal',
+						textAlign: 'center',
+						template: function(data) {
+							var tanggal = data.tanggal.split("-");
+
+							return tanggal[2] + "/" + tanggal[1] + "/" + tanggal[0];
+						}
+					},
+					{
+						field: 'no_invoice',
+						textAlign: 'center',
+					},
+					{
+						field: 'nama_supplier',
+						textAlign: 'center',
+					},
+					{
+						field: 'status',
+						textAlign: 'center',
+						template: function(data) {
+							return data.status == 0 ? "Belum Lunas":"Lunas";
+						}
+					},
+					{
+						field: 'aksi',
+						template: function(row) {
+							var btnrincian = "<a href='<?= base_url() ?>finance/invoice/masuk/rincian/" + row.no_invoice + "' class='btn btn-sm btn-primary' style='color:white;' title='Rincian Data'><i class='fa fa-address-book-o'></i> Rincian</a> ";
+							var btnedit = "<a href='<?= base_url() ?>finance/invoice/masuk/edit/" + row.no_invoice + "' class='btn btn-sm btn-info ' tyle='color:white;' title='Edit Data'><i class='fa fa-pencil-square'></i> Edit</a> ";
+							var btnhapus = "<button type='button' class='btn btn-sm btn-danger btnhapus' data-no_invoice='"+row.no_invoice+"' title='Hapus Data'> <i class='fa fa-trash'></i> </button>";
+							var html = btnrincian + btnedit + btnhapus;
+							return html;
+						},
+						textAlign: "center"
+					}
+
+					],
+				});
+
+					$(document).on('click','.btnhapus',function() {
+						var no_invoice = $(this).data('no_invoice');
+						if(!confirm('Hapus Data Nomor Invoice : ' + no_invoice)) return false;
+						$.ajax({
+							url:"<?= base_url() ?>finance/invoice/masuk/hapus",
+							type:"post",
+							data:{
+								no_invoice:no_invoice
+							},
+							dataType:'json'
+						}).done(function(res) {
+							console.log(res);
+							swal({
+								title:res.title,
+								message:res.message,
+								type:res.status,
+								confirmButtonText: 'Ok'
+								}).then(function(result) {
+									if (result.value) {
+										document.location = '<?= base_url() ?>finance/invoice/masuk';
+									}
+								});
+						}).fail(function(res) {
+							console.log(res);
+						});
+					});
+
+
 			<?php } 
 				
 				if($data['route'] == "finance/invoice/masuk/tambah") { ?>
@@ -66,10 +179,15 @@
 					});
 					$("li#invoice_masuk").addClass("m-menu__item--active");
 					$("table#tbl_list_invoice_masuk tbody").html("");
+					
 					var listitem = [];
+					var subtotal = 0;
+					var ppn = 0;
+					var total = 0;
+					var tagihan = {};
 
 					$('#btn_simpan_data').click(function(e) {
-						
+						if(!confirm('Apakah data yang anda masukkan sudah benar ?')) return false;
 						if($("#no_invoice").val() == "") {
 							swal('Invoice Kosong!');
 						} else if($("#tanggal_pembuatan_invoice").val() == "") {
@@ -88,7 +206,13 @@
 							swal('Status Pembayaran Kosong!');
 						} else if($("select#gudang").val() == "") {
 							swal('Tipe Gudang Kosong!');
+						} else if(listitem.length == 0) {
+							swal('Mohon input list item barang');
 						} else {
+							
+							tagihan.subtotal = subtotal;
+							tagihan.ppn = ppn;
+							tagihan.total = total;
 
 							$.ajax({
 								url:"<?= base_url() ?>finance/invoice/masuk/tambahsubmit",
@@ -106,7 +230,8 @@
 									gudang:$("select#gudang").val(),
 
 									// Invoice Masuk List barang
-									listitem:listitem
+									listitem:listitem,
+									tagihan:tagihan
 
 								},
 								dataType:"json"
@@ -131,49 +256,325 @@
 						}
 
 					});
+
+					// modal form tambah validation
+					$("select[name='nama_item']").on("change", function() {
+						if($(this).val() != "" && $("input[name=jumlah_item]").val() != "" && $("select[name=satuan]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
+							$("button#finance_btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_tambah").attr("disabled", "disabled");
+						}
+					});					
+
+					$("input[name='jumlah_item']").on("input", function() {
+						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=satuan]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
+							$("button#finance_btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_tambah").attr("disabled", "disabled");
+						}
+					});					
+
+					$("select[name='satuan']").on("change", function() {
+						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
+							$("button#finance_btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_tambah").attr("disabled", "disabled");
+						}
+					});					
+
+					$("input[name='harga_jual']").on("input", function() {
+						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("select[name='satuan']").val() != "" && $("input[name='potongan_harga_item']").val()) {
+							$("button#finance_btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input[name='potongan_harga_item']").on("input", function() {
+						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("select[name='satuan']").val() != "" && $("input[name='harga_jual']").val()) {
+							$("button#finance_btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_tambah").attr("disabled", "disabled");
+						}
+					});
 					
-					$('#btn_tambah').click(function(e) {
+					// end modal form tambah validation
+
+					// modal form edit validation
+					$("select[name='edit_nama_item']").on("change", function() {
+						if($(this).val() != "" && $("input[name=edit_jumlah_item]").val() != "" && $("select[name=edit_satuan]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
+							$("button#finance_btn_edit").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_edit").attr("disabled", "disabled");
+						}
+					});					
+
+					$("input[name='edit_jumlah_item']").on("input", function() {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_satuan]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
+							$("button#finance_btn_edit").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_edit").attr("disabled", "disabled");
+						}
+					});					
+
+					$("select[name='edit_satuan']").on("change", function() {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
+							$("button#finance_btn_edit").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_edit").attr("disabled", "disabled");
+						}
+					});					
+
+					$("input[name='edit_harga_jual']").on("input", function() {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("select[name='edit_satuan']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
+							$("button#finance_btn_edit").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_edit").attr("disabled", "disabled");
+						}
+					});
+
+					$("input[name='edit_potongan_harga_item']").on("input", function() {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("select[name='edit_satuan']").val() != "" && $("input[name='edit_harga_jual']").val() && $("input[name='edit_total_harga_item']").val()) {
+							$("button#finance_btn_edit").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_edit").attr("disabled", "disabled");
+						}
+					});
+					
+					$("input[name='edit_total_harga_item']").on("input", function() {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("select[name='edit_satuan']").val() != "" && $("input[name='edit_harga_jual']").val() && $("input[name='edit_potongan_harga_item']").val()) {
+							$("button#finance_btn_edit").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_edit").attr("disabled", "disabled");
+						}
+					});					
+					// end modal form edit validation					
+
+						var hg = 0;
+						var ji = 0;
+						var percent = 100;
+					$("input#harga_jual").on("input", function() {
+						hg = $(this).val();
+						var has = ((hg * ji) * percent / 100);
+						var hasi = (hg * ji) - hasi;
+						$("input[name=total_harga_item]").val(hasi);
+					});
+
+					$("input#jumlah_item").on("input", function() {
+						ji = $(this).val();
+						var has = ((hg * ji) * percent / 100);
+						var hasi = (hg * ji) - has;
+						$("input[name=total_harga_item]").val(hasi);
+					});
+
+					$("input#potongan_harga_item").on('input', function() {
+						percent = $(this).val();
+						var has = ((hg * ji) * percent / 100);
+						var hasi = (hg * ji) - has;
+						$("input[name=total_harga_item]").val(hasi);
+					});
+					
+					$('#finance_btn_tambah').click(function(e) {
 						
 						var kode_item = $("select[name=nama_item] option:selected").val();
 						var nama_item = $("select[name=nama_item] option:selected").text();
+						var namaitem = nama_item.split(" ");
+
 						var jumlah_item = $("input#jumlah_item").val();
 						var satuan = $("select[name=satuan] option:selected").val();
 						var harga_jual = $("input#harga_jual").val();
 						var potongan_harga_item = $("input#potongan_harga_item").val();
-						var total_harga_item = $("input#total_harga_item").val();
+						var total_harga_item = $("input[name=total_harga_item]").val();
+						
+						subtotal += parseInt(total_harga_item);
+						ppn += parseInt(total_harga_item) * 0.10;
+						total = subtotal + ppn;
 
 						listitem.push({
-							kode_item:kode_item,
-							nama_item:nama_item,
-							jumlah_item:jumlah_item,
+							no_invoice_data_invoice_masuk:$("#no_invoice").val(),
+							nama:namaitem[0],
+							kode:kode_item,
+							jumlah:jumlah_item,
 							satuan:satuan,
 							harga_jual:harga_jual,
-							potongan_harga_item:potongan_harga_item,
-							total_harga_item:total_harga_item
+							potongan_harga:potongan_harga_item,
+							total_harga:total_harga_item
 						});
-
+						
 						var table_tbl_list_invoice_masuk = "";
-						for(var i = 0;i < listitem.length;i++) {
-							table_tbl_list_invoice_masuk = "<tr>";
+						for(var i = 0;i < listitem.length;i++) {	
+							table_tbl_list_invoice_masuk += "<tr>";
 							table_tbl_list_invoice_masuk += "<td>"+(i+1)+"</td>";
-							table_tbl_list_invoice_masuk += "<td>"+listitem[i].nama_item+"</td>";
-							table_tbl_list_invoice_masuk += "<td>3</td>";
-							table_tbl_list_invoice_masuk += "<td>4</td>";
-							table_tbl_list_invoice_masuk += "<td>5</td>";
-							table_tbl_list_invoice_masuk += "<td>6</td>";
-							table_tbl_list_invoice_masuk += "<td>6</td>";
-							table_tbl_list_invoice_masuk += "<td>6</td>";
+							table_tbl_list_invoice_masuk += "<td>"+listitem[i].nama+"</td>";
+							table_tbl_list_invoice_masuk += "<td>"+listitem[i].kode+"</td>";
+							table_tbl_list_invoice_masuk += "<td>"+Number(parseInt(listitem[i].jumlah).toFixed(1)).toLocaleString()+"</td>";
+							table_tbl_list_invoice_masuk += "<td>Rp."+Number(parseInt(listitem[i].harga_jual).toFixed(1)).toLocaleString()+"</td>";
+							table_tbl_list_invoice_masuk += "<td>"+listitem[i].potongan_harga+" %</td>";
+							table_tbl_list_invoice_masuk += "<td>Rp."+Number(parseInt(listitem[i].total_harga).toFixed(1)).toLocaleString()+"</td>";
+							var btn_edit = "<button type='button' class='btn btn-sm btn-info finance_btn_edit' data-toggle='modal' data-index='"+i+"' data-target='#modal_edit_item' title='Edit Data'> <i class='fa fa-pencil-square'></i></button>";
+							var btn_delete = "<button type='button' class='btn btn-sm btn-danger finance_btn_hapus' data-index='"+i+"' data-toggle='modal m-popover' title='Hapus'> <i class='fa fa-trash'></i> </button>";
+							table_tbl_list_invoice_masuk += "<td>" + btn_edit + btn_delete + "</td>";
 							table_tbl_list_invoice_masuk += "</tr>";
-
 						}
 						$("table#tbl_list_invoice_masuk tbody").html(table_tbl_list_invoice_masuk);
+						$("span#sub_total").text("Rp."+Number(subtotal.toFixed(1)).toLocaleString());
+						$("span#ppn").text("Rp."+ppn);
+						$("span#total_tagihan").text("Rp."+Number(total.toFixed(1)).toLocaleString());
+
+						$("select[name=nama_item]").val('').change();
+						$("input#jumlah_item").val(0);
+						$("select[name=satuan]").val('').change();
+						$("input#harga_jual").val(0);
+						$("input#potongan_harga_item").val(0);
+						$("input#total_harga_item").val("");
+
+						swal("Berhasil!", "data yang anda inputkan telah dimasukkan ke list item barang", "success");
+					});				
+
+					var edit_total_harga_item_temp1 = 0;
+					var edit_total_harga_item_temp2 = 0;
+
+					$(document).on('click','.finance_btn_edit',function() {
+						var index = $(this).data("index");
+						console.log("index " + index);
+						$("input[name=edit_index]").val(index);
+						$("select[name=edit_nama_item]").val(listitem[index].kode).change();
+						$("input[name=edit_jumlah_item]").val(listitem[index].jumlah).change();
+						$("select[name=edit_satuan]").val(listitem[index].satuan).change();
+						$("input[name=edit_harga_jual]").val(listitem[index].harga_jual).change();
+						$("input[name=edit_potongan_harga_item]").val(listitem[index].potongan_harga).change();
+						$("input[name=edit_total_harga_item]").val(listitem[index].total_harga).change();
+						edit_total_harga_item_temp1 = listitem[index].total_harga;
+						edit_total_harga_item_temp2 = listitem[index].total_harga;
+						console.log("edit_total_harga_item_temp1 : " + edit_total_harga_item_temp1);
+						console.log("edit_total_harga_item_temp2 : " + edit_total_harga_item_temp2);
+					});
+
+
+					$("input[name=edit_total_harga_item]").on('input',function() {
+						edit_total_harga_item_temp2 = $(this).val();
+						console.log("edit_total_harga_item_temp2 : " + edit_total_harga_item_temp2);
+					});
+
+					$("button#finance_btn_edit").click(function() {
+						var index = $("input[name=edit_index]").val();
+
+						var edit_nama_item = $("select[name=edit_nama_item]").val();
+						var edit_jumlah_item = $("input[name=edit_jumlah_item]").val();
+						var edit_satuan = $("select[name=edit_satuan]").val();
+						var edit_harga_jual = $("input[name=edit_harga_jual]").val();
+						var edit_potongan_harga_item = $("input[name=edit_potongan_harga_item]").val();
+												
+						listitem[index].nama = edit_nama_item;
+						listitem[index].kode = edit_nama_item;
+						listitem[index].jumlah = edit_jumlah_item;
+						listitem[index].harga = edit_harga_jual;
+						listitem[index].potongan_harga = edit_potongan_harga;
+						listitem[index].total_harga = edit_total_harga_item_temp2;
+						console.log("edit_total_harga_item_temp1 : " + edit_total_harga_item_temp1);
+						console.log("edit_total_harga_item_temp2 : " + edit_total_harga_item_temp2);
+
+						if(edit_total_harga_item_temp1 > edit_total_harga_item_temp2) {
+							
+							subtotal -= (parseInt(edit_total_harga_item_temp1) - parseInt(edit_total_harga_item_temp2));
+							ppn -= (parseInt(edit_total_harga_item_temp1) - parseInt(edit_total_harga_item_temp2)) * 0.10;
+							total = subtotal + ppn;
+							$("span#sub_total").text("Rp."+Number(subtotal.toFixed(1)).toLocaleString());
+							$("span#ppn").text("Rp."+ppn);
+							$("span#total_tagihan").text("Rp."+Number(total.toFixed(1)).toLocaleString());
+
+							var edit_table_tbl_list_invoice_masuk1 = "";
+							for(var i = 0;i < listitem.length;i++) {
+								edit_table_tbl_list_invoice_masuk1 += "<tr>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+(i+1)+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+listitem[i].nama+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+listitem[i].kode+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+Number(parseInt(listitem[i].jumlah).toFixed(1)).toLocaleString()+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>Rp."+Number(parseInt(listitem[i].harga_jual).toFixed(1)).toLocaleString()+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+listitem[i].potongan_harga+" %</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>Rp."+Number(parseInt(listitem[i].total_harga).toFixed(1)).toLocaleString()+"</td>";
+								var btn_edit = "<button type='button' class='btn btn-sm btn-info finance_btn_edit' data-toggle='modal' data-index='"+i+"' data-target='#modal_edit_item' title='Edit Data'> <i class='fa fa-pencil-square'></i></button>";
+								var btn_delete = "<button type='button' class='btn btn-sm btn-danger finance_btn_hapus' data-index='"+i+"' data-toggle='modal m-popover' title='Hapus'> <i class='fa fa-trash'></i> </button>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>" + btn_edit + btn_delete + "</td>";
+								edit_table_tbl_list_invoice_masuk1 += "</tr>";
+							}
+							$("table#tbl_list_invoice_masuk tbody").html(edit_table_tbl_list_invoice_masuk1);
 						
-						//swal("Berhasil!", "data yang anda inputkan telah dimasukkan ke list item barang", "success");
+						} else if(edit_total_harga_item_temp1 < edit_total_harga_item_temp2) {
+
+							subtotal += (parseInt(edit_total_harga_item_temp2) - parseInt(edit_total_harga_item_temp1));
+							ppn += (parseInt(edit_total_harga_item_temp2) - parseInt(edit_total_harga_item_temp1)) * 0.10;
+							total = subtotal + ppn;
+							$("span#sub_total").text("Rp."+Number(subtotal.toFixed(1)).toLocaleString());
+							$("span#ppn").text("Rp."+ppn);
+							$("span#total_tagihan").text("Rp."+Number(total.toFixed(1)).toLocaleString());
+
+							var edit_table_tbl_list_invoice_masuk1 = "";
+							for(var i = 0;i < listitem.length;i++) {
+								edit_table_tbl_list_invoice_masuk1 += "<tr>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+(i+1)+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+listitem[i].nama+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+listitem[i].kode+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+Number(parseInt(listitem[i].jumlah).toFixed(1)).toLocaleString()+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>Rp."+Number(parseInt(listitem[i].harga).toFixed(1)).toLocaleString()+"</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>"+listitem[i].potongan_harga+" %</td>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>Rp."+Number(parseInt(listitem[i].total_harga).toFixed(1)).toLocaleString()+"</td>";
+								var btn_edit = "<button type='button' class='btn btn-sm btn-info finance_btn_edit' data-toggle='modal' data-index='"+i+"' data-target='#modal_edit_item' title='Edit Data'> <i class='fa fa-pencil-square'></i></button>";
+								var btn_delete = "<button type='button' class='btn btn-sm btn-danger finance_btn_hapus' data-index='"+i+"' data-toggle='modal m-popover' title='Hapus'> <i class='fa fa-trash'></i> </button>";
+								edit_table_tbl_list_invoice_masuk1 += "<td>" + btn_edit + btn_delete + "</td>";
+								edit_table_tbl_list_invoice_masuk1 += "</tr>";
+							}
+							$("table#tbl_list_invoice_masuk tbody").html(edit_table_tbl_list_invoice_masuk1);
+						}						
 					
-					});					
+						edit_total_harga_item_temp1 = 0;
+						edit_total_harga_item_temp2 = 0;	
+						console.log(edit_total_harga_item_temp1);
+						console.log(edit_total_harga_item_temp2);
+					});
+					
+					$(document).on('click','.finance_btn_hapus', function() {
+						var index = $(this).data("index");
+
+						var temp_subtotal = parseInt(listitem[index].total_harga);
+						var temp_ppn = parseInt(listitem[index].total_harga) * 0.10;
+						var temp_total = temp_subtotal + temp_ppn;
+
+						subtotal -= temp_subtotal;
+						ppn -= temp_ppn;
+						total -= temp_total;
+
+						$("span#sub_total").text("Rp."+Number(subtotal.toFixed(1)).toLocaleString());
+						$("span#ppn").text("Rp."+ppn);
+						$("span#total_tagihan").text("Rp."+Number(total.toFixed(1)).toLocaleString());
+
+						listitem.splice(index,1);
+						var new_table_tbl_list_invoice_masuk = "";
+						for(var i = 0;i < listitem.length;i++) {
+							new_table_tbl_list_invoice_masuk += "<tr>";
+							new_table_tbl_list_invoice_masuk += "<td>"+(i+1)+"</td>";
+							new_table_tbl_list_invoice_masuk += "<td>"+listitem[i].nama+"</td>";
+							new_table_tbl_list_invoice_masuk += "<td>"+listitem[i].kode+"</td>";
+							new_table_tbl_list_invoice_masuk += "<td>"+Number(parseInt(listitem[i].jumlah).toFixed(1)).toLocaleString()+"</td>";
+							new_table_tbl_list_invoice_masuk += "<td>Rp."+Number(parseInt(listitem[i].harga_jual).toFixed(1)).toLocaleString()+"</td>";
+							new_table_tbl_list_invoice_masuk += "<td>"+listitem[i].potongan_harga+" %</td>";
+							new_table_tbl_list_invoice_masuk += "<td>Rp."+Number(parseInt(listitem[i].total_harga).toFixed(1)).toLocaleString()+"</td>";
+							var btn_edit = "<button type='button' class='btn btn-sm btn-info finance_btn_edit' data-toggle='modal' data-index='"+i+"' data-target='#modal_edit_item' title='Edit Data'> <i class='fa fa-pencil-square'></i></button>";
+							var btn_delete = "<button type='button' class='btn btn-sm btn-danger finance_btn_hapus' data-index='"+i+"' data-toggle='modal m-popover' title='Hapus'> <i class='fa fa-trash'></i> </button>";
+							new_table_tbl_list_invoice_masuk += "<td>" + btn_edit + btn_delete + "</td>";
+							new_table_tbl_list_invoice_masuk += "</tr>";
+						}
+						$("table#tbl_list_invoice_masuk tbody").html(new_table_tbl_list_invoice_masuk);	
+						
+					});
 
 				<?php }
 
+				if($data['route'] == "finance/invoice/masuk/rincian/(:num)") { ?>
+					$("li#invoice_masuk").addClass("m-menu__item--active");
+					$("table#tbl_list_invoice_masuk tbody").html("");
+				<?php } 
+				
 				if($data['route'] == "finance/invoice/keluar/barang") { ?>
 					$("li#invoice_keluar").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#invoice_keluar_barang").addClass("m-menu__item--active");
@@ -220,8 +621,8 @@
 							  read: {
 								// sample GET method
 								method: 'POST',
-								// url: "http://localhost/ptssm/app2/kantor/customer/getdata",
-								url: "https://projects.upanastudio.com/ptssm/app/kantor/customer/getdata",
+								url: "http://localhost/ptssm/app2/kantor/customer/getdata",
+								// url: "https://projects.upanastudio.com/ptssm/app/kantor/customer/getdata",
 								map: function(raw) {
 								  // sample data mapping
 								  var dataSet = raw;
@@ -428,8 +829,8 @@
 							  read: {
 								// sample GET method
 								method: 'GET',
-								// url: 'http://localhost/ptssm/app2/kantor/customer/getdataac/' + id,
-								url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
+								url: 'http://localhost/ptssm/app2/kantor/customer/getdataac/' + id,
+								// url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
 								map: function(raw) {
 								  // sample data mapping
 								  var dataSet = raw;
@@ -654,8 +1055,8 @@
 							  read: {
 								// sample GET method
 								method: 'GET',
-								// url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
-								url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
+								url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
+								// url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
 								map: function(raw) {
 								  // sample data mapping
 								  var dataSet = raw;
