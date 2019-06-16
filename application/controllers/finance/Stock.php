@@ -33,21 +33,12 @@ class Stock extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
-    public function getRoute() {
-        $routes = array_reverse($this->router->routes); // All routes as specified in config/routes.php, reserved because Codeigniter matched route from last element in array to first.
-        foreach ($routes as $key => $val) {
-        $route = $key; // Current route being checked.
-        
-            // Convert wildcards to RegEx
-            $key = str_replace(array(':any', ':num'), array('[^/]+', '[0-9]+'), $key);
-        
-            // Does the RegEx match?
-            if (preg_match('#^'.$key.'$#', $this->uri->uri_string(), $matches)) break;
-        }
-        
-        if ( ! $route) $route = $routes['default_route']; // If the route is blank, it can only be mathcing the default route.
-        
-        return $route;
+    public function getsatuan() {
+        $kode = $this->input->post('kode');
+        $field = $this->input->post('field');
+        $this->load->model('finance/StockModel');
+        $response = $this->StockModel->getfield($kode,$field);        
+        $this->sendResponse($response);
     }
 
 }

@@ -264,18 +264,7 @@
 									Satuan
 								</label>
 								<div class="col-9">
-									<select class="form-control" name="satuan">
-										<option selected value=""></option>
-										<option value="1">
-											Unit
-										</option>
-										<option value="2">
-											Meter
-										</option>
-										<option value="3">
-											Pcs
-										</option>
-									</select>
+									<input class="form-control" name="satuan" readonly>
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -359,18 +348,7 @@
 									Satuan
 								</label>
 								<div class="col-9">
-									<select class="form-control" name="edit_satuan">
-										<option selected value=""></option>
-										<option value="1">
-											Unit
-										</option>
-										<option value="2">
-											Meter
-										</option>
-										<option value="3">
-											Pcs
-										</option>
-									</select>
+									<input class="form-control" name="edit_satuan" readonly>
 								</div>
 							</div>
 							<div class="form-group m-form__group row">

@@ -259,7 +259,21 @@
 
 					// modal form tambah validation
 					$("select[name='nama_item']").on("change", function() {
-						if($(this).val() != "" && $("input[name=jumlah_item]").val() != "" && $("select[name=satuan]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
+						$.ajax({
+							url:"<?= base_url() ?>finance/invoice/masuk/getsatuan",
+							type:"post",
+							data:{
+								kode:$(this).val(),
+								field:"satuan"
+							},
+							dataType:"json"
+						}).done(function(res) {
+							$("input[name=satuan]").val(res.satuan);
+						}).fail(function(res) {
+							console.log(res);
+						});
+						
+						if($(this).val() != "" && $("input[name=jumlah_item]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
 							$("button#finance_btn_tambah").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_tambah").attr("disabled", "disabled");
@@ -267,15 +281,7 @@
 					});					
 
 					$("input[name='jumlah_item']").on("input", function() {
-						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=satuan]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
-							$("button#finance_btn_tambah").removeAttr("disabled");
-						} else {
-							$("button#finance_btn_tambah").attr("disabled", "disabled");
-						}
-					});					
-
-					$("select[name='satuan']").on("change", function() {
-						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
+						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
 							$("button#finance_btn_tambah").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_tambah").attr("disabled", "disabled");
@@ -283,7 +289,7 @@
 					});					
 
 					$("input[name='harga_jual']").on("input", function() {
-						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("select[name='satuan']").val() != "" && $("input[name='potongan_harga_item']").val()) {
+						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("input[name='potongan_harga_item']").val()) {
 							$("button#finance_btn_tambah").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_tambah").attr("disabled", "disabled");
@@ -291,7 +297,7 @@
 					});
 
 					$("input[name='potongan_harga_item']").on("input", function() {
-						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("select[name='satuan']").val() != "" && $("input[name='harga_jual']").val()) {
+						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("input[name='harga_jual']").val()) {
 							$("button#finance_btn_tambah").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_tambah").attr("disabled", "disabled");
@@ -301,8 +307,31 @@
 					// end modal form tambah validation
 
 					// modal form edit validation
+
 					$("select[name='edit_nama_item']").on("change", function() {
-						if($(this).val() != "" && $("input[name=edit_jumlah_item]").val() != "" && $("select[name=edit_satuan]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
+						$.ajax({
+							url:"<?= base_url() ?>finance/invoice/masuk/getsatuan",
+							type:"post",
+							data:{
+								kode:$(this).val(),
+								field:"satuan"
+							},
+							dataType:"json"
+						}).done(function(res) {
+							$("input[name=edit_satuan]").val(res.satuan);
+						}).fail(function(res) {
+							console.log(res);
+						});
+						
+						if($(this).val() != "" && $("input[name=jumlah_item]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
+							$("button#finance_btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#finance_btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("select[name='edit_nama_item']").on("change", function() {
+						if($(this).val() != "" && $("input[name=edit_jumlah_item]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
 							$("button#finance_btn_edit").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_edit").attr("disabled", "disabled");
@@ -310,15 +339,7 @@
 					});					
 
 					$("input[name='edit_jumlah_item']").on("input", function() {
-						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_satuan]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
-							$("button#finance_btn_edit").removeAttr("disabled");
-						} else {
-							$("button#finance_btn_edit").attr("disabled", "disabled");
-						}
-					});					
-
-					$("select[name='edit_satuan']").on("change", function() {
-						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
 							$("button#finance_btn_edit").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_edit").attr("disabled", "disabled");
@@ -326,7 +347,7 @@
 					});					
 
 					$("input[name='edit_harga_jual']").on("input", function() {
-						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("select[name='edit_satuan']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
 							$("button#finance_btn_edit").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_edit").attr("disabled", "disabled");
@@ -334,7 +355,7 @@
 					});
 
 					$("input[name='edit_potongan_harga_item']").on("input", function() {
-						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("select[name='edit_satuan']").val() != "" && $("input[name='edit_harga_jual']").val() && $("input[name='edit_total_harga_item']").val()) {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("input[name='edit_harga_jual']").val() && $("input[name='edit_total_harga_item']").val()) {
 							$("button#finance_btn_edit").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_edit").attr("disabled", "disabled");
@@ -342,7 +363,7 @@
 					});
 					
 					$("input[name='edit_total_harga_item']").on("input", function() {
-						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("select[name='edit_satuan']").val() != "" && $("input[name='edit_harga_jual']").val() && $("input[name='edit_potongan_harga_item']").val()) {
+						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("input[name='edit_harga_jual']").val() && $("input[name='edit_potongan_harga_item']").val()) {
 							$("button#finance_btn_edit").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_edit").attr("disabled", "disabled");
@@ -381,7 +402,7 @@
 						var namaitem = nama_item.split(" ");
 
 						var jumlah_item = $("input#jumlah_item").val();
-						var satuan = $("select[name=satuan] option:selected").val();
+						var satuan = $("input[name=satuan]").val();
 						var harga_jual = $("input#harga_jual").val();
 						var potongan_harga_item = $("input#potongan_harga_item").val();
 						var total_harga_item = $("input[name=total_harga_item]").val();
@@ -457,16 +478,20 @@
 					});
 
 					$("button#finance_btn_edit").click(function() {
+						
 						var index = $("input[name=edit_index]").val();
 
-						var edit_nama_item = $("select[name=edit_nama_item]").val();
+						var edit_kode_item = $("select[name=edit_nama_item] option:selected").val();
+						var edit_nama_item = $("select[name=edit_nama_item] option:selected").text();
+						var editnamaitem = edit_nama_item.split(" ");
+
 						var edit_jumlah_item = $("input[name=edit_jumlah_item]").val();
 						var edit_satuan = $("select[name=edit_satuan]").val();
 						var edit_harga_jual = $("input[name=edit_harga_jual]").val();
-						var edit_potongan_harga_item = $("input[name=edit_potongan_harga_item]").val();
+						var edit_potongan_harga = $("input[name=edit_potongan_harga_item]").val();
 												
-						listitem[index].nama = edit_nama_item;
-						listitem[index].kode = edit_nama_item;
+						listitem[index].nama = editnamaitem[0];
+						listitem[index].kode = edit_kode_item;
 						listitem[index].jumlah = edit_jumlah_item;
 						listitem[index].harga = edit_harga_jual;
 						listitem[index].potongan_harga = edit_potongan_harga;
@@ -474,7 +499,24 @@
 						console.log("edit_total_harga_item_temp1 : " + edit_total_harga_item_temp1);
 						console.log("edit_total_harga_item_temp2 : " + edit_total_harga_item_temp2);
 
-						if(edit_total_harga_item_temp1 > edit_total_harga_item_temp2) {
+						if(edit_total_harga_item_temp1 == edit_total_harga_item_temp2) {
+							var edit_table_tbl_list_invoice_masuk0 = "";
+							for(var i = 0;i < listitem.length;i++) {
+								edit_table_tbl_list_invoice_masuk0 += "<tr>";
+								edit_table_tbl_list_invoice_masuk0 += "<td>"+(i+1)+"</td>";
+								edit_table_tbl_list_invoice_masuk0 += "<td>"+listitem[i].nama+"</td>";
+								edit_table_tbl_list_invoice_masuk0 += "<td>"+listitem[i].kode+"</td>";
+								edit_table_tbl_list_invoice_masuk0 += "<td>"+Number(parseInt(listitem[i].jumlah).toFixed(1)).toLocaleString()+"</td>";
+								edit_table_tbl_list_invoice_masuk0 += "<td>Rp."+Number(parseInt(listitem[i].harga_jual).toFixed(1)).toLocaleString()+"</td>";
+								edit_table_tbl_list_invoice_masuk0 += "<td>"+listitem[i].potongan_harga+" %</td>";
+								edit_table_tbl_list_invoice_masuk0 += "<td>Rp."+Number(parseInt(listitem[i].total_harga).toFixed(1)).toLocaleString()+"</td>";
+								var btn_edit = "<button type='button' class='btn btn-sm btn-info finance_btn_edit' data-toggle='modal' data-index='"+i+"' data-target='#modal_edit_item' title='Edit Data'> <i class='fa fa-pencil-square'></i></button>";
+								var btn_delete = "<button type='button' class='btn btn-sm btn-danger finance_btn_hapus' data-index='"+i+"' data-toggle='modal m-popover' title='Hapus'> <i class='fa fa-trash'></i> </button>";
+								edit_table_tbl_list_invoice_masuk0 += "<td>" + btn_edit + btn_delete + "</td>";
+								edit_table_tbl_list_invoice_masuk0 += "</tr>";
+							}
+							$("table#tbl_list_invoice_masuk tbody").html(edit_table_tbl_list_invoice_masuk0);
+						} else if(edit_total_harga_item_temp1 > edit_total_harga_item_temp2) {
 							
 							subtotal -= (parseInt(edit_total_harga_item_temp1) - parseInt(edit_total_harga_item_temp2));
 							ppn -= (parseInt(edit_total_harga_item_temp1) - parseInt(edit_total_harga_item_temp2)) * 0.10;

@@ -140,7 +140,6 @@ class InvoiceMasuk extends MY_Controller {
         $this->sendResponse($response);
     }
 
-
     public function edit($id) {
         
         $this->load->model('customerModel');
@@ -151,7 +150,6 @@ class InvoiceMasuk extends MY_Controller {
         } else {
             redirect(base_url()."customer");
         }
-
 
         $footer['data'] = [
             "route" => $this->getRoute()
