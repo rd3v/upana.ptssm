@@ -37,6 +37,49 @@ class Barang extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
+    public function getdata() {
+        $this->load->model('gudang/InvoiceMasukModel');
+        $response = $this->InvoiceMasukModel->getdata();
+        $this->sendResponse($response);
+    }
+
+     public function proses($kode) {
+        $this->load->model('gudang/InvoiceMasukModel');
+        $jumlah_barang = $this->InvoiceMasukModel->getjumlahserial($kode);
+        $content['data'] = [
+            "jumlah_barang" => $jumlah_barang
+        ];
+
+        $footer['data'] = [
+            "route" => $this->getRoute()
+        ];
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('gudang/barang_masuk_proses',$content);
+        $this->load->view('footer',$footer);
+    }
+
+    public function simpan() {
+        $serial = $this->input->post('serial');
+
+        $this->load->model('gudang/InvoiceMasukModel');
+        $result = $this->InvoiceMasukModel->simpan($serial);
+        if($result) {
+            $response = [
+                "title" => "Berhasil",
+                "message" => "Sukses memproses barang masuk",
+                "status" => "success"
+            ];
+        } else {
+            $response = [
+                "title" => "Gagal",
+                "message" => "Gagal memproses barang masuk",
+                "status" => "danger"
+            ];            
+        }
+        $this->sendResponse($response);
+    }
+
     public function tambahdata() {
 
         $this->load->model("customerModel");
@@ -202,14 +245,8 @@ class Barang extends MY_Controller {
         }
         $this->sendResponse($response);        
     }
-
-    public function getdata() {
-        $this->load->model('customerModel');
-        $response = $this->customerModel->getdata();
-        $this->sendResponse($response);
-    }
-
-    public function getdataac($customer_id) {
+ 
+   public function getdataac($customer_id) {
         $this->load->model('acModel');
         $response = $this->acModel->getdata($customer_id);
         $this->sendResponse($response);

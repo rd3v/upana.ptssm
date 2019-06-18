@@ -5,23 +5,36 @@ class InvoiceMasukModel extends CI_Model {
 
    public function getdata() {
        $this->db->select("*");
-       $this->db->from("tbl_customer");
+       $this->db->from("data_invoice_masuk a");
+       $this->db->join('data_invoice_masuk_list_barang b','a.no_invoice=b.no_invoice_data_invoice_masuk','left');
+       $this->db->where("b.proses",null);
+       $this->db->or_where("b.proses",0);
        $result = $this->db->get()->result_array();
        return $result;
-   }    
+  }
 
-   public function getlastid() {
-       $this->db->select("id");
-       $this->db->from("tbl_customer");
-       $this->db->order_by("id","DESC");
-       $result = $this->db->get();
-       $ret = $result->row();
-       return $ret;
-   }
+  public function getjumlahserial($kode) {
+    $this->db->select("kode,nama,jumlah");
+    $this->db->from("data_invoice_masuk_list_barang");
+    $this->db->where("kode",$kode);
+    $result = $this->db->get()->row();
+    return $result;
+  }
 
-   public function store(array $request) {
-       $result = $this->db->insert("tbl_customer",$request);
-       return $result;
+   public function simpan(array $request) {
+       for ($i=0; $i < count($request); $i++) { 
+         $result = $this->db->insert("data_invoice_masuk_list_barang_serial",$request[$i]);
+       }
+       
+       if($result) {
+         $this->db->where("kode",$request[0]['kode_list_barang']);
+         $this->db->where("proses",null);
+         $this->db->or_where("proses",0);
+         $result2 = $this->db->update('data_invoice_masuk_list_barang', ["proses" => 1]);
+         return $result2;
+       } else {
+         return false;
+       }
    }
 
    public function update(array $request) {

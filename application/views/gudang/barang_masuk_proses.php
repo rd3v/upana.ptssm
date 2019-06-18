@@ -1,10 +1,10 @@
-<div class="m-grid__item m-grid__item--fluid m-wrapper">
+				<div class="m-grid__item m-grid__item--fluid m-wrapper">
 					<!-- BEGIN: Subheader -->
 					<div class="m-subheader ">
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
 								<h3 class="m-subheader__title m-subheader__title--separator">
-									Barang Masuk
+									Proses Barang Masuk
 								</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
@@ -22,6 +22,16 @@
 											</span>
 										</a>
 									</li>
+									<li class="m-nav__separator">
+										-
+									</li>
+									<li class="m-nav__item">
+										<a href="<?= base_url() ?>gudang/barang/proses/" class="m-nav__link">
+											<span class="m-nav__link-text">
+												Proses
+											</span>
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -35,7 +45,7 @@
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
-													List Barang Masuk
+													List Item
 												</h3>
 											</div>
 										</div>
@@ -52,21 +62,37 @@
 											</div>
 										</div>
 										<div class="tab-content">
-											<table class="table" id="tbl_list_barang_masuk">
+											<table class="table " id="tbl_proses_barang_masuk">
 												<thead>
 													<tr>
 														<th>No</th>
-														<th>Tanggal</th>
-														<th>No Invoice</th>
-														<th>Gudang</th>
-														<th>Kode</th>
+														<th>Kode Barang</th>
 														<th>Nama Barang</th>
-														<th>Jumlah</th>
-														<th>Aksi</th>
+														<th>Serial Number</th>
 													</tr>
 												</thead>
-												<tbody></tbody> 
+												<tbody>
+													<?php 
+													$no = 1;
+													for ($i=0; $i < $data['jumlah_barang']->jumlah; $i++) { ?> 
+															<tr>
+																<td><?= $no; ?></td>
+																<td><?= $data['jumlah_barang']->kode ?></td>
+																<td><?= $data['jumlah_barang']->nama ?></td>
+																<td >
+																  	<input class="inputs" required type="text" name="serial<?= $no; ?>" class="form-control m-input" placeholder="">	
+																</td>
+															</tr>
+													<?php 
+													$no++;
+														}
+													 ?>
+												</tbody>
+												
 											</table>
+											<div align="center">
+												<button type="submit" id="btn_simpan" class="btn btn-success">Simpan</button>	
+											</div>
 										</div>
 									</div>
 								</div>
@@ -75,4 +101,8 @@
 					</div>
 				</div>
 			</div>
+			<script>
+				var kode = '<?= $data['jumlah_barang']->kode ?>';
+				var no = '<?= $no; ?>';
+			</script>
 			<!-- end:: Body -->

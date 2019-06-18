@@ -132,6 +132,9 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
 
     # Barang
     $route['gudang/barang/masuk']['get'] = 'gudang/Barang/masuk'; # masuk
+    $route['gudang/barang/masuk/getdata']['post'] = 'gudang/Barang/getdata'; # masuk
+    $route['gudang/barang/masuk/proses/(:num)']['get'] = 'gudang/Barang/proses/$1'; # masuk
+    $route['gudang/barang/masuk/proses/simpan']['post'] = 'gudang/Barang/simpan'; # masuk
 
     # Surat
     $route['gudang/surat/jalan']['get'] = 'gudang/surat/jalan'; # jalan

@@ -1001,7 +1001,140 @@
 
 				<?php if($data['route'] == "gudang/barang/masuk") { ?>
 					$("li#barang").addClass("m-menu__item--active");
+
+				var tbl_list_barang_masuk = $('#tbl_list_barang_masuk').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'POST',
+			            url: "<?= base_url() ?>gudang/barang/masuk/getdata",
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false, // display/hide footer
+					"autoWidth": false,
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'no',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						return data.getIndex() + 1;
+					}
+				},
+				{
+					field: 'tanggal',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						var tanggal = data.tanggal.split("-");
+						return tanggal[2] + "/" + tanggal[1] + "/" + tanggal[0];
+					}
+				},
+				{
+					field: 'no_invoice',
+					textAlign: 'center',
+				},
+				{
+					field: 'gudang',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						var gudang = data.gudang == 1 ? "Toko":"Kantor";
+						return gudang;
+					}
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'jumlah',
+					textAlign: 'center',
+				},
+				{
+					field: 'aksi',
+					textAlign: 'center',
+					template: function(data) {
+						var html = "<a href='<?= base_url() ?>gudang/barang/masuk/proses/" + (data.kode) + "' class='btn btn-sm btn-success btn_material' style='color:white;width:80px;'>proses</a>";
+						return html;
+					}
+				}
+
+				],
+			});					
 								
+				<?php } if($data['route'] == "gudang/barang/masuk/proses/(:num)") { ?>
+					$("li#barang").addClass("m-menu__item--active");
+					var serial = [];
+					$('#btn_simpan').click(function(e) {
+						for(var i = 1;i < no;i++) {
+							serial.push({
+								kode_list_barang:kode,
+								serial:$("input[name=serial" + i + "]").val()
+							});
+						}
+						
+						swal({
+							title: 'Apakah anda yakin menyimpan data ini?',
+							type: 'warning',
+							showCancelButton: true,
+							confirmButtonText: 'Ya, Simpan'
+						}).then(function(result) {
+							if (result.value) {
+								$.ajax({
+									url:"<?= base_url() ?>gudang/barang/masuk/proses/simpan",
+									type:"post",
+									data:{serial:serial},
+									cache:false
+								}).done(function(res) {
+
+										swal({
+											title: res.title,
+											message: res.message,
+											type: res.status
+										}).then(function(result) {
+											document.location = "<?= base_url() ?>gudang/barang/masuk";
+										});
+
+								}).fail(function(res) {
+									console.log(res);
+								});
+
+							}
+						});
+					});					
+					
 				<?php } if($data['route'] == "gudang/surat/jalan") { ?>
 					$("li#surat").addClass("m-menu__item--active");
 					
