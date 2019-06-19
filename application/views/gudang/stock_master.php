@@ -88,7 +88,7 @@
 													<label class="">
 														Satuan *:
 													</label>
-													<input type="number" name="input_satuan_barang" class="form-control m-input" placeholder="satuan barang">
+													<input type="text" name="input_satuan_barang" class="form-control m-input" placeholder="satuan barang">
 												</div>
 												<div class="col-lg-6">
 													<label class="">
