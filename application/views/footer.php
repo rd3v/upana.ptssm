@@ -728,6 +728,10 @@
 					},
 				},
 				{
+					field: 'keterangan',
+					textAlign: 'center',
+				},				
+				{
 					field: 'aksi',
 					textAlign: 'center',
 					template:function(data) {
@@ -832,6 +836,10 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 						return html;						
 					},
 				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+				},				
 				{
 					field: 'aksi',
 					textAlign: 'center',
