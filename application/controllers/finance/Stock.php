@@ -23,7 +23,7 @@ class Stock extends MY_Controller {
     }
 
     public function index() {
-        
+
         $footer['data'] = [
             "route" => $this->getRoute()
         ];
@@ -31,6 +31,34 @@ class Stock extends MY_Controller {
         $this->load->view('header_menu',$this->header);
         $this->load->view('finance/stock');
         $this->load->view('footer',$footer);
+    }
+
+    public function rincian($kode) {
+        $this->load->model('finance/StockModel');
+        $result = $this->StockModel->getdatarincian($kode);
+
+        $content['data'] = $result;
+
+        $footer['data'] = [
+            "route" => $this->getRoute()
+        ];        
+
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('finance/stock_rincian',$content);
+        $this->load->view('footer',$footer);
+    }
+
+    public function getdatakantor() {
+        $this->load->model('finance/StockModel');
+        $response = $this->StockModel->getdatakantor();
+        $this->sendResponse($response);
+    }
+
+    public function getdatatoko() {
+        $this->load->model('finance/StockModel');
+        $response = $this->StockModel->getdatatoko();
+        $this->sendResponse($response);
     }
 
     public function getsatuan() {

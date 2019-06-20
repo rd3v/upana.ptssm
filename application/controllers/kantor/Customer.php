@@ -39,8 +39,6 @@ class Customer extends MY_Controller {
 
     public function tambahdata() {
         
-        
-
         $this->load->model("kantor/customerModel");
         $result = $this->customerModel->getlastid();
         if(!empty($result)) {
