@@ -8,6 +8,14 @@ class StockModel extends CI_Model {
         return $result;
    }
 
+   public function getdatamaster() {
+    $this->db->select("*");
+    $this->db->from("master_stock");
+    $result = $this->db->get()->result_array();
+    return $result; 
+    
+   }
+
    public function getdatakantor() {
         $this->db->select("*");
         $this->db->from("master_stock");
