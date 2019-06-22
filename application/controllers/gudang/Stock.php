@@ -70,28 +70,8 @@ class Stock extends MY_Controller {
         
         if($_FILES["image_source"]["error"] == 0) {
             
-            $image = $_FILES["image_source"]["name"]; 
-            $request = [
-                "kode" => $input_kode_barang,
-                "kategori" => $kategori_item,
-                "nama" => $nama_barang,
-                "satuan" => $input_satuan_barang,
-                "stock" => $stock_minimal,
-                "tipe" => $tipe,
-                "merk" => $merek,
-                "tipe_gudang" => $tipe_gudang,
-                "btu" => $btu,
-                "daya_listrik" => $daya,
-                "keterangan" => $keterangan_barang,
-                "gambar" => $image,
-
-            ];
-    
-            $result = $this->StockModel->store_master_stock($request);
-            if($result) {
-
-                $target_dir = base_url()."assets/img/";
-                $target_file = $target_dir . basename($image);
+                $target_dir = $_SERVER['DOCUMENT_ROOT']."/ptssm/app/assets/img/";
+                $target_file = $target_dir . basename($_FILES["image_source"]["name"]);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
                 // Check if image file is a actual image or fake image
@@ -109,8 +89,7 @@ class Stock extends MY_Controller {
                 }
 
                 // Allow certain file formats
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                && $imageFileType != "gif" ) {
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
                     $uploadOk = 0;
                 }
                 // Check if $uploadOk is set to 0 by an error
@@ -118,13 +97,33 @@ class Stock extends MY_Controller {
 
                 } else {
                     if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
-                       $result = true;
+
+                        $request = [
+                            "kode" => $input_kode_barang,
+                            "kategori" => $kategori_item,
+                            "nama" => $nama_barang,
+                            "satuan" => $input_satuan_barang,
+                            "stock" => $stock_minimal,
+                            "tipe" => $tipe,
+                            "merk" => $merek,
+                            "tipe_gudang" => $tipe_gudang,
+                            "btu" => $btu,
+                            "daya_listrik" => $daya,
+                            "keterangan" => $keterangan_barang,
+                            "gambar" => $_FILES["image_source"]["name"],
+
+                        ];
+                    
+                        $resultstore = $this->StockModel->store_master_stock($request);
+                        if($resultstore) {
+                            $result = true;
+                        } else {
+                            $result = false;
+                        }
                     } else {
                        $result = false;
                     }
-                }
-
-            }
+                }            
 
         } else {
 
