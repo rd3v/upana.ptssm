@@ -108,7 +108,7 @@
 																	<td>Item A</td>
 																	<td>1309D4211</td>
 																	<td>
-																		<img class="gambar_inventory" src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//1027/alexander_alexander-step-ladder-aluminium-tangga--135-cm-_full02.jpg">
+																		<img class="" src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//1027/alexander_alexander-step-ladder-aluminium-tangga--135-cm-_full02.jpg" width="100px">
 																	</td>
 																	<td> 
 																		<select class="form-control s-input s-input--square" id="pilih_status">
@@ -124,124 +124,6 @@
 																			<i class="fa fa-barcode"></i>
 																		</a>
 																		<a href="edit_inventory.html" class="btn btn-sm btn-secondary btn_edit"  style="color:black; width:40px;">
-																			<i class="fa fa-edit"></i>
-																		</a>
-																		<a class="btn btn-sm btn-secondary btn_hapus"  style="color:black; width:40px;">
-																			<i class="fa fa-trash-o"></i>
-																		</a>
-																	</td>
-																</tr>
-																<tr>
-																	<td>2</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	
-																	<td>
-																		<img class="gambar_inventory" src="https://www.arrowasiaindonesia.com/wp-content/uploads/2018/01/Sledge-Hammers.jpg">
-																	</td>
-																	<td> 
-																		<select class="form-control s-input s-input--square" id="pilih_status2">
-																			<option>Tersedia</option>
-																			<option>Pak Tarno(T21)</option>
-																			<option>Sulaiman (T22)</option>
-																			<option>Kadir(T33)</option>
-																			<option>Bso(T44)</option>
-																		</select>
-																	</td>
-																	<td>
-																		<a href="print_barcode_inventory.html" class="btn btn-sm btn-secondary btn_print_barcode"  style="color:black; width:40px;">
-																			<i class="fa fa-barcode"></i>
-																		</a>
-																		<a href="edit_pelanggan.html" class="btn btn-sm btn-secondary btn_edit"  style="color:black; width:40px;">
-																			<i class="fa fa-edit"></i>
-																		</a>
-																		<a class="btn btn-sm btn-secondary btn_hapus"  style="color:black; width:40px;">
-																			<i class="fa fa-trash-o"></i>
-																		</a>
-																	</td>
-																</tr>
-																<tr>
-																	<td>3</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-
-																	<td>
-																		<img class="gambar_inventory" src="http://3.bp.blogspot.com/-kVUpOGrIOTY/Tcq8E3U3ZMI/AAAAAAAAAQM/SHca5UdzM-k/s1600/JET-CLEANER.JPG">
-																	</td>
-																	<td> 
-																		<select class="form-control s-input s-input--square" id="pilih_status3">
-																			<option>Tersedia</option>
-																			<option>Pak Tarno(T21)</option>
-																			<option>Sulaiman (T22)</option>
-																			<option>Kadir(T33)</option>
-																			<option>Bso(T44)</option>
-																		</select>
-																	</td>
-																	<td>
-																		<a href="print_barcode_inventory.html" class="btn btn-sm btn-secondary btn_print_barcode"  style="color:black; width:40px;">
-																			<i class="fa fa-barcode"></i>
-																		</a>
-																		<a href="edit_pelanggan.html" class="btn btn-sm btn-secondary btn_edit"  style="color:black; width:40px;">
-																			<i class="fa fa-edit"></i>
-																		</a>
-																		<a class="btn btn-sm btn-secondary btn_hapus"  style="color:black; width:40px;">
-																			<i class="fa fa-trash-o"></i>
-																		</a>
-																	</td>
-																</tr>
-																<tr>
-																	<td>4</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	<td>
-																		<img class="gambar_inventory" src="http://www.omegaacmobil.com/wp-content/uploads/2013/07/BENGKEL-SERVICE-AC-MOBIL-AVANZA-SURABAYA-0852.5858.6262.jpg">
-																	</td>
-																	<td> 
-																		<select class="form-control s-input s-input--square" id="pilih_status4">
-																			<option>Tersedia</option>
-																			<option>Pak Tarno(T21)</option>
-																			<option>Sulaiman (T22)</option>
-																			<option>Kadir(T33)</option>
-																			<option>Bso(T44)</option>
-																		</select>
-																	</td>
-																	<td>
-																		<a href="print_barcode_inventory.html" class="btn btn-sm btn-secondary btn_print_barcode"  style="color:black; width:40px;">
-																			<i class="fa fa-barcode"></i>
-																		</a>
-																		<a href="edit_pelanggan.html" class="btn btn-sm btn-secondary btn_edit"  style="color:black; width:40px;">
-																			<i class="fa fa-edit"></i>
-																		</a>
-																		<a class="btn btn-sm btn-secondary btn_hapus"  style="color:black; width:40px;">
-																			<i class="fa fa-trash-o"></i>
-																		</a>
-																	</td>
-																</tr>
-																<tr>
-																	<td>5</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	<td>
-																		<img class="gambar_inventory" src="https://www.tokootomotif.com/wp-content/uploads/2018/07/3-in-1-Tube-Bender-Pembengkok-Pipa-14-516-38-07-707-SELLERY5-300x366.jpg">
-																	</td>
-																	<td> 
-																		<select class="form-control s-input s-input--square" id="pilih_status4">
-																			<option>Tersedia</option>
-																			<option>Pak Tarno(T21)</option>
-																			<option>Sulaiman (T22)</option>
-																			<option>Kadir(T33)</option>
-																			<option>Bso(T44)</option>
-																		</select>
-																	</td>
-																	<td>
-																		<a href="print_barcode_inventory.html" class="btn btn-sm btn-secondary btn_print_barcode"  style="color:black; width:40px;">
-																			<i class="fa fa-barcode"></i>
-																		</a>
-																		<a href="edit_pelanggan.html" class="btn btn-sm btn-secondary btn_edit"  style="color:black; width:40px;">
 																			<i class="fa fa-edit"></i>
 																		</a>
 																		<a class="btn btn-sm btn-secondary btn_hapus"  style="color:black; width:40px;">
