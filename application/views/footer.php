@@ -1446,8 +1446,8 @@ var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.kode+"' class
 							  read: {
 								// sample GET method
 								method: 'GET',
-								url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
-								// url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
+								// url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
+								url: '<?= base_url() ?>/gudang/stock/master/getdata',
 								map: function(raw) {
 								  // sample data mapping
 								  var dataSet = raw;
