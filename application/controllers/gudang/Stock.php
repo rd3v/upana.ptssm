@@ -65,7 +65,7 @@ class Stock extends MY_Controller {
         $btu = $this->input->post('btu');
         $daya = $this->input->post('daya');
         $keterangan_barang = $this->input->post('keterangan_barang');
-
+ 
         $this->load->model('gudang/StockModel');
         
         if($_FILES["image_source"]["error"] == 0) {
@@ -142,7 +142,11 @@ class Stock extends MY_Controller {
             ];
         
             $result = $this->StockModel->store_master_stock($request);
-        
+            if(!$result) {
+                $this->session->set_flashdata('status', 'danger');
+                $this->session->set_flashdata('flsh_msg', 'Kode Barang sudah ada');
+                redirect(base_url()."gudang/stock/master");
+            }
         }
         
         if($result) {

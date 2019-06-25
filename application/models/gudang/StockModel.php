@@ -11,7 +11,14 @@ class StockModel extends CI_Model {
    }
 
    public function store_master_stock(array $request) {
-        $result= $this->db->insert('master_stock',$request);
+        $this->db->select("kode");
+        $this->db->from("master_stock");
+        $this->db->where("kode",$request['kode']);
+        $query = $this->db->get()->row();
+        if(!empty($query)) {
+          return false;
+        }
+        $result = $this->db->insert('master_stock',$request);
         return $result;
    }
 
