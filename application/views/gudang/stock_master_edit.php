@@ -26,8 +26,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- END: Subheader -->
-					<div class="m-content">
+<div class="m-content">
 						<div class="row">
 							<div class="col-xl-12">
 								<div class="m-portlet">
@@ -46,34 +45,35 @@
 										</div>
 									</div>
 									<!--begin::Form-->
-									<form id="formstock" action="<?= site_url() ?>gudang/stock/master/tambahsubmit" method="post" enctype="multipart/form-data" class="form">
+									<form id="formstockedit" action="<?= site_url() ?>gudang/stock/master/editsubmit" method="post" enctype="multipart/form-data" class="form">
 										<div class="m-portlet__body">
 											<div class="form-group m-form__group row">
 												<div class="col-lg-6">
 													<label>
 														Kode*:
 													</label>
-													<input type="text" name="input_kode_barang" class="form-control m-input" placeholder="kode barang">
+													<input type="text" name="input_kode_barang" class="form-control m-input" value="<?= $data->kode ?>" readonly>
+
 												</div>
 												
 												<div class="col-lg-6">
 													<label>
 														Kategori*:
 													</label>
-													<select style="width: 100%" class="form-control m-select2 dropdown_search" name="kategori_item">
+													<select style="width: 100%" class="form-control" name="kategori_item">
 														<option value="">
 															-- Pilih Kategori --
 														</option>
-														<option value="1">
+														<option value="unit" <?php if($data->kategori == "unit") { echo "selected"; } ?>>
 															Unit
 														</option>
-														<option value="2">
+														<option value="material" <?php if($data->kategori == "material") { echo "selected"; } ?>>
 															Material
 														</option>
-														<option value="3">
+														<option value="sparepart" <?php if($data->kategori == "sparepart") { echo "selected"; } ?>>
 															Sparepart
 														</option>
-														<option value="4">
+														<option value="jasa" <?php if($data->kategori == "jasa") { echo "selected"; } ?>>
 															Jasa
 														</option>
 													</select>
@@ -82,32 +82,32 @@
 													<label class="">
 														Nama*:
 													</label>
-													<input type="text" name="nama_barang" class="form-control m-input" placeholder="nama barang">
+													<input type="text" name="nama_barang" class="form-control m-input" placeholder="nama barang" value="<?= $data->nama ?>">
 												</div>
 												<div class="col-lg-6">
 													<label class="">
 														Satuan *:
 													</label>
-													<input type="text" name="input_satuan_barang" class="form-control m-input" placeholder="satuan barang">
+													<input type="text" name="input_satuan_barang" class="form-control m-input" placeholder="satuan barang" value="<?= $data->satuan ?>">
 												</div>
 												<div class="col-lg-6">
 													<label class="">
 														Stock Minimal*:
 													</label>
-													<input type="number" name="stock_minimal" class="form-control m-input">
+													<input type="number" name="stock_minimal" class="form-control m-input" value="<?= $data->stock ?>">
 												</div>
 												<div class="col-lg-6">
 													<label class="">
 														Tipe:
 													</label>
-													<input type="text" name="tipe" class="form-control m-input">
+													<input type="text" name="tipe" class="form-control m-input" value="<?= $data->tipe ?>">
 
 												</div>
 												<div class="col-lg-6">
 													<label class="">
 														Merek:
 													</label>
-													<input type="text" name="merek" class="form-control m-input">
+													<input type="text" name="merek" class="form-control m-input" value="<?= $data->merk ?>">
 													
 												</div>
 												<div class="col-lg-6">
@@ -116,10 +116,10 @@
 													</label>
 													<select style="width: 100%" class="form-control " name="tipe_gudang">
 														<option value=""></option>
-														<option value="1">
+														<option value="1" <?php if($data->tipe_gudang == "1") { echo "selected"; } ?>>
 															Toko (Pajak)
 														</option>
-														<option value="2">
+														<option value="2" <?php if($data->tipe_gudang == "2") { echo "selected"; } ?>>
 															Kantor (Non Pajak)
 														</option>
 														
@@ -130,7 +130,7 @@
 													<label class="">
 														BTU/hr:
 													</label>
-													<input type="text" name="btu" class="form-control m-input">
+													<input type="text" name="btu" class="form-control m-input" value="<?= $data->btu ?>">
 													
 												</div>
 
@@ -138,85 +138,31 @@
 													<label class="">
 														Daya Listrik:
 													</label>
-													<input type="text" name="daya" class="form-control m-input">
+													<input type="text" name="daya" class="form-control m-input" value="<?= $data->daya_listrik ?>">
 													
 												</div>
 												<div class="col-lg-6">
 													<label class="">
 														Keterangan:
 													</label>
-													<textarea style="resize: none;" class="form-control" name="keterangan_barang" id="keterangan_barang" rows="5"></textarea>
+													<textarea style="resize: none;" class="form-control" name="keterangan_barang" id="keterangan_barang" rows="5"><?= $data->keterangan ?></textarea>
 												</div>
 												<div align="center" style="margin-top: 30px" class="offset-lg-3 col-lg-6">
-													<img style="display: none" id="image-preview" alt="image preview"/>
+													
+													<img src="<?= base_url() ?>assets/img/<?= $data->gambar ?>" id="image-preview-edit" alt="image preview"/>
 													<br/>
-													<input type="file" id="image_source" name="image_source" onchange="previewImage();"/>
+													<input type="file" id="image_source_edit" name="image_source_edit" onchange="previewImage();"/>
 												</div>
 												<div class="offset-lg-3 col-lg-6">
 													<br>
-													<button type="button" style="width:inherit;" class="btn btn-success" id="btn_tambah">Tambahkan</button>
+													<button type="button" style="width:inherit;" class="btn btn-primary" id="btn_update">Update</button>
 												</div>
 											</div>
 										</div>
 									</form>
-									<div class="m-portlet m-portlet--mobile">
-										<div class="m-portlet__body">
-											<!--begin: Search Form -->
-											<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
-												<div class="row align-items-center">
-													<div class="col-md-12">
-														<div class="form-group m-form__group row align-items-center">
-															<div class="col-md-4">
-																<div class="m-portlet__head-title">
-																	<h3 class="m-portlet__head-text">
-																		List Master Stock
-																	</h3>
-																</div>
-															</div>
-															<div class="col-md-4 offset-md-4">
-																<div class="m-input-icon m-input-icon--left">
-																	<input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
-																	<span class="m-input-icon__icon m-input-icon__icon--left">
-																		<span>
-																			<i class="la la-search"></i>
-																		</span>
-																	</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!--end: Search Form -->
-											<!--begin: Datatable -->
-											<!-- <div class="m_datatable" id="local_data"></div> -->
-											<table class="table" id="tbl_list_master_stock">
-												<thead>
-													<tr>
-														<th>No</th>
-														<th>Kategori</th>
-														<th>Kode</th>
-														<th>Nama Item</th>
-														<th>Gudang</th>
-														<th>Tipe</th>
-														<th>Merek</th>
-														<th>Limit</th>
-														<th>Satuan</th>
-														<th>Keterangan</th>
-														<th>Gambar</th>
-														<th>Aksi</th>
-													</tr>
-												</thead>
-												<tbody></tbody>
-											</table>
-											<!--end: Datatable -->
-										</div>
 									</div>
-									<!--end::Form-->
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- end:: Body -->

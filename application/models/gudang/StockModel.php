@@ -27,5 +27,32 @@ class StockModel extends CI_Model {
        return $result;
    }
 
+   public function hapus($kode) {
+       $this->db->select("gambar");
+       $this->db->from("master_stock");
+       $this->db->where("kode",$kode);
+       $result = $this->db->get()->row();
+       if(empty($result)) {
+          return false;
+       }
+
+       if($result->gambar == "" or $result->gambar == null) {
+         $master_stock = $this->db->delete('master_stock', ['kode' => $kode]);
+       } else {
+         unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/app2/assets/img/".$result->gambar);
+         $master_stock = $this->db->delete('master_stock', ['kode' => $kode]);
+       }
+       return $master_stock;
+   }   
+
+
+   public function getdata($kode) {
+       $this->db->select("*");
+       $this->db->from("master_stock");
+       $this->db->where("kode",$kode);
+       $result = $this->db->get();
+       $ret = $result->row();
+       return $ret;
+   }
 
 }

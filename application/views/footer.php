@@ -1438,6 +1438,36 @@ var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.kode+"' class
 					jQuery(document).ready(function() {
 						Select2.init();
 					});		
+
+
+					$(document).on('click','.btnhapus',function() {
+						var kode = $(this).data('id');
+						if(!confirm('Hapus Data (Kode: ' + kode + ')')) return false;
+						$.ajax({
+							url:"<?= base_url() ?>gudang/stock/master/hapus",
+							type:"post",
+							data:{
+								kode:kode
+							},
+							dataType:'json'
+						}).done(function(res) {
+							console.log(res);
+							swal({
+								title:res.title,
+								message:res.message,
+								type:res.status,
+								confirmButtonText: 'Ok'
+								}).then(function(result) {
+									if (result.value) {
+										document.location = '<?= base_url() ?>gudang/stock/master';
+									}
+								});
+						}).fail(function(res) {
+							console.log(res);
+						});
+					});
+
+
 						var tbl_list_master_stock = $('#tbl_list_master_stock').mDatatable({
 							data: {
 					saveState: {cookie: false},
@@ -1446,8 +1476,8 @@ var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.kode+"' class
 							  read: {
 								// sample GET method
 								method: 'GET',
-								// url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
-								url: 'https://projects.upanastudio.com/ptssm/app/gudang/stock/master/getdata',
+								url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
+								// url: 'https://projects.upanastudio.com/ptssm/app/gudang/stock/master/getdata',
 								map: function(raw) {
 								  // sample data mapping
 								  var dataSet = raw;
@@ -1547,13 +1577,68 @@ var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.kode+"' class
 								{
 									field: 'aksi',
 									template: function(data, type, row, meta) {
-										return "<a class='btn btn-sm btn-primary' style='color:white; width:80px;'>Edit</a><a class='btn btn-sm btn-secondary' style='width:80px;'>Hapus</a>"
+										return "<a href='<?= base_url() ?>gudang/stock/master/edit/"+data.kode + "' class='btn btn-sm btn-primary' style='color:white; width:80px;'>Edit</a><button data-id='"+data.kode+"' class='btn btn-sm btn-secondary btnhapus' style='width:80px;'>Hapus</button>";
 									},
 									textAlign: 'center',
 								}
 
 								],
 							});
+
+				<?php } if($data['route'] == "gudang/stock/master/edit/(:num)") { ?>
+					$("li#stock-master").addClass("m-menu__item--active");
+
+					$('#btn_update').click(function() {
+
+						var input_kode_barang = $("input[name=input_kode_barang]").val();
+						var kategori_item = $("select[name=kategori_item] option:selected").val();
+						var nama_barang = $("input[name=nama_barang]").val();
+						var input_satuan_barang = $("input[name=input_satuan_barang]").val();
+						var stock_minimal = $("input[name=stock_minimal]").val();
+						
+						if(input_kode_barang == "") {
+							swal('Kode barang kosong !!!');
+						} else if(kategori_item == "") {
+							swal('Kategori barang kosong !!!');
+						} else if(nama_barang == "") {
+							swal('Nama barang kosong !!!');
+						} else if(input_satuan_barang == "") {
+							swal('Satuan barang kosong !!!');
+						} else if(stock_minimal == "") {
+							swal('Stock Minimal kosong !!!');
+						} else {
+
+							swal({
+								title: 'Apakah anda yakin mengupdate barang ini?',
+								type: 'warning',
+								showCancelButton: true,
+								confirmButtonText: 'Ya, Update!'
+							}).then(function(result) {
+								if (result.value) {
+									 
+									$("#formstockedit").trigger("submit");
+
+								}
+							});
+
+						}
+
+					});
+
+
+					function previewImage() {
+						document.getElementById("image-preview-edit").style.display = "block";
+						var oFReader = new FileReader();
+						oFReader.readAsDataURL(document.getElementById("image_source_edit").files[0]);
+
+						oFReader.onload = function(oFREvent) {
+							document.getElementById("image-preview-edit").src = oFREvent.target.result;
+						};
+					};
+
+					jQuery(document).ready(function() {
+
+					});					
 
 				<?php }				
 
