@@ -33,19 +33,35 @@ class Stock extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
-    public function rincian($kode) {
+    public function rincian_kantor($kode) {
         $this->load->model('finance/StockModel');
         $result = $this->StockModel->getdatarincian($kode);
 
         $content['data'] = $result;
 
         $footer['data'] = [
-            "route" => $this->getRoute()
+            "route" => $this->getRoute(),
+            "kode" => $result->kode
         ];        
 
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('finance/stock_rincian_kantor',$content);
+        $this->load->view('footer',$footer);
+    }
+
+    public function rincian_barang($kode) {
+        $this->load->model('finance/StockModel');
+        $result = $this->StockModel->getdatarincian($kode);
+
+        $content['data'] = $result;
+
+        $footer['data'] = [
+            "route" => $this->getRoute(),
+            "kode" => $result->kode
+        ];        
 
         $this->load->view('header_menu',$this->header);
-        $this->load->view('finance/stock_rincian',$content);
+        $this->load->view('finance/stock_rincian_barang',$content);
         $this->load->view('footer',$footer);
     }
 

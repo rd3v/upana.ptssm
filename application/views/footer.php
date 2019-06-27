@@ -852,9 +852,149 @@ var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.kode+"' class
 				],
 			});
 
-				<?php } 
+				<?php } if($data['route'] == "finance/stock/rincian/(:num)") { ?>
+						$("li#stock").addClass("m-menu__item--active");
+
+var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					/*type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'GET',
+			            url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,*/
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'No',
+					textAlign: 'center',
+					width: 50
+				},
+				{
+					field: 'Tanggal',
+					textAlign: 'center',
+					type:'date',
+					format: 'DD/MM/YYYY',
+				},
+				{
+					field: 'No Surat Jalan',
+					textAlign: 'center',
+				},
+				{
+					field: 'Pemesan',
+					textAlign: 'center',
+				},
+				{
+					field: 'Masuk',
+					textAlign: 'center',
+				},
+				{
+					field: 'Keluar',
+					textAlign: 'center',
+				},
+				{
+					field: 'Sisa',
+					textAlign: 'center',
+				}
+
+				],
+			});
+
+				<?php } if($data['route'] == "finance/stock/rincian_barang/(:num)") { ?>
+					$("li#stock").addClass("m-menu__item--active");
+
+				var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					/*type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'GET',
+			            url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,*/
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+				{
+					field: 'Tanggal Masuk',
+					textAlign: 'center',
+					type:'date',
+					format: 'DD/MM/YYYY',
+				},
+				{
+					field: 'Tanggal Keluar',
+					textAlign: 'center',
+					type:'date',
+					format: 'DD/MM/YYYY',
+				},
+					{
+					field: 'No Seri',
+					textAlign: 'center',
+				}
+
+
+				],
+			});					
+
+				<?php } if($data['route'] == "finance/price") { ?>
 				
-				if($data['route'] == "finance/price") { ?>
 					$("li#price").addClass("m-menu__item--active");
 
 				<?php }
@@ -1362,7 +1502,112 @@ var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.kode+"' class
 		
 				<?php } if($data['route'] == "gudang/stock/manajemen") { ?>
 					$("li#stock-manajemen").addClass("m-menu__item--active");
-		
+
+			var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_kantor').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'GET',
+			            url: 'http://localhost/ptssm/app2/gudang/stock/master/getdatakantor',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: true,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'id',
+					textAlign: 'center',
+					width: 30
+				},
+				{
+					field: 'Kategori',
+					textAlign: 'center',
+   					width: 70
+				},
+				{
+					field: 'Kode',
+					textAlign: 'center',
+					width: 60
+				},
+				{
+					field: 'No Seri',
+					textAlign: 'center',
+					width: 70
+				},
+				{
+					field: 'Nama Barang',
+					textAlign: 'center',
+				},
+				{
+					field: 'Tipe',
+					textAlign: 'center',
+					width: 90
+				},
+				{
+					field: 'Merek',
+					textAlign: 'center',
+					width: 80
+				},
+				{
+					field: 'Jumlah',
+					textAlign: 'center',
+					width: 60
+				},
+				{
+					field: 'Satuan',
+					textAlign: 'center',
+					width: 60
+				},
+				{
+					field: 'Status',
+					textAlign: 'center',
+				},
+				{
+					field: 'Keterangan',
+					textAlign: 'center',
+				},
+				{
+					field: 'Aksi',
+					textAlign: 'center',
+				}
+
+				],
+			});
+
+
+
+
+
+
 				<?php } if($data['route'] == "gudang/stock/master") { ?>
 					$("li#stock-master").addClass("m-menu__item--active");
 
