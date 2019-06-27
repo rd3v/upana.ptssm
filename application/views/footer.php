@@ -1,5 +1,5 @@
 			<!-- begin::Footer -->
-			<footer class="m-grid__item		m-footer ">
+			<footer class="m-grid__item	m-footer ">
 				<div class="m-container m-container--fluid m-container--full-height m-page__container">
 					<div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
 						<div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
@@ -644,8 +644,8 @@
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: 'http://localhost/ptssm/app2/finance/stock/getdatakantor',
-			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
+						url: 'https://projects.upanastudio.com/ptssm/app/finance/stock/getdatakantor',
+			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatakantor',
 			            map: function(raw) {
 			              // sample data mapping
 			              var dataSet = raw;
@@ -753,7 +753,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
+			            url: 'https://projects.upanastudio.com/ptssm/app/finance/stock/getdatatoko',
 			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
@@ -1019,7 +1019,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							  read: {
 								// sample GET method
 								method: 'POST',
-								url: "http://localhost/ptssm/app2/kantor/customer/getdata",
+								url: "https://projects.upanastudio.com/ptssm/app/kantor/customer/getdata",
 								// url: "https://projects.upanastudio.com/ptssm/app/kantor/customer/getdata",
 								map: function(raw) {
 								  // sample data mapping
@@ -1227,8 +1227,8 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							  read: {
 								// sample GET method
 								method: 'GET',
-								url: 'http://localhost/ptssm/app2/kantor/customer/getdataac/' + id,
-								// url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
+								// url: 'http://localhost/ptssm/app2/kantor/customer/getdataac/' + id,
+								url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
 								map: function(raw) {
 								  // sample data mapping
 								  var dataSet = raw;
@@ -1512,7 +1512,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: 'http://localhost/ptssm/app2/finance/stock/getdatakantor',
+			            url: 'https://projects.upanastudio.com/ptssm/app/finance/stock/getdatakantor',
 			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
@@ -1620,7 +1620,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
+			            url: 'https://projects.upanastudio.com/ptssm/app/finance/stock/getdatatoko',
 			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
@@ -1975,8 +1975,8 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							  read: {
 								// sample GET method
 								method: 'GET',
-								url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
-								// url: 'https://projects.upanastudio.com/ptssm/app/gudang/stock/master/getdata',
+								// url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
+								url: 'https://projects.upanastudio.com/ptssm/app/gudang/stock/master/getdata',
 								map: function(raw) {
 								  // sample data mapping
 								  var dataSet = raw;
