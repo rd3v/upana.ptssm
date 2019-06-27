@@ -150,6 +150,9 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
 
     # Stock
     $route['gudang/stock/manajemen']['get'] = 'gudang/stock/manajemen';
+    $route['gudang/stock/rincian/(:num)']['get'] = 'gudang/stock/rincian_kantor/$1';
+    $route['gudang/stock/rincian_barang/(:num)']['get'] = 'gudang/stock/rincian_barang/$1';
+
     $route['gudang/stock/master']['get'] = 'gudang/stock/master';
     $route['gudang/stock/master/tambahsubmit']['post'] = 'gudang/stock/store';
     $route['gudang/stock/master/getdata']['get'] = 'gudang/stock/getdatamaster';

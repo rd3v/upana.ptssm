@@ -55,4 +55,28 @@ class StockModel extends CI_Model {
        return $ret;
    }
 
+    public function getdatakantor() {
+        $this->db->select("*");
+        $this->db->from("master_stock");
+        $this->db->where("tipe_gudang","2");
+        $result = $this->db->get()->result_array();        
+        return $result;
+    }
+
+    public function getdatatoko() {
+        $this->db->select("*");
+        $this->db->from("master_stock");
+        $this->db->where("tipe_gudang","1");
+        $result = $this->db->get()->result_array();        
+        return $result;
+    }   
+
+    public function getdatarincian($kode) {
+      $this->db->select("*");
+      $this->db->from("master_stock");
+      $this->db->where("kode",$kode);
+      $result = $this->db->get()->row();
+      return $result;
+    }    
+
 }

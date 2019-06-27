@@ -8,7 +8,7 @@
 								</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
-										<a href="<?= base_url() ?>" class="m-nav__link m-nav__link--icon">
+										<a href="<?= base_url() ?>gudang" class="m-nav__link m-nav__link--icon">
 											<i class="m-nav__link-icon la la-home"></i>
 										</a>
 									</li>
@@ -16,7 +16,7 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= base_url() ?>stock/manajemen" class="m-nav__link">
+										<a href="<?= base_url() ?>gudang/stock/manajemen" class="m-nav__link">
 											<span class="m-nav__link-text">
 												Stock
 											</span>
@@ -82,83 +82,7 @@
 															<th>Aksi</th>
 														</tr>
 													</thead>
-													<tbody>
-														<tr>
-															<td>1</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>tersedia</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-														<tr>
-															<td>2</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>tersedia</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-														<tr>
-															<td>3</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>Hampir Habis</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-														<tr>
-															<td>4</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>tersedia</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-														<tr>
-															<td>5</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>Hampir habis</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-													</tbody>
+													<tbody></tbody>
 												</table>
 											</div>
 											<div class="tab-pane" id="tab_gudang_toko" role="tabpanel">
@@ -178,83 +102,7 @@
 															<th>Aksi</th>
 														</tr>
 													</thead>
-													<tbody>
-														<tr>
-															<td>1</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>tersedia</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_toko.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-														<tr>
-															<td>2</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>tersedia</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-														<tr>
-															<td>3</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>Hampir Habis</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-														<tr>
-															<td>4</td>
-															<td>Material</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>tersedia</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-														<tr>
-															<td>5</td>
-															<td>20/19/2018</td>
-															<td>#14253617</td>
-															<td>Thermistor RKD25GVM</td>
-															<td>Thermistor</td>
-															<td>Daikin</td>
-															<td>20</td>
-															<td>unit</td>
-															<td>Hampir habis</td>
-															<td>-</td>
-															<td>
-																<a href="rincian_stock_kantor.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-															</td>
-														</tr>
-													</tbody>
+													<tbody></tbody>
 												</table>
 											</div>
 										</div>

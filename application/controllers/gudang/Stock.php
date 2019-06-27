@@ -24,7 +24,6 @@ class Stock extends MY_Controller {
     }
 
     public function manajemen() {
-        
         $footer['data'] = [
             "route" => $this->getRoute()
         ];
@@ -195,6 +194,51 @@ class Stock extends MY_Controller {
 
         $this->sendResponse($response);
     }
+
+    public function getdatakantor() {
+        $this->load->model('gudang/StockModel');
+        $response = $this->StockModel->getdatakantor();
+        $this->sendResponse($response);
+    }
+
+    public function getdatatoko() {
+        $this->load->model('gudang/StockModel');
+        $response = $this->StockModel->getdatatoko();
+        $this->sendResponse($response);
+    }
+
+
+    public function rincian_kantor($kode) {
+        $this->load->model('gudang/StockModel');
+        $result = $this->StockModel->getdatarincian($kode);
+
+        $content['data'] = $result;
+
+        $footer['data'] = [
+            "route" => $this->getRoute(),
+            "kode" => $result->kode
+        ];        
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('gudang/stock_rincian_kantor',$content);
+        $this->load->view('footer',$footer);
+    }
+
+    public function rincian_barang($kode) {
+        $this->load->model('gudang/StockModel');
+        $result = $this->StockModel->getdatarincian($kode);
+
+        $content['data'] = $result;
+
+        $footer['data'] = [
+            "route" => $this->getRoute(),
+            "kode" => $result->kode
+        ];        
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('gudang/stock_rincian_barang',$content);
+        $this->load->view('footer',$footer);
+    }    
     
     public function store() {
         
