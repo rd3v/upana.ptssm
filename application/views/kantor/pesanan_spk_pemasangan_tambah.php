@@ -71,15 +71,9 @@
 													Tipe Pajak
 												</label>
 												<div class="col-10">
-													<select class="form-control m-input m-input--square" id="tipe_pajak" name="tipe_pajak">
-														<option active value="0">
-															-- Pilih Tipe Pajak --
-														</option>
-														<option value="1">
+													<select disabled class="form-control m-input m-input--square" id="tipe_pajak" name="tipe_pajak">
+														<option active value="1">
 															Pajak
-														</option>
-														<option value="2">
-															Non-Pajak
 														</option>
 													</select>
 												</div>
