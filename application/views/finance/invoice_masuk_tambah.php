@@ -139,10 +139,10 @@
 														<select style="width: 100%" class="form-control" name="gudang" id="gudang">
 															<option value=""></option>
 															<option value="1">
-																Toko <italic>(pajak)</italic>
+																Toko <italic>(Non Pajak)</italic>
 															</option>
 															<option value="2">
-																Kantor <italic>(Non Pajak)</italic>
+																Kantor <italic>(Pajak)</italic>
 															</option>
 														</select>
 													</div>
