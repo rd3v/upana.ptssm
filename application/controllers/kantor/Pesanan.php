@@ -23,7 +23,6 @@ class Pesanan extends MY_Controller {
     }
 
     public function spk_pemasangan_index() {
-
         $footer['data'] = [
             "route" => $this->getRoute()
         ];
@@ -32,7 +31,48 @@ class Pesanan extends MY_Controller {
         $this->load->view('kantor/pesanan_spk_pemasangan');
         $this->load->view('footer',$footer);
     }
+
+    public function spk_pemasangan_getdata() {
+        $this->load->model('kantor/SpkPemasanganModel');
+        $response = $this->SpkPemasanganModel->getalldata();
+        $this->sendResponse($response);
+    }
     
+    public function spk_pemasangan_tambah() {
+
+        $this->load->model('kantor/CustomerModel');
+        $this->load->model("kantor/MasterStockModel");
+
+        $customer = $this->CustomerModel->getdata();
+        $stock = $this->MasterStockModel->getdata();
+
+        $content['data'] = [
+            "customer" => $customer,
+            "stock" => $stock
+        ];
+
+        $footer['data'] = [
+            "route" => $this->getRoute()
+        ];
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('kantor/pesanan_spk_pemasangan_tambah',$content);
+        $this->load->view('footer',$footer);
+    }
+
+    public function spk_pemasangan_submit() {
+        $this->load->model('kantor/SpkPemasanganModel');
+        $response = $this->SpkPemasanganModel->store($_POST);
+        $this->sendResponse($response);
+    }
+
+    public function getcustomer() {
+        $id = $this->input->post("id");
+        $this->load->model('kantor/customerModel');
+        $result = $this->customerModel->getcustomer($id);
+        $this->sendResponse($result);        
+    }
+
     public function spk_service_index() {
         $footer['data'] = [
             "route" => $this->getRoute()

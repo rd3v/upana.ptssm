@@ -52,7 +52,7 @@
 																<h3 class="m-portlet__head-text">
 																	List SPK Pemasangan
 																</h3>
-																<button onclick="window.location.href = 'tambah_spk_pemasangan.html';" type="button" class="btn btn-success btn_tambah_spk"> + Tambah SPK</button>
+																<button onclick="window.location.href = '<?= site_url() ?>kantor/order/spk-pemasangan/tambah';" type="button" class="btn btn-success btn_tambah_spk"> + Tambah SPK</button>
 															</div>
 														</div>
 														<div class="col-md-4 offset-md-4">
@@ -84,73 +84,7 @@
 													<th>Aksi</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td>20/19/2018</td>
-													<td>1923102301123123</td>
-													<td>Bpk. Hendy</td>
-													<td>085145322137</td>
-													<td>Selesai</td>
-													<td>
-														<a href="spk_pemasangan_edit.html" class="btn btn-sm btn-info" style="color:white; width:70px;">Edit</a>
-														
-														<a href="rincian_spk_pemasangan.html" class="btn btn-sm btn-primary" style="color:white; width:70px;">Rincian</a>
-													</td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td>20/19/2018</td>
-													<td>1923102301</td>
-													<td>Bpk. Suminto</td>
-													<td>085145322137</td>
-													<td>Pengerjaan</td>
-													<td>
-														<a href="spk_pemasangan_edit.html" class="btn btn-sm btn-info" style="color:white; width:70px;">Edit</a>
-														
-														<a href="rincian_spk_pemasangan.html" class="btn btn-sm btn-primary" style="color:white; width:70px;">Rincian</a>
-													</td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td>20/19/2018</td>
-													<td>1923102301</td>
-													<td>Bpk. Suminto</td>
-													<td>085145322137</td>
-													<td>Pengerjaan</td>
-													<td>
-														<a href="spk_pemasangan_edit.html" class="btn btn-sm btn-info" style="color:white; width:70px;">Edit</a>
-														
-														<a href="rincian_spk_pemasangan.html" class="btn btn-sm btn-primary" style="color:white; width:70px;">Rincian</a>
-													</td>
-												</tr>
-												<tr>
-													<td>4</td>
-													<td>20/19/2018</td>
-													<td>1923102301</td>
-													<td>Ibu Ida</td>
-													<td>085145322137</td>
-													<td>Selesai</td>
-													<td>
-														<a href="spk_pemasangan_edit.html" class="btn btn-sm btn-info" style="color:white; width:70px;">Edit</a>
-														
-														<a href="rincian_spk_pemasangan.html" class="btn btn-sm btn-primary" style="color:white; width:70px;">Rincian</a>
-													</td>
-												</tr>
-												<tr>
-													<td>5</td>
-													<td>20/19/2018</td>
-													<td>1923102301</td>
-													<td>Ibu Munna</td>
-													<td>085145322137</td>
-													<td>Selesai</td>
-													<td>
-														<a href="spk_pemasangan_edit.html" class="btn btn-sm btn-info" style="color:white; width:70px;">Edit</a>
-														
-														<a href="rincian_spk_pemasangan.html" class="btn btn-sm btn-primary" style="color:white; width:70px;">Rincian</a>
-													</td>
-												</tr>
-											</tbody>
+											<tbody></tbody>
 										</table>
 										<!--end: Datatable -->
 									</div>
