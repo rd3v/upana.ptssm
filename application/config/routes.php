@@ -79,10 +79,12 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     # order
     $route['kantor/order/spk-pemasangan']['get'] = 'kantor/Pesanan/spk_pemasangan_index';
     $route['kantor/order/spk-pemasangan/tambah']['get'] = 'kantor/Pesanan/spk_pemasangan_tambah';
+    $route['kantor/order/spk-pemasangan/edit/(:num)']['get'] = 'kantor/Pesanan/spk_pemasangan_edit/$1';
     $route['spk-pemasangan/getdata']['post'] = 'kantor/Pesanan/spk_pemasangan_getdata';
     $route['getcustomer']['post'] = 'kantor/Pesanan/getcustomer';
     
     $route['spk_pemasangan_submit']['post'] = 'kantor/Pesanan/spk_pemasangan_submit';
+    $route['spk_pemasangan_edit_submit']['post'] = 'kantor/Pesanan/spk_pemasangan_edit_submit';
 
     $route['kantor/order/spk-service']['get'] = 'kantor/Pesanan/spk_service_index';
     $route['kantor/order/spk-free']['get'] = 'kantor/Pesanan/spk_free_index';
