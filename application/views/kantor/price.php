@@ -55,7 +55,7 @@
 														</h3>
 														<div>
 															<button style="margin-top: 15px;margin-left: 30px" class="btn btn-primary" data-toggle="modal" data-target="#m_tambah_data_harga">
-																tambah data harga
+																Tambah Data Harga
 															</button>
 														</div>
 													</div>
@@ -88,78 +88,7 @@
 																<!-- <th>Aksi</th> -->
 															</tr>
 														</thead>
-														<tbody>
-															<tr>
-																<td>1</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td> -->
-															</tr>
-															<tr>
-																<td>2</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td> -->
-															</tr>
-															<tr>
-																<td>3</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td> -->
-															</tr>
-															<tr>
-																<td>4</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td> -->
-															</tr>
-															<tr>
-																<td>5</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td> -->
-															</tr>
-														</tbody>
+														<tbody></tbody>
 													</table>
 												</div>
 											</div>
@@ -173,7 +102,7 @@
 														</h3>
 														<div>
 															<button style="margin-top: 15px;margin-left: 30px" class="btn btn-primary" data-toggle="modal" data-target="#m_tambah_data_harga_jasa">
-																tambah data harga Jasa
+																Tambah Data Harga Jasa
 															</button>
 														</div>
 													</div>
@@ -222,62 +151,6 @@
 																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
 																</td> -->
 															</tr>
-															<tr>
-																<td>2</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td> -->
-															</tr>
-															<tr>
-																<td>3</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td> -->
-															</tr>
-															<tr>
-																<td>4</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td> -->
-															</tr>
-															<tr>
-																<td>5</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<!-- <td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td> -->
-															</tr>
 														</tbody>
 													</table>
 												</div>
@@ -312,26 +185,25 @@
 									Kategori
 								</label>
 								<div class="col-9">
-									<select disabled="disabled"> 
-										<option>Barang</option>
+									<select disabled class="form-control" name="barang"> 
+										<option active value="barang">Barang</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
-								<label  class="col-3 col-form-label">
+								<label class="col-3 col-form-label">
 									Kode / Nama Item
 								</label>
 								<div class="col-9">
 									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											12345678 || AC 123
-										</option>
-										<option value="2">
-											21345635 || AC 2
-										</option>
-										<option value="3">
-											15357352 || AC4
-										</option>
+										<?php 
+											foreach ($data as $value) { 
+												if($value['kategori'] == "unit") { ?>
+												<option value="<?= $value['id'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
+										<?php 
+												}
+											}
+										 ?>
 									</select>
 								</div>
 							</div>
@@ -341,7 +213,7 @@
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp2,900,000" id="harga_modal">
+									<input class="form-control m-input" type="number" id="harga_modal">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -349,7 +221,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_partai">
+									<input class="form-control m-input" type="number" id="harga_partai">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -357,7 +229,7 @@
 									Harga kantor
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_kantor">
+									<input class="form-control m-input" type="number" id="harga_kantor">
 								</div>
 							</div>
 						</div>
@@ -365,7 +237,7 @@
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">
 								Tutup
 							</button>
-							<button id="btn_tambah" type="button" class="btn btn-primary" data-dismiss="modal">
+							<button disabled id="btn_tambah" type="button" class="btn btn-primary" data-dismiss="modal">
 								Tambah
 							</button>
 						</div>
@@ -392,7 +264,7 @@
 									Kode Item
 								</label>
 								<div class="col-9">
-									<select disabled="" style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
+									<select disabled style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
 										<option value="1" >
 											12345678
 										</option>
@@ -497,10 +369,8 @@
 									Kategori
 								</label>
 								<div class="col-9">
-									<select disabled="disabled"> 
-										<option class="active">Jasa</option>
-										<option>Barang</option>
-
+									<select disabled class="form-control" name="jasa"> 
+										<option active value="jasa">Jasa</option>
 									</select>
 								</div>
 							</div>
@@ -510,16 +380,15 @@
 									Kode / Nama Item
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											12345678 || Daikin 234
-										</option>
-										<option value="2">
-											21345635 || Daikin 234
-										</option>
-										<option value="3">
-											15357352 || Daikin 234
-										</option>
+									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item_jasa" tabindex="-1" aria-hidden="true">
+										<?php 
+											foreach ($data as $value) { 
+												if($value['kategori'] == "jasa") { ?>
+												<option value="<?= $value['id'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
+										<?php 
+												}
+											}
+										 ?>
 									</select>
 								</div>
 							</div>
@@ -529,7 +398,7 @@
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp2,900,000" id="harga_modal">
+									<input class="form-control m-input" type="number" id="harga_modal_jasa">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -537,7 +406,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_partai">
+									<input class="form-control m-input" type="number" id="harga_partai_jasa">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -545,7 +414,7 @@
 									Harga kantor
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_kantor">
+									<input class="form-control m-input" type="number" id="harga_kantor_jasa">
 								</div>
 							</div>
 						</div>
@@ -553,7 +422,7 @@
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">
 								Tutup
 							</button>
-							<button id="btn_tambah_harga_jasa" type="button" class="btn btn-primary" data-dismiss="modal">
+							<button disabled id="btn_tambah_harga_jasa" type="button" class="btn btn-primary" data-dismiss="modal">
 								Tambah
 							</button>
 						</div>

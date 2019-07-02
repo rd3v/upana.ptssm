@@ -93,12 +93,20 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     
     #penawaran
     $route['kantor/penawaran']['get'] = 'kantor/Penawaran/index';
+    $route['kantor/penawaran/create']['get'] = 'kantor/Penawaran/create';
+    $route['getalldatapenawaran']['post'] = 'kantor/Penawaran/getalldata';
+    $route['kantor/penawaran/simpan']['post'] = 'kantor/Penawaran/store';
     
     #stock
     $route['kantor/stock']['get'] = 'kantor/stock/index';
     
     #price
     $route['kantor/price']['get'] = 'kantor/price/index';
+    $route['getpriceitem']['post'] = 'kantor/price/getpriceitem';
+    $route['getpricejasa']['post'] = 'kantor/price/getpricejasa';
+
+    $route['kantor/price/submit_barang']['get'] = 'kantor/price/submit_barang';
+    $route['kantor/price/submit_jasa']['get'] = 'kantor/price/submit_jasa';
 
 # FINANCE
 

@@ -24,13 +24,42 @@ class Price extends MY_Controller {
 
     public function index() {
         
+        $this->load->model('kantor/ManajemenHargaModel');
+        $result = $this->ManajemenHargaModel->getdata();        
+
+        $content['data'] = $result;
+
         $footer['data'] = [
             "route" => $this->getRoute()
         ];
 
         $this->load->view('header_menu',$this->header);
-        $this->load->view('kantor/price');
+        $this->load->view('kantor/price',$content);
         $this->load->view('footer',$footer);
+    }
+
+    public function getpriceitem() {
+        $this->load->model('kantor/ManajemenHargaModel');
+        $response = $this->ManajemenHargaModel->getpriceitem(); 
+        $this->sendResponse($response);
+    }
+
+    public function getpricejasa() {
+        $this->load->model('kantor/ManajemenHargaModel');
+        $response = $this->ManajemenHargaModel->getpricejasa(); 
+        $this->sendResponse($response);
+    }
+
+    public function submit_barang() {
+        $this->load->model('kantor/ManajemenHargaModel');
+        $result = $this->ManajemenHargaModel->submit_barang($_POST);
+        $this->sendResponse($result);
+    }
+
+    public function submit_jasa() {
+        $this->load->model('kantor/ManajemenHargaModel');
+        $result = $this->ManajemenHargaModel->submit_jasa($_POST);
+        $this->sendResponse($result);
     }
 
 }
