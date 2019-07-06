@@ -42,7 +42,7 @@
 																<h3 class="m-portlet__head-text">
 																	List Penawaran
 																</h3>
-																<button onclick="window.location.href = 'buat_penawaran.html';" type="button" class="btn btn-success btn_tambah_spk">Buat Penawaran</button>
+																<button onclick="window.location.href = '<?= site_url() ?>kantor/penawaran/create';" type="button" class="btn btn-success btn_tambah_spk">Buat Penawaran</button>
 															</div>
 														</div>
 														<div class="col-md-4 offset-md-4">
@@ -73,58 +73,7 @@
 													<th>Aksi</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td>20/19/2018</td>
-													<td>116/SPH-AC/SSM/X/2018</td>
-													<td>BRI Kab. Barru</td>
-													<td>Penawaran Harga AC</td>
-													<td>
-														<a href="rincian_penawaran.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-													</td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td>20/19/2018</td>
-													<td>116/SPH-AC/SSM/X/2018</td>
-													<td>BRI Kab. Barru</td>
-													<td>Penawaran Harga AC</td>
-													<td>
-														<a href="rincian_penawaran.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-													</td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td>20/19/2018</td>
-													<td>116/SPH-AC/SSM/X/2018</td>
-													<td>BRI Kab. Barru</td>
-													<td>Penawaran Harga AC</td>
-													<td>
-														<a href="rincian_penawaran.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-													</td>
-												</tr>
-												<tr>
-													<td>4</td>
-													<td>20/19/2018</td>
-													<td>116/SPH-AC/SSM/X/2018</td>
-													<td>BRI Kab. Barru</td>
-													<td>Penawaran Harga AC</td>
-													<td>
-														<a href="rincian_penawaran.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-													</td>
-												</tr>
-												<tr>
-													<td>5</td>
-													<td>20/19/2018</td>
-													<td>116/SPH-AC/SSM/X/2018</td>
-													<td>BRI Kab. Barru</td>
-													<td>Penawaran Harga AC</td>
-													<td>
-														<a href="rincian_penawaran.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-													</td>
-												</tr>
-											</tbody>
+											<tbody></tbody>
 										</table>
 										<!--end: Datatable -->
 									</div>

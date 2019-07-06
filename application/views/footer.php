@@ -1607,7 +1607,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				});
 
 				$('#btn_tambah_pemasangan').click(function(e) {
-
+					
 					item.push({
 						"barang":$("select[name=nama_barang_modal]").val(),
 						"jumlah_barang":$("input[name=jumlah_barang]").val(),
@@ -2068,9 +2068,16 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 				],
 			});
-												
 				<?php } if($data['route'] == "kantor/penawaran/create") { ?>
 					$("li#offer").addClass("m-menu__item--active");
+					var data_tambah_item = [];
+					var data_tambah_jasa = [];
+
+					var sub_total = 0;
+					var total_keseluruhan = 0;
+
+					$("#sub_total").text("Rp."+sub_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+					$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
 					$("select#tipe_pajak").on("change", function() {
 						if($(this).val() != "" && $("input#no_reff").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("input#nama_penerima").val() && $("input#perihal").val()) {
@@ -2113,6 +2120,54 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						}
 					});
 
+
+					$("select[name=type_penawaran_barang]").change(function() {
+						var id = $(this).val();
+
+						$.ajax({
+							url:"<?= site_url() ?>kantor/getmodel",
+							type:"post",
+							data:{id:id},
+							dataType:"json"
+						}).done(function(res) {
+							// x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							$("input[name=model_stock]").val(res.tipe);
+							$("input[name=harga_item]").val(res.kantor);
+
+						}).fail(function(res) {
+							console.log(res);
+							swal(
+							'Terjadi Kesalahan',
+							'Mohon Periksa koneksi atau Hubungi Admin',
+							'warning'
+							)
+						});
+
+					});
+			
+					$("select[name=type_penawaran_jasa]").change(function() {
+						var id = $(this).val();
+
+						$.ajax({
+							url:"<?= site_url() ?>kantor/getmodel",
+							type:"post",
+							data:{id:id},
+							dataType:"json"
+						}).done(function(res) {
+							
+							$("input[name=model_jasa]").val(res.tipe);
+							$("input[name=harga_jasa]").val(res.kantor);
+
+						}).fail(function(res) {
+							console.log(res);
+							swal(
+							'Terjadi Kesalahan',
+							'Mohon Periksa koneksi atau Hubungi Admin',
+							'warning'
+							)
+						});
+
+					});
 			
 			$('.btn_hapus').click(function(e) {
 				swal({
@@ -2131,7 +2186,176 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				});
 			});
 
-			//== Class definition
+			
+			$('button#btn_tambah_pemasangan').click(function() {
+				$("table#tbl_item_penawaran tbody").html("");
+
+				data_tambah_item.push({
+					"type_penawaran_barang":$("select[name=type_penawaran_barang] :selected").val(),
+					"model_stock":$("input[name=model_stock]").val(),
+					"btu":$("input[name=btu]").val(),
+					"daya_listrik":$("input[name=daya_listrik]").val(),
+					"harga_item":$("input[name=harga_item]").val(),
+					"jumlah_barang":$("input[name=jumlah_barang]").val()
+				});
+
+				sub_total += parseInt($("input[name=jumlah_barang]").val()) * parseInt($("input[name=harga_item]").val());
+				total_keseluruhan += parseInt($("input[name=jumlah_barang]").val()) * parseInt($("input[name=harga_item]").val());
+
+				$("select[name=type_penawaran_barang]").val("");
+				$("input[name=model_stock]").val("");
+				$("input[name=btu]").val("");
+				$("input[name=daya_listrik]").val("");
+				$("input[name=harga_item]").val("");
+				$("input[name=jumlah_barang]").val("");
+
+					console.log(data_tambah_item);
+
+					var tbl_item_penawaran = "";
+					var no_index_penawaran = 0;
+					for (var i = 0; i < data_tambah_item.length; i++) {
+						
+						tbl_item_penawaran += "<tr>";
+						tbl_item_penawaran += "<td>"+(no_index_penawaran+1)+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].type_penawaran_barang+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].model_stock+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].btu+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].daya_listrik+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].jumlah_barang+"</td>";
+						tbl_item_penawaran += "<td> Rp."+(data_tambah_item[i].harga_item).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+						tbl_item_penawaran += "<td>" + "<button class='btn btn-danger btn_tambah_hapus' data-index='"+no_index_penawaran+"'> <i class='fa fa-trash'></i></button>" + "</td>";
+						
+
+						no_index_penawaran++;
+
+					}
+
+					$("#sub_total").text("Rp."+sub_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+					$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+					$("table#tbl_item_penawaran tbody").html(tbl_item_penawaran);
+
+				});
+
+				$(document).on('click','.btn_tambah_hapus', function(e) {
+					e.preventDefault();
+
+					var index = $(this).data('index');
+					
+					console.log("before:" + sub_total);
+					console.log("before:" + total_keseluruhan);
+
+					sub_total -= parseInt(data_tambah_item[index].jumlah_barang) * parseInt(data_tambah_item[index].harga_item);
+					total_keseluruhan -= parseInt(data_tambah_item[index].jumlah_barang) * parseInt(data_tambah_item[index].harga_item);
+
+					console.log("after:" +sub_total);
+					console.log("after:" +total_keseluruhan);
+
+					data_tambah_item.splice(index,1);
+					console.log(data_tambah_item);
+
+					$("#sub_total").text("Rp."+sub_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+					$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+					$("table#tbl_item_penawaran tbody").html("");
+					var hapus_tbl_item_penawaran = "";
+					var hapus_no_index_penawaran = 0;
+					for (var i = 0; i < data_tambah_item.length; i++) {
+						
+						hapus_tbl_item_penawaran += "<tr>";
+						hapus_tbl_item_penawaran += "<td>"+(hapus_no_index_penawaran+1)+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].type_penawaran_barang+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].model_stock+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].btu+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].daya_listrik+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].jumlah_barang+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].harga_item+"</td>";
+						hapus_tbl_item_penawaran += "<td>" + "<button class='btn btn-danger btn_tambah_hapus' data-index='"+hapus_no_index_penawaran+"'> <i class='fa fa-trash'></i></button>" + "</td>";
+
+						hapus_no_index_penawaran++;
+					}
+
+					$("table#tbl_item_penawaran tbody").html(hapus_tbl_item_penawaran);					
+				});
+
+
+				$(document).on('click','.btn_jasa_hapus', function(e) {
+					e.preventDefault();
+
+					var index = $(this).data('index');
+
+					total_keseluruhan -= parseInt(data_tambah_jasa[index].total);
+					$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+					
+					data_tambah_jasa.splice(index,1);
+
+					console.log(data_tambah_jasa);
+					
+					$("table#tbl_item_pemasangan tbody").html("");
+					var tbl_jasa_penawaran = "";
+					var no_index_penawaran = 0;
+					for (var i = 0; i < data_tambah_jasa.length; i++) {
+						
+						tbl_jasa_penawaran += "<tr>";
+						tbl_jasa_penawaran += "<td>"+(no_index_penawaran+1)+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].uraian_pekerjaan+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].model+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].jumlah+"</td>";
+						tbl_jasa_penawaran += "<td> Rp."+(data_tambah_jasa[i].harga).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+						tbl_jasa_penawaran += "<td> Rp."+(data_tambah_jasa[i].total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+
+						tbl_jasa_penawaran += "<td>" + "<button class='btn btn-danger btn_jasa_hapus' data-index='"+no_index_penawaran+"'> <i class='fa fa-trash'></i></button>" + "</td>";
+						no_index_penawaran++;
+					}
+
+					$("table#tbl_jasa_pemasangan tbody").html(tbl_jasa_penawaran);
+			
+				});
+
+
+				$('#btn_tambah_pekerjaan').click(function(e) {
+				e.preventDefault();
+
+				$("table#tbl_jasa_pemasangan tbody").html("");
+				data_tambah_jasa.push({
+					"uraian_pekerjaan":$("select[name=type_penawaran_jasa] :selected").val(),
+					"model":$("input[name=model_jasa]").val(),
+					"jumlah":$("input[name=jumlah_jasa]").val(),
+					"harga":$("input[name=harga_jasa]").val(),
+					"total":parseInt($("input[name=jumlah_jasa]").val()) * parseInt($("input[name=harga_jasa]").val()),
+				});
+				
+				total_keseluruhan += parseInt($("input[name=jumlah_jasa]").val()) * parseInt($("input[name=harga_jasa]").val());
+
+				$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+				$("select[name=type_penawaran_jasa]").val("").change();
+				$("input[name=model_jasa]").val("");
+				$("input[name=jumlah_jasa]").val("");
+
+					console.log(data_tambah_jasa);
+
+					var tbl_jasa_penawaran = "";
+					var no_index_penawaran = 0;
+					for (var i = 0; i < data_tambah_jasa.length; i++) {
+						
+						tbl_jasa_penawaran += "<tr>";
+						tbl_jasa_penawaran += "<td>"+(no_index_penawaran+1)+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].uraian_pekerjaan+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].model+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].jumlah+"</td>";
+						tbl_jasa_penawaran += "<td> Rp."+(data_tambah_jasa[i].harga).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+						tbl_jasa_penawaran += "<td> Rp."+(data_tambah_jasa[i].total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+
+						tbl_jasa_penawaran += "<td>" + "<button class='btn btn-danger btn_jasa_hapus' data-index='"+no_index_penawaran+"'> <i class='fa fa-trash'></i></button>" + "</td>";
+						no_index_penawaran++;
+					}
+
+					$("table#tbl_jasa_pemasangan tbody").html(tbl_jasa_penawaran);
+
+				});
+
+
 			var SweetAlert2Demo = function() {
 
 			//== Demos
@@ -2153,7 +2377,16 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						"perihal":perihal
 					};
 
-					swal({
+					if(data_tambah_item.length == 0) {
+						swal('List Penawaran Kosong','Harap isi list penawaran','warning');
+					} else if(data_tambah_jasa.length == 0) {
+						swal('Jasa Pemasangan dan Material AC Kosong','Harap isi jasa pemasangan dan material ac','warning');
+					} else {
+
+						data.list_item_penawaran = data_tambah_item;
+						data.jasa_pemasangan = data_tambah_jasa;
+
+						swal({
 							title: 'Apakah anda yakin menyimpan data ini?',
 							type: 'warning',
 							showCancelButton: true,
@@ -2175,7 +2408,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 											text: res.text,
 											type: res.status
 										}).then(function(result) {
-											document.location = "<?= site_url() ?>kantor/penawaran/create";
+											document.location = "<?= site_url() ?>kantor/penawaran";
 										});
 
 									} else {
@@ -2195,13 +2428,10 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							}
 						});
 
+					}
+
 				});
-				$('#btn_tambah_pemasangan').click(function(e) {
-					swal("Telah ditambahkan!", "data yang anda inputkan telah tersimpan", "success");
-				});
-				$('#btn_tambah_pekerjaan').click(function(e) {
-					swal("Telah ditambahkan!", "data yang anda inputkan telah tersimpan", "success");
-				});
+
 			};
 
 			return {
@@ -2621,7 +2851,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					}
 				},
 				{
-					field: 'Aksi',
+					field: 'aksi',
 					textAlign: 'center',
 				}
 
@@ -2630,13 +2860,15 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 
 
-				<?php }
+				<?php } if($data['route'] == "kantor/penawaran/rincian/(:any)") { ?>
+					$("li#offer").addClass("m-menu__item--active");
+  			    <?php } 
 
 				# END KANTOR
 
 				# HRD
 
-				if($data['route'] == "hrd") { ?>
+			   if($data['route'] == "hrd") { ?>
 					$("li#manajemen-penugasan").addClass("m-menu__item--active");
 								
 				<?php } 
