@@ -19,9 +19,11 @@
 					sessionStorage.fonts = true;
 				}
 			});
+
+			var base_url = '<?=base_url()?>';
 		</script>
 		<!--end::Web font -->
-		<!--begin::Base Styles -->  
+		<!--begin::Base Styles -->
 		<!--begin::Page Vendors -->
 		<link href="<?= base_url() ?>assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendors -->
@@ -80,7 +82,7 @@
 							<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
 								<!-- BEGIN: Horizontal Menu -->
 								<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark "  >
-									<?php 
+									<?php
 										switch($data['user']['accesstype']) {
 											case "kantor":
 												echo "<img style='display: inline; float: left; height: 60px; width: auto' src='".base_url()."assets/demo/default/media/img/misc/admin_kantor.png'>";
@@ -97,7 +99,7 @@
 										}
 									?>
 								</div>
-								<!-- END: Horizontal Menu -->								
+								<!-- END: Horizontal Menu -->
 								<!-- BEGIN: Topbar -->
 								<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
 									<div class="m-stack__item m-topbar__nav-wrapper inline">
@@ -123,7 +125,7 @@
 					</div>
 				</div>
 			</header>
-			<!-- END: Header -->		
+			<!-- END: Header -->
 			<!-- begin::Body -->
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
 				<!-- BEGIN: Left Aside -->
@@ -135,8 +137,8 @@
 					<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark" data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500" >
 						<!-- ASIDE MENU DISINI -->
 						<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-							
-							<?php 
+
+							<?php
 								switch($data['user']['accesstype']) {
 									case "kantor": ?>
 
@@ -276,7 +278,7 @@
 												</span>
 											</a>
 										</li>
-									
+
 									<?php
 									break;
 									case "finance": ?>
@@ -296,7 +298,7 @@
 										</li>
 
 
-										<!-- Manajemen Barang --> 
+										<!-- Manajemen Barang -->
 										<!--Manajemen Invoice Keluar-->
 										<li id="invoice_keluar" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
 											<a href="#" class="m-menu__link m-menu__toggle">
@@ -339,7 +341,7 @@
 												</ul>
 											</div>
 										</li>
-										
+
 										<!-- Management Stock -->
 										<li id="stock" class="m-menu__item  " aria-haspopup="true" >
 											<a href="<?= base_url() ?>finance/stock" class="m-menu__link ">
@@ -409,7 +411,7 @@
 													</span>
 												</span>
 											</a>
-										</li>									
+										</li>
 									<?php
 									break;
 									case "gudang": ?>
@@ -505,16 +507,16 @@
 												</span>
 											</a>
 										</li>
-																			
+
 									<?php
 									break;
 									case "teknisi":
 
 									break;
-								}								
+								}
 							?>
 
-							
+
 						</ul>
 					</div>
 					<!-- END: Aside Menu -->

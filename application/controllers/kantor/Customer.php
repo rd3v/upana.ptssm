@@ -18,8 +18,8 @@ class Customer extends MY_Controller {
                 "name" => $this->session->userdata('name'),
                 "email" => $this->session->userdata('email'),
                 "accesstype" => $this->session->userdata('accesstype')
-            ]            
-        ];        
+            ]
+        ];
     }
 
     public function index() {
@@ -38,7 +38,7 @@ class Customer extends MY_Controller {
     }
 
     public function tambahdata() {
-        
+
         $this->load->model("kantor/customerModel");
         $result = $this->customerModel->getlastid();
         if(!empty($result)) {
@@ -58,11 +58,11 @@ class Customer extends MY_Controller {
 
         $this->load->view('header_menu',$this->header);
         $this->load->view('kantor/customer_tambah',$content);
-        $this->load->view('footer',$footer);        
+        $this->load->view('footer',$footer);
     }
 
     public function edit($id) {
-        
+
         $this->load->model('kantor/customerModel');
         $result = $this->customerModel->getcustomer($id);
 
@@ -79,11 +79,11 @@ class Customer extends MY_Controller {
 
         $this->load->view('header_menu',$this->header);
         $this->load->view('kantor/customer_edit',$content);
-        $this->load->view('footer',$footer);        
+        $this->load->view('footer',$footer);
     }
 
     public function rincian($id) {
-        
+
         $this->load->model('kantor/customerModel');
         $result = $this->customerModel->getcustomer($id);
 
@@ -100,7 +100,7 @@ class Customer extends MY_Controller {
 
         $this->load->view('header_menu',$this->header);
         $this->load->view('kantor/customer_rincian',$content);
-        $this->load->view('footer',$footer);        
+        $this->load->view('footer',$footer);
     }
 
     public function riwayat($customer_id) {
@@ -109,9 +109,9 @@ class Customer extends MY_Controller {
 
         $this->load->model('kantor/historyModel');
         $resultHistory = $this->historyModel->getdata($customer_id);
-        
+
         if(!empty($resultCustomer)) {
-            $resultCustomerData = $resultCustomer;            
+            $resultCustomerData = $resultCustomer;
         } else {
             redirect(base_url()."customer");
         }
@@ -119,7 +119,7 @@ class Customer extends MY_Controller {
         if(!empty($resultHistory)) {
             $resultHistoryData = $resultHistory;
         } else {
-            redirect(base_url()."kantor/customer/rincian/$customer_id");            
+            redirect(base_url()."kantor/customer/rincian/$customer_id");
         }
 
         $content['data'] = [
@@ -134,7 +134,7 @@ class Customer extends MY_Controller {
 
         $this->load->view('header_menu',$this->header);
         $this->load->view('kantor/customer_riwayat',$content);
-        $this->load->view('footer',$footer);        
+        $this->load->view('footer',$footer);
     }
 
     public function store() {
@@ -200,7 +200,7 @@ class Customer extends MY_Controller {
                 'status' => 'danger'
             ];
         }
-        $this->sendResponse($response);        
+        $this->sendResponse($response);
     }
 
     public function getdata() {

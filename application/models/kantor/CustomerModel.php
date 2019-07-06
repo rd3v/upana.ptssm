@@ -8,7 +8,7 @@ class CustomerModel extends CI_Model {
        $this->db->from("data_customer");
        $result = $this->db->get()->result_array();
        return $result;
-   }    
+   }
 
    public function getlastid() {
        $this->db->select("id");
@@ -36,7 +36,7 @@ class CustomerModel extends CI_Model {
    }
 
    public function getcustomer($id) {
-       $this->db->select("id,nama,telepon,alamat,tipe");
+       $this->db->select("id,nama,telepon,alamat,tipe,email");
        $this->db->from("data_customer");
        $this->db->where("id",$id);
        $result = $this->db->get();

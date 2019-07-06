@@ -61,7 +61,7 @@
 															<div class="col-sm-12">
 																<p id="id_pelanggan">
 																	<i class="">ID :</i> <?= $data['user']->id ?>
-																</p> 
+																</p>
 																<p id="nama_pelanggan">
 																	<i class="flaticon-users"> </i> <?= $data['user']->nama ?>
 																</p>
@@ -69,8 +69,8 @@
 																	<i class="fa fa-phone"> </i> <?= $data['user']->telepon ?>
 																</p>
 															</div>
-															
-														</div>	
+
+														</div>
 
 													</div>
 													<div class="col-md-4 offset-md-4">
@@ -104,55 +104,23 @@
 											</tr>
 										</thead>
 										<tbody>
+<?php
+$i = 1;
+$status = ['Aktif', 'Progress', 'Selesai', 'Batal'];
+foreach ($data['riwayat'] as $row) { ?>
 											<tr>
-												<td>1</td>
-												<td>20/06/2019</td>
-												<td>21/06/2019</td>
-												<td>SPK1232019</td>
-												<td>Servis</td>
-												<td>Puas</td>
-												<td>Selesai</td>
+												<td><?=$i?></td>
+												<td><?=tgl_indo($row['mulai'])?></td>
+												<td><?=tgl_indo($row['selesai'])?></td>
+												<td><?=$row['nomor_spk']?></td>
+												<td><?=$row['jenis_spk']?></td>
+												<td><?=$row['kepuasan']?></td>
+												<td><?=$status[$row['status']]?></td>
 												<td>
-													<a href="rincian_spk_servis.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
+													<a href="<?=site_url('kantor/order/spk-service/rincian/'.$row['nomor_spk'])?>" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
 												</td>
 											</tr>
-											<tr>
-												<td>1</td>
-												<td>20/06/2019</td>
-												<td>21/06/2019</td>
-												<td>SPK12320191212132</td>
-												<td>Pemasangan</td>
-												<td>Puas</td>
-												<td>Selesai</td>
-												<td>
-													<a href="rincian_spk_servis.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-												</td>
-											</tr>
-											<tr>
-												<td>1</td>
-												<td>20/06/2019</td>
-												<td>21/06/2019</td>
-												<td>SPK1232019</td>
-												<td>Servis</td>
-												<td>Puas</td>
-												<td>Selesai</td>
-												<td>
-													<a href="rincian_spk_servis.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-												</td>
-											</tr>
-											<tr>
-												<td>1</td>
-												<td>20/06/2019</td>
-												<td>21/06/2019</td>
-												<td>SPK1232019</td>
-												<td>Komplai</td>
-												<td>Puas</td>
-												<td>Selesai</td>
-												<td>
-													<a href="rincian_spk_servis.html" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
-												</td>
-											</tr>
-											
+<?php $i++; } ?>
 										</tbody>
 									</table>
 									<!--end: Datatable -->

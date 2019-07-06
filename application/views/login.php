@@ -19,6 +19,8 @@
 				sessionStorage.fonts = true;
 			}
 		});
+
+		var base_url = '<?=base_url()?>';
 	</script>
 	<!--end::Web font -->
 	<!--begin::Base Styles -->
@@ -87,7 +89,7 @@
 							</div>
 						</form>
 					</div>
-						
+
 						<div class="m-login__forget-password">
 							<div class="m-login__head">
 								<h3 class="m-login__title">
@@ -129,7 +131,7 @@
 		<!--begin::Base Scripts -->
 		<script src="<?= base_url() ?>assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
 		<script src="<?= base_url() ?>assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
-		<!--end::Base Scripts -->   
+		<!--end::Base Scripts -->
 		<!--begin::Page Snippets -->
 		<script src="<?= base_url() ?>assets/snippets/pages/user/login.js" type="text/javascript"></script>
 		<!--end::Page Snippets -->

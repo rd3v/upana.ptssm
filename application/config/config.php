@@ -24,7 +24,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://localhost/ptssm/app2';
-$config['base_url'] = 'https://projects.upanastudio.com/ptssm/app/';
+// $config['base_url'] = 'https://projects.upanastudio.com/ptssm/app/';
+$srv = $_SERVER['SERVER_NAME'];
+$url = explode('/', $_SERVER['REQUEST_URI']);
+$config['base_url'] = 'http'.(is_https() ? 's' : '').'://'.$srv.'/'.($url[1] ? $url[1].'/' : '');
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +39,7 @@ $config['base_url'] = 'https://projects.upanastudio.com/ptssm/app/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

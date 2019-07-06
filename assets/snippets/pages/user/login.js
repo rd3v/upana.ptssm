@@ -87,33 +87,33 @@ var SnippetLogin = function() {
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                // url: 'http://localhost/ptssm/app2/checklogin',
-                url: 'https://projects.upanastudio.com/ptssm/app/checklogin',
+                url: base_url+'checklogin',
+                // url: 'https://projects.upanastudio.com/ptssm/app/checklogin',
                 success: function(response, status, xhr, $form) {
                     console.log(response);
                 	if(response.status) {
                         setTimeout(function() {
                             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                             showErrorMsg(form, 'success', 'Selamat Datang.');
-                            
+
                             setTimeout(function() {
-                                
+
                                 switch (response.level) {
-                                    case "finance": 
-                                        // document.location = "http://localhost/ptssm/app2/finance/invoice/masuk";
-                                        document.location = "https://projects.upanastudio.com/ptssm/app/finance/invoice/masuk";
+                                    case "finance":
+                                        document.location = base_url+"finance/invoice/masuk";
+                                        // document.location = "https://projects.upanastudio.com/ptssm/app/finance/invoice/masuk";
                                         break;
                                     case "kantor":
-                                        // document.location = "http://localhost/ptssm/app2/kantor";
-                                        document.location = "https://projects.upanastudio.com/ptssm/app/kantor";
+                                        document.location = base_url+"kantor";
+                                        // document.location = "https://projects.upanastudio.com/ptssm/app/kantor";
                                         break;
                                     case "gudang":
-                                        // document.location = "http://localhost/ptssm/app2/gudang";
-                                        document.location = "https://projects.upanastudio.com/ptssm/app/gudang";
+                                        document.location = base_url+"gudang";
+                                        // document.location = "https://projects.upanastudio.com/ptssm/app/gudang";
                                         break;
                                     case "hrd":
-                                        // document.location = "http://localhost/ptssm/app2/hrd";
-                                        document.location = "https://projects.upanastudio.com/ptssm/app/hrd";
+                                        document.location = base_url+"hrd";
+                                        // document.location = "https://projects.upanastudio.com/ptssm/app/hrd";
                                         break;
                                 }
 
@@ -212,10 +212,10 @@ var SnippetLogin = function() {
 
             form.ajaxSubmit({
                 url: '',
-                success: function(response, status, xhr, $form) { 
+                success: function(response, status, xhr, $form) {
                 	// similate 2s delay
                 	setTimeout(function() {
-                		btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false); // remove 
+                		btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false); // remove
 	                    form.clearForm(); // clear form
 	                    form.validate().resetForm(); // reset validation states
 

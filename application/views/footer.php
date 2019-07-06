@@ -13,27 +13,27 @@
 			</footer>
 			<!-- end::Footer -->
 		</div>
-		<!-- end:: Page -->		    
+		<!-- end:: Page -->
 		<!-- begin::Scroll Top -->
 		<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500"data-scroll-speed="300">
 			<i class="la la-arrow-up"></i>
 		</div>
-		<!-- end::Scroll Top -->		    
+		<!-- end::Scroll Top -->
 
 		<!--begin::Base Scripts -->
 		<script src="<?= base_url() ?>assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
 		<script src="<?= base_url() ?>assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
-		<!--end::Base Scripts -->   
+		<!--end::Base Scripts -->
 		<!--begin::Page Vendors -->
 		<script src="<?= base_url() ?>assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
-		<!--end::Page Vendors -->  
+		<!--end::Page Vendors -->
 		<!--begin::Page Snippets -->
 		<script src="<?= base_url() ?>assets/app/js/dashboard.js" type="text/javascript"></script>
 		<!--end::Page Snippets -->
 		<script>
-<?php 			
+<?php
 			# FINANCE
-			if($data['route'] == "finance/invoice/masuk") { ?>			
+			if($data['route'] == "finance/invoice/masuk") { ?>
 				$("li#invoice_masuk").addClass("m-menu__item--active");
 				var tbl_list_invoice_masuk = $('#tbl_list_invoice_masuk').mDatatable({
 				data: {
@@ -78,7 +78,7 @@
 					{
 						field: "no",
 						template: function(data, type, row, meta) {
-							return data.getIndex() + 1;						
+							return data.getIndex() + 1;
 						},
 						textAlign: "center",
 					},
@@ -149,8 +149,8 @@
 					});
 
 
-			<?php } 
-				
+			<?php }
+
 				if($data['route'] == "finance/invoice/masuk/tambah") { ?>
 					var Select2 = function() {
 						var demos = function(){
@@ -173,13 +173,13 @@
 								modalDemos();
 							}
 						};
-					}();				
+					}();
 					jQuery(document).ready(function() {
 						Select2.init();
 					});
 					$("li#invoice_masuk").addClass("m-menu__item--active");
 					$("table#tbl_list_invoice_masuk tbody").html("");
-					
+
 					var listitem = [];
 					var subtotal = 0;
 					var ppn = 0;
@@ -209,7 +209,7 @@
 						} else if(listitem.length == 0) {
 							swal('Mohon input list item barang');
 						} else {
-							
+
 							tagihan.subtotal = subtotal;
 							tagihan.ppn = ppn;
 							tagihan.total = total;
@@ -251,7 +251,7 @@
 
 							}).fail(function(res) {
 								console.log(res);
-							});							
+							});
 
 						}
 
@@ -272,13 +272,13 @@
 						}).fail(function(res) {
 							console.log(res);
 						});
-						
+
 						if($(this).val() != "" && $("input[name=jumlah_item]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
 							$("button#finance_btn_tambah").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_tambah").attr("disabled", "disabled");
 						}
-					});					
+					});
 
 					$("input[name='jumlah_item']").on("input", function() {
 						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
@@ -286,7 +286,7 @@
 						} else {
 							$("button#finance_btn_tambah").attr("disabled", "disabled");
 						}
-					});					
+					});
 
 					$("input[name='harga_jual']").on("input", function() {
 						if($(this).val() != "" && $("select[name=nama_item]").val() != "" && $("select[name=jumlah_item]").val() != "" && $("input[name='potongan_harga_item']").val()) {
@@ -303,7 +303,7 @@
 							$("button#finance_btn_tambah").attr("disabled", "disabled");
 						}
 					});
-					
+
 					// end modal form tambah validation
 
 					// modal form edit validation
@@ -322,7 +322,7 @@
 						}).fail(function(res) {
 							console.log(res);
 						});
-						
+
 						if($(this).val() != "" && $("input[name=jumlah_item]").val() != "" && $("input[name='harga_jual']").val() != "" && $("input[name='potongan_harga_item']").val()) {
 							$("button#finance_btn_tambah").removeAttr("disabled");
 						} else {
@@ -336,7 +336,7 @@
 						} else {
 							$("button#finance_btn_edit").attr("disabled", "disabled");
 						}
-					});					
+					});
 
 					$("input[name='edit_jumlah_item']").on("input", function() {
 						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("input[name='edit_harga_jual']").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
@@ -344,7 +344,7 @@
 						} else {
 							$("button#finance_btn_edit").attr("disabled", "disabled");
 						}
-					});					
+					});
 
 					$("input[name='edit_harga_jual']").on("input", function() {
 						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("input[name='edit_potongan_harga_item']").val() && $("input[name='edit_total_harga_item']").val()) {
@@ -361,15 +361,15 @@
 							$("button#finance_btn_edit").attr("disabled", "disabled");
 						}
 					});
-					
+
 					$("input[name='edit_total_harga_item']").on("input", function() {
 						if($(this).val() != "" && $("select[name=edit_nama_item]").val() != "" && $("select[name=edit_jumlah_item]").val() != "" && $("input[name='edit_harga_jual']").val() && $("input[name='edit_potongan_harga_item']").val()) {
 							$("button#finance_btn_edit").removeAttr("disabled");
 						} else {
 							$("button#finance_btn_edit").attr("disabled", "disabled");
 						}
-					});					
-					// end modal form edit validation					
+					});
+					// end modal form edit validation
 
 						var hg = 0;
 						var ji = 0;
@@ -394,9 +394,9 @@
 						var hasi = (hg * ji) - has;
 						$("input[name=total_harga_item]").val(hasi);
 					});
-					
+
 					$('#finance_btn_tambah').click(function(e) {
-						
+
 						var kode_item = $("select[name=nama_item] option:selected").val();
 						var nama_item = $("select[name=nama_item] option:selected").text();
 						var namaitem = nama_item.split(" ");
@@ -406,7 +406,7 @@
 						var harga_jual = $("input#harga_jual").val();
 						var potongan_harga_item = $("input#potongan_harga_item").val();
 						var total_harga_item = $("input[name=total_harga_item]").val();
-						
+
 						subtotal += parseInt(total_harga_item);
 						ppn += parseInt(total_harga_item) * 0.10;
 						total = subtotal + ppn;
@@ -421,9 +421,9 @@
 							potongan_harga:potongan_harga_item,
 							total_harga:total_harga_item
 						});
-						
+
 						var table_tbl_list_invoice_masuk = "";
-						for(var i = 0;i < listitem.length;i++) {	
+						for(var i = 0;i < listitem.length;i++) {
 							table_tbl_list_invoice_masuk += "<tr>";
 							table_tbl_list_invoice_masuk += "<td>"+(i+1)+"</td>";
 							table_tbl_list_invoice_masuk += "<td>"+listitem[i].nama+"</td>";
@@ -450,7 +450,7 @@
 						$("input#total_harga_item").val("");
 
 						swal("Berhasil!", "data yang anda inputkan telah dimasukkan ke list item barang", "success");
-					});				
+					});
 
 					var edit_total_harga_item_temp1 = 0;
 					var edit_total_harga_item_temp2 = 0;
@@ -478,7 +478,7 @@
 					});
 
 					$("button#finance_btn_edit").click(function() {
-						
+
 						var index = $("input[name=edit_index]").val();
 
 						var edit_kode_item = $("select[name=edit_nama_item] option:selected").val();
@@ -489,7 +489,7 @@
 						var edit_satuan = $("select[name=edit_satuan]").val();
 						var edit_harga_jual = $("input[name=edit_harga_jual]").val();
 						var edit_potongan_harga = $("input[name=edit_potongan_harga_item]").val();
-												
+
 						listitem[index].nama = editnamaitem[0];
 						listitem[index].kode = edit_kode_item;
 						listitem[index].jumlah = edit_jumlah_item;
@@ -517,7 +517,7 @@
 							}
 							$("table#tbl_list_invoice_masuk tbody").html(edit_table_tbl_list_invoice_masuk0);
 						} else if(edit_total_harga_item_temp1 > edit_total_harga_item_temp2) {
-							
+
 							subtotal -= (parseInt(edit_total_harga_item_temp1) - parseInt(edit_total_harga_item_temp2));
 							ppn -= (parseInt(edit_total_harga_item_temp1) - parseInt(edit_total_harga_item_temp2)) * 0.10;
 							total = subtotal + ppn;
@@ -541,7 +541,7 @@
 								edit_table_tbl_list_invoice_masuk1 += "</tr>";
 							}
 							$("table#tbl_list_invoice_masuk tbody").html(edit_table_tbl_list_invoice_masuk1);
-						
+
 						} else if(edit_total_harga_item_temp1 < edit_total_harga_item_temp2) {
 
 							subtotal += (parseInt(edit_total_harga_item_temp2) - parseInt(edit_total_harga_item_temp1));
@@ -567,14 +567,14 @@
 								edit_table_tbl_list_invoice_masuk1 += "</tr>";
 							}
 							$("table#tbl_list_invoice_masuk tbody").html(edit_table_tbl_list_invoice_masuk1);
-						}						
-					
+						}
+
 						edit_total_harga_item_temp1 = 0;
-						edit_total_harga_item_temp2 = 0;	
+						edit_total_harga_item_temp2 = 0;
 						console.log(edit_total_harga_item_temp1);
 						console.log(edit_total_harga_item_temp2);
 					});
-					
+
 					$(document).on('click','.finance_btn_hapus', function() {
 						var index = $(this).data("index");
 
@@ -606,8 +606,8 @@
 							new_table_tbl_list_invoice_masuk += "<td>" + btn_edit + btn_delete + "</td>";
 							new_table_tbl_list_invoice_masuk += "</tr>";
 						}
-						$("table#tbl_list_invoice_masuk tbody").html(new_table_tbl_list_invoice_masuk);	
-						
+						$("table#tbl_list_invoice_masuk tbody").html(new_table_tbl_list_invoice_masuk);
+
 					});
 
 				<?php }
@@ -615,24 +615,24 @@
 				if($data['route'] == "finance/invoice/masuk/rincian/(:num)") { ?>
 					$("li#invoice_masuk").addClass("m-menu__item--active");
 					$("table#tbl_list_invoice_masuk tbody").html("");
-				<?php } 
-				
+				<?php }
+
 				if($data['route'] == "finance/invoice/keluar/barang") { ?>
 					$("li#invoice_keluar").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#invoice_keluar_barang").addClass("m-menu__item--active");
-				<?php } 
-				
+				<?php }
+
 				if($data['route'] == "finance/invoice/keluar/material") { ?>
 					$("li#invoice_keluar").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#invoice_keluar_material").addClass("m-menu__item--active");
-					
-				<?php } 
-				
+
+				<?php }
+
 				if($data['route'] == "finance/penawaran") { ?>
 					$("li#offer").addClass("m-menu__item--active");
-					
-				<?php } 
-				
+
+				<?php }
+
 				if($data['route'] == "finance/stock") { ?>
 					$("li#stock").addClass("m-menu__item--active");
 
@@ -644,8 +644,8 @@
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: 'http://localhost/ptssm/app2/finance/stock/getdatakantor',
-			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
+			            url: '<?=site_url()?>finance/stock/getdatakantor',
+			            // url: '<?=site_url()?>finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
 			              var dataSet = raw;
@@ -680,7 +680,7 @@
 				{
 					field: "no",
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;						
+						return data.getIndex() + 1;
 					},
 					textAlign: 'center',
 				},
@@ -724,13 +724,13 @@
 						} else if(data.stock == 0) {
 							html = "Habis";
 						}
-						return html;						
+						return html;
 					},
 				},
 				{
 					field: 'keterangan',
 					textAlign: 'center',
-				},				
+				},
 				{
 					field: 'aksi',
 					textAlign: 'center',
@@ -753,8 +753,8 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
-			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
+			            url: '<?=site_url()?>finance/stock/getdatatoko',
+			            // url: '<?=site_url()?>finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
 			              var dataSet = raw;
@@ -789,7 +789,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 				{
 					field: "no",
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;						
+						return data.getIndex() + 1;
 					},
 					textAlign: 'center',
 				},
@@ -833,13 +833,13 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 						} else if(data.stock == 0) {
 							html = "Habis";
 						}
-						return html;						
+						return html;
 					},
 				},
 				{
 					field: 'keterangan',
 					textAlign: 'center',
-				},				
+				},
 				{
 					field: 'aksi',
 					textAlign: 'center',
@@ -991,10 +991,10 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 
 				],
-			});					
+			});
 
 				<?php } if($data['route'] == "finance/price") { ?>
-				
+
 					$("li#price").addClass("m-menu__item--active");
 
 				<?php }
@@ -1002,15 +1002,15 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				# END FINANCE
 
 				# KANTOR
-				
+
 				if($data['route'] == "kantor") { ?>
 					$("li#dashboard").addClass("m-menu__item--active");
-		
+
 				<?php }
 
 				if($data['route'] == "kantor/customer") { ?>
 					$("li#customer").addClass("m-menu__item--active");
-		
+
 					var tbl_list_pelanggan = $('#tbl_list_pelanggan').mDatatable({
 						data: {
 							saveState: {cookie: false},
@@ -1019,7 +1019,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							  read: {
 								// sample GET method
 								method: 'POST',
-								url: "http://localhost/ptssm/app2/kantor/customer/getdata",
+								url: "<?=site_url()?>kantor/customer/getdata",
 								// url: "https://projects.upanastudio.com/ptssm/app/kantor/customer/getdata",
 								map: function(raw) {
 								  // sample data mapping
@@ -1036,7 +1036,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							serverFiltering: true,
 							serverSorting: true,
 							orderable: true,
-							targets: 0					
+							targets: 0
 						},
 						// layout definition
 						layout: {
@@ -1046,7 +1046,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							// height: 450, // datatable's body's fixed height
 							footer: false // display/hide footer
 						},
-		
+
 						// column sorting
 						sortable: false,
 						search: {
@@ -1056,25 +1056,25 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						{
 							field: "no",
 							template: function(data, type, row, meta) {
-								return data.getIndex() + 1;						
+								return data.getIndex() + 1;
 							},
 							textAlign: "center",
-						},					
+						},
 						{
 							field: "id",
 							textAlign: "center",
 						},
 						{
 							field: 'nama',
-							textAlign: "center"								
+							textAlign: "center"
 						},
 						{
 							field: 'telepon',
-							textAlign: "center"									
+							textAlign: "center"
 						},
 						{
 							field: 'alamat',
-							textAlign: "center"					
+							textAlign: "center"
 						},
 						{
 							field: 'aksi',
@@ -1084,12 +1084,12 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							},
 							textAlign: "center"
 						}
-		
+
 						],
 					});
 				<?php } if($data['route'] == "kantor/customer/tambah") { ?>
 					$("li#customer").addClass("m-menu__item--active");
-		
+
 					$("input[name='nama_pelanggan']").on("change", function() {
 						if($(this).val() != "" && $("input[name=telepon_pelanggan]").val() != "" && $("input[name=alamat_pelanggan]").val() != "" && $("input[name='tipe_pelanggan']").is(":checked") == true) {
 							$("button#btn_tambah_data_pelanggan").removeAttr("disabled");
@@ -1097,15 +1097,15 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							$("button#btn_tambah_data_pelanggan").attr("disabled", "disabled");
 						}
 					});
-		
+
 					$("input[name='telepon_pelanggan']").on("change", function(){
 						if($(this).val() != "" && $("input[name=nama_pelanggan]").val() != "" && $("input[name=alamat_pelanggan]").val() != "" && $("input[name='tipe_pelanggan']").is(":checked") == true) {
 							$("button#btn_tambah_data_pelanggan").removeAttr("disabled");
 						} else {
 							$("button#btn_tambah_data_pelanggan").attr("disabled", "disabled");
 						}
-					});			
-		
+					});
+
 					$("input[name='alamat_pelanggan']").on("change", function() {
 						if($(this).val() != "" && $("input[name=nama_pelanggan]").val() != "" && $("input[name=telepon_pelanggan]").val() != "" && $("input[name='tipe_pelanggan']").is(":checked") == true) {
 							$("button#btn_tambah_data_pelanggan").removeAttr("disabled");
@@ -1113,10 +1113,10 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							$("button#btn_tambah_data_pelanggan").attr("disabled", "disabled");
 						}
 					});
-		
+
 					$('#btn_tambah_data_pelanggan').click(function(e) {
 						var tipe_pelanggan = $("input[name=tipe_pelanggan]:checked").val();
-						
+
 							swal({
 							title: 'Apakah anda yakin ingin menambah data pelanggan?',
 							type: 'warning',
@@ -1124,7 +1124,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							confirmButtonText: 'Ya, Tambahkan!'
 							}).then(function(result) {
 								if (result.value) {
-		
+
 									$.ajax({
 										url:"<?= base_url() ?>kantor/customer/tambahsubmit",
 										type:"post",
@@ -1147,15 +1147,15 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									}).fail(function(res) {
 										console.log(res);
 									});
-		
+
 								}
 							});
-		
-						
+
+
 					});
 				<?php } if($data['route'] == "kantor/customer/edit/(:num)") { ?>
-						$("li#customer").addClass("m-menu__item--active");		
-						
+						$("li#customer").addClass("m-menu__item--active");
+
 						$("input[name='nama_pelanggan']").on("change", function() {
 							if($(this).val() != "" && $("input[name=telepon_pelanggan]").val() != "" && $("input[name=alamat_pelanggan]").val() != "") {
 								$("button#btn_edit_data_pelanggan").removeAttr("disabled");
@@ -1163,23 +1163,23 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								$("button#btn_edit_data_pelanggan").attr("disabled", "disabled");
 							}
 						});
-		
+
 						$("input[name='telepon_pelanggan']").on("change", function(){
 							if($(this).val() != "" && $("input[name=nama_pelanggan]").val() != "" && $("input[name=alamat_pelanggan]").val() != "") {
 								$("button#btn_edit_data_pelanggan").removeAttr("disabled");
 							} else {
 								$("button#btn_edit_data_pelanggan").attr("disabled", "disabled");
 							}
-						});			
-		
+						});
+
 						$("input[name='alamat_pelanggan']").on("change", function() {
 							if($(this).val() != "" && $("input[name=nama_pelanggan]").val() != "" && $("input[name=telepon_pelanggan]").val() != "") {
 								$("button#btn_edit_data_pelanggan").removeAttr("disabled");
 							} else {
 								$("button#btn_edit_data_pelanggan").attr("disabled", "disabled");
 							}
-						});			
-		
+						});
+
 						$('#btn_edit_data_pelanggan').click(function(e) {
 							swal({
 								title: 'Apakah anda yakin ingin mengedit data pelanggan?',
@@ -1188,8 +1188,8 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								confirmButtonText: 'Ya, Edit!'
 							}).then(function(result) {
 								if (result.value) {
-		
-		
+
+
 									$.ajax({
 										url:"<?= base_url() ?>kantor/customer/editsubmit",
 										type:"post",
@@ -1211,11 +1211,11 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									}).fail(function(res) {
 										console.log(res);
 									});
-		
-									
+
+
 								}
 							});
-						});			
+						});
 				<?php } if($data['route'] == "kantor/customer/rincian/(:num)") { ?>
 					$("li#customer").addClass("m-menu__item--active");
 					var id = "<?php echo $data['id'] ?>";
@@ -1227,7 +1227,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							  read: {
 								// sample GET method
 								method: 'GET',
-								url: 'http://localhost/ptssm/app2/kantor/customer/getdataac/' + id,
+								url: '<?=site_url()?>kantor/customer/getdataac/' + id,
 								// url: 'https://projects.upanastudio.com/ptssm/app/kantor/customer/getdataac/' + id,
 								map: function(raw) {
 								  // sample data mapping
@@ -1252,7 +1252,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							// height: 450, // datatable's body's fixed height
 							footer: false // display/hide footer
 						},
-		
+
 						// column sorting
 						sortable: true,
 						search: {
@@ -1262,10 +1262,10 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						{
 							field: "no",
 							template: function(data, type, row, meta) {
-								return data.getIndex() + 1;						
+								return data.getIndex() + 1;
 							},
 							textAlign: "center",
-						},	
+						},
 						{
 							field: 'id',
 							textAlign: 'center',
@@ -1290,13 +1290,13 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								return html;
 							}
 						}
-		
+
 						],
-					});			
-		
+					});
+
 				<?php } if($data['route'] == "kantor/customer/riwayat/(:num)") { ?>
 					$("li#customer").addClass("m-menu__item--active");
-					
+
 				<?php } if($data['route'] == "kantor/order/spk-pemasangan") { ?>
 					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#spk-pemasangan").addClass("m-menu__item--active");
@@ -1360,7 +1360,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				{
 					field: 'no_spk',
 					textAlign: 'center',
-					
+
 				},
 				{
 					field: 'nama_pelanggan',
@@ -1388,7 +1388,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 			});
 
 
-		
+
 				<?php } if($data['route'] == "kantor/order/spk-pemasangan/tambah") { ?>
 					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#spk-pemasangan").addClass("m-menu__item--active");
@@ -1493,7 +1493,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					}
 				});
 
-				item.splice(index,1);		
+				item.splice(index,1);
 
 					var tbl_item_pemasangan_tbody_hapus = "";
 					for(var i = 0;i < item.length;i++) {
@@ -1582,21 +1582,21 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									type:res.status,
 									confirmButtonText: 'Ok'
 									}).then(function(result) {
-									
+
 										if (result.value) {
 											document.location = '<?= site_url() ?>kantor/order/spk-pemasangan';
 										}
 									});
 
 							} else {
-								
+
 								swal({
 									title:res.title,
 									text:res.message,
 									type:res.status,
 									confirmButtonText: 'Ok'
 								}).then(function(result) {});
-							
+
 							}
 
 						}).fail(function(res) {
@@ -1671,37 +1671,37 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							$("input[name=alamat_pelanggan]").val(res.alamat);
 						}).fail(function(res) {
 							console.log(res);
-						});					
+						});
 			});
 
 
 
 				<?php } if($data['route'] == "kantor/order/spk-service") { ?>
-				
+
 					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#spk-service").addClass("m-menu__item--active");
-		
+
 				<?php } if($data['route'] == "kantor/order/spk-free") { ?>
 					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#spk-free").addClass("m-menu__item--active");
-		
+
 				<?php } if($data['route'] == "kantor/order/spk-komplain") { ?>
 					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#spk-komplain").addClass("m-menu__item--active");
-		
+
 				<?php } if($data['route'] == "kantor/order/spk-survey") { ?>
 					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
 					$("li#spk-survey").addClass("m-menu__item--active");
-					
+
 				<?php } if($data['route'] == "kantor/penawaran") { ?>
 					$("li#offer").addClass("m-menu__item--active");
-					
+
 				<?php } if($data['route'] == "kantor/stock") { ?>
 					$("li#stock").addClass("m-menu__item--active");
-		
+
 				<?php } if($data['route'] == "kantor/price") { ?>
 					$("li#price").addClass("m-menu__item--active");
-		
+
 				<?php }
 
 				# END KANTOR
@@ -1710,17 +1710,17 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 				if($data['route'] == "hrd") { ?>
 					$("li#manajemen-penugasan").addClass("m-menu__item--active");
-								
-				<?php } 
-				
+
+				<?php }
+
 				if($data['route'] == "hrd/customer/kepuasan") { ?>
 					$("li#kepuasan-pelanggan").addClass("m-menu__item--active");
-								
-				<?php } 
-				
+
+				<?php }
+
 				if($data['route'] == "hrd/manajemen/user") { ?>
 					$("li#manajemen-user").addClass("m-menu__item--active");
-					
+
 				<?php }
 
 				# END HRD
@@ -1728,7 +1728,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				# GUDANG
 
 				if($data['route'] == "gudang") { ?>
-					$("li#dashboard").addClass("m-menu__item--active");			
+					$("li#dashboard").addClass("m-menu__item--active");
 				<?php } ?>
 
 				<?php if($data['route'] == "gudang/barang/masuk") { ?>
@@ -1824,8 +1824,8 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				}
 
 				],
-			});					
-								
+			});
+
 				<?php } if($data['route'] == "gudang/barang/masuk/proses/(:num)") { ?>
 					$("li#barang").addClass("m-menu__item--active");
 					var serial = [];
@@ -1836,7 +1836,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								serial:$("input[name=serial" + i + "]").val()
 							});
 						}
-						
+
 						swal({
 							title: 'Apakah anda yakin menyimpan data ini?',
 							type: 'warning',
@@ -1865,17 +1865,17 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 							}
 						});
-					});					
-					
+					});
+
 				<?php } if($data['route'] == "gudang/surat/jalan") { ?>
 					$("li#surat").addClass("m-menu__item--active");
-					
+
 				<?php } if($data['route'] == "gudang/material/keluar") { ?>
 					$("li#material").addClass("m-menu__item--active");
-		
+
 				<?php } if($data['route'] == "gudang/inventory") { ?>
 					$("li#inventory").addClass("m-menu__item--active");
-		
+
 				<?php } if($data['route'] == "gudang/stock/manajemen") { ?>
 					$("li#stock-manajemen").addClass("m-menu__item--active");
 
@@ -1888,8 +1888,8 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: 'http://localhost/ptssm/app2/finance/stock/getdatakantor',
-			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
+			            url: '<?=site_url()?>finance/stock/getdatakantor',
+			            // url: '<?=site_url()?>finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
 			              var dataSet = raw;
@@ -1924,7 +1924,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				{
 					field: "no",
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;						
+						return data.getIndex() + 1;
 					},
 					textAlign: 'center',
 				},
@@ -1968,13 +1968,13 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						} else if(data.stock == 0) {
 							html = "Habis";
 						}
-						return html;						
+						return html;
 					},
 				},
 				{
 					field: 'keterangan',
 					textAlign: 'center',
-				},				
+				},
 				{
 					field: 'aksi',
 					textAlign: 'center',
@@ -1996,8 +1996,8 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
-			            // url: 'http://localhost/ptssm/app2/finance/stock/getdatatoko',
+			            url: '<?=site_url()?>finance/stock/getdatatoko',
+			            // url: '<?=site_url()?>finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
 			              var dataSet = raw;
@@ -2032,7 +2032,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 				{
 					field: "no",
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;						
+						return data.getIndex() + 1;
 					},
 					textAlign: 'center',
 				},
@@ -2076,13 +2076,13 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 						} else if(data.stock == 0) {
 							html = "Habis";
 						}
-						return html;						
+						return html;
 					},
 				},
 				{
 					field: 'keterangan',
 					textAlign: 'center',
-				},				
+				},
 				{
 					field: 'aksi',
 					textAlign: 'center',
@@ -2235,7 +2235,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 
 				],
-			});						
+			});
 
 
 				<?php } if($data['route'] == "gudang/stock/master") { ?>
@@ -2248,7 +2248,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						var nama_barang = $("input[name=nama_barang]").val();
 						var input_satuan_barang = $("input[name=input_satuan_barang]").val();
 						var stock_minimal = $("input[name=stock_minimal]").val();
-						
+
 						if(input_kode_barang == "") {
 							swal('Kode barang kosong !!!');
 						} else if(kategori_item == "") {
@@ -2268,7 +2268,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								confirmButtonText: 'Ya, Tambahkan!'
 							}).then(function(result) {
 								if (result.value) {
-									 
+
 									$("#formstock").trigger("submit");
 
 								}
@@ -2286,7 +2286,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						oFReader.onload = function(oFREvent) {
 							document.getElementById("image-preview").src = oFREvent.target.result;
 						};
-					};					
+					};
 					var Select2 = function() {
 							var demos = function(){
 							// basic
@@ -2312,7 +2312,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					//== Initialization
 					jQuery(document).ready(function() {
 						Select2.init();
-					});		
+					});
 
 
 					$(document).on('click','.btnhapus',function() {
@@ -2351,7 +2351,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 							  read: {
 								// sample GET method
 								method: 'GET',
-								url: 'http://localhost/ptssm/app2/gudang/stock/master/getdata',
+								url: '<?=site_url()?>gudang/stock/master/getdata',
 								// url: 'https://projects.upanastudio.com/ptssm/app/gudang/stock/master/getdata',
 								map: function(raw) {
 								  // sample data mapping
@@ -2387,14 +2387,14 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								{
 									field: "no",
 									template: function(data, type, row, meta) {
-										return data.getIndex() + 1;						
+										return data.getIndex() + 1;
 									},
-									textAlign: "center",									
+									textAlign: "center",
 								},
 								{
 									field: "kategori",
 									textAlign: "center",
-										
+
 								},
 								{
 									field: 'kode',
@@ -2413,7 +2413,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 										} else if(data.tipe_gudang == 2) {
 											html = "Kantor (Pajak)";
 										}
-										return html;						
+										return html;
 									},
 									textAlign: "center",
 								},
@@ -2443,11 +2443,11 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 										if(data.gambar == "" || data.gambar == null) {
 											return "Tidak ada Gambar";
 										} else {
-											return "<img src='<?= base_url() ?>assets/img/"+data.gambar+"' width='75px'>";						
+											return "<img src='<?= base_url() ?>assets/img/"+data.gambar+"' width='75px'>";
 										}
 									},
 									textAlign: 'center',
-										
+
 								},
 								{
 									field: 'aksi',
@@ -2470,7 +2470,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						var nama_barang = $("input[name=nama_barang]").val();
 						var input_satuan_barang = $("input[name=input_satuan_barang]").val();
 						var stock_minimal = $("input[name=stock_minimal]").val();
-						
+
 						if(input_kode_barang == "") {
 							swal('Kode barang kosong !!!');
 						} else if(kategori_item == "") {
@@ -2490,7 +2490,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								confirmButtonText: 'Ya, Update!'
 							}).then(function(result) {
 								if (result.value) {
-									 
+
 									$("#formstockedit").trigger("submit");
 
 								}
@@ -2513,13 +2513,13 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 					jQuery(document).ready(function() {
 
-					});					
+					});
 
-				<?php }				
+				<?php }
 
 				# END GUDANG
 ?>
-					
+
 		</script>
 	</body>
     </html>
