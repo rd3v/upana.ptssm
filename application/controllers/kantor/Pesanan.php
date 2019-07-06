@@ -60,9 +60,44 @@ class Pesanan extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
+    public function spk_pemasangan_edit($no_spk) {
+
+        $this->load->model('kantor/CustomerModel');
+        $this->load->model("kantor/MasterStockModel");
+        $this->load->model('kantor/SpkPemasanganModel');
+        $this->load->model('kantor/SpkPemasanganModel');
+
+        $customer = $this->CustomerModel->getdata();
+        $stock = $this->MasterStockModel->getdata();
+        $SpkPemasangan = $this->SpkPemasanganModel->getdata($no_spk);
+        $SpkPemasanganItem = $this->SpkPemasanganModel->getdataitem($no_spk);
+        
+        $content['data'] = [
+            "customer" => $customer,
+            "stock" => $stock,
+            "SpkPemasangan" => $SpkPemasangan,
+            "SpkPemasanganItem" => $SpkPemasanganItem
+        ];
+
+        $footer['data'] = [
+            "route" => $this->getRoute(),
+            "SpkPemasanganItem" => $SpkPemasanganItem
+        ];
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('kantor/pesanan_spk_pemasangan_edit', $content);
+        $this->load->view('footer',$footer);
+    }
+
     public function spk_pemasangan_submit() {
         $this->load->model('kantor/SpkPemasanganModel');
         $response = $this->SpkPemasanganModel->store($_POST);
+        $this->sendResponse($response);
+    }
+
+    public function spk_pemasangan_edit_submit() {
+        $this->load->model('kantor/SpkPemasanganModel');
+        $response = $this->SpkPemasanganModel->store_edit($_POST);
         $this->sendResponse($response);
     }
 

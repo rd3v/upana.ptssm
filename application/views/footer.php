@@ -1378,9 +1378,9 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					field: 'aksi',
 					textAlign: 'center',
 					template: function(data) {
-						var btnedit = "<a href='' class='btn btn-sm btn-info' style='color:white; width:70px;'>Edit</a>";
-						var btnhapus = "<a href='' class='btn btn-sm btn-primary' style='color:white; width:70px;'>Rincian</a>";
-						return btnedit + " " + btnhapus;
+						var btnedit = "<a href='<?= site_url() ?>kantor/order/spk-pemasangan/edit/"+data.no_spk+"' class='btn btn-sm btn-info' style='color:white; width:70px;'>Edit</a>";
+						var btnrincian = "<a href='' class='btn btn-sm btn-primary' style='color:white; width:70px;'>Rincian</a>";
+						return btnrincian + " " + btnedit;
 					}
 				}
 
@@ -1674,7 +1674,9 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						});
 			});
 
+				<?php } if($data['route'] == "kantor/order/spk-pemasangan/edit/(:num)") { ?>
 
+<<<<<<< HEAD
 
 				<?php } if($data['route'] == "kantor/order/spk-service") { ?>
 
@@ -1702,13 +1704,1200 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				<?php } if($data['route'] == "kantor/price") { ?>
 					$("li#price").addClass("m-menu__item--active");
 
-				<?php }
+
+					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#spk-pemasangan").addClass("m-menu__item--active");
+
+					var item = [];
+					<?php foreach ($data['SpkPemasanganItem'] as $value): ?>
+							var editbarang = "<?= $value['kode'].'||'.$value['nama'] ?>";
+							var editjumlahbarang = "<?= $value['jumlah'] ?>";
+							var editketerangan = "<?= $value['keterangan'] ?>";
+						item.push({
+							"barang":editbarang,
+							"jumlah_barang":editjumlahbarang,
+							"keterangan":editketerangan
+						});
+					<?php endforeach ?>
+
+					console.log(item);
+
+					$("select[name='nama_barang_modal']").on("change", function() {
+						if($(this).val() != "" && $("input[name=jumlah_barang]").val() != "") {
+							$("button#btn_tambah_pemasangan").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_pemasangan").attr("disabled", "disabled");
+						}
+					});
+
+					$("input[name='jumlah_barang']").on("input", function() {
+						if($(this).val() != "" && $("select[name=nama_barang_modal]").val() != "") {
+							$("button#btn_tambah_pemasangan").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_pemasangan").attr("disabled", "disabled");
+						}
+					});
+
+					// Simpan Validation
+
+					$("select#tipe_pajak").on("change", function() {
+						if($(this).val() != "" && $("input#no_spk").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("select[name=nama_pelanggan]").val() != "" && $("input[name=catatan]").val() != "" && $("select[name=status]").val() != "") {
+							$("button#btn_terbitkan_spk").removeAttr("disabled");
+						} else {
+							$("button#btn_terbitkan_spk").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#no_spk").on("input", function() {
+						if($(this).val() != "" && $("select#tipe_pajak").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("select[name=nama_pelanggan]").val() != "" && $("input[name=catatan]").val() != "" && $("select[name=status]").val() != "") {
+							$("button#btn_terbitkan_spk").removeAttr("disabled");
+						} else {
+							$("button#btn_terbitkan_spk").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#tanggal_pembuatan_spk").on("input", function() {
+						if($(this).val() != "" && $("select#tipe_pajak").val() != "" && $("input#no_spk").val() != "" && $("select[name=nama_pelanggan]").val() != "" && $("input[name=catatan]").val() != "" && $("select[name=status]").val() != "") {
+							$("button#btn_terbitkan_spk").removeAttr("disabled");
+						} else {
+							$("button#btn_terbitkan_spk").attr("disabled", "disabled");
+						}
+					});
+
+					$("select[name=nama_pelanggan]").on("change", function() {
+						if($(this).val() != "" && $("input#no_spk").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("select#tipe_pajak").val() != "" && $("input[name=catatan]").val() != "" && $("select[name=status]").val() != "") {
+							$("button#btn_terbitkan_spk").removeAttr("disabled");
+						} else {
+							$("button#btn_terbitkan_spk").attr("disabled", "disabled");
+						}
+					});
+
+
+					$("input#tgl_mulai").on("input", function() {
+						if($(this).val() != "" && $("select#tipe_pajak").val() != "" && $("input#no_spk").val() != "" && $("select[name=nama_pelanggan]").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("input[name=catatan]").val() != "" && $("select[name=status]").val() != "") {
+							$("button#btn_terbitkan_spk").removeAttr("disabled");
+						} else {
+							$("button#btn_terbitkan_spk").attr("disabled", "disabled");
+						}
+					});
+
+					$("#catatan").on("input", function() {
+						if($(this).val() != "" && $("select#tipe_pajak").val() != "" && $("input#no_spk").val() != "" && $("select[name=nama_pelanggan]").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("select[name=status]").val() != "") {
+							$("button#btn_terbitkan_spk").removeAttr("disabled");
+						} else {
+							$("button#btn_terbitkan_spk").attr("disabled", "disabled");
+						}
+					});
+
+					$("select[name=status]").on("change", function() {
+						if($(this).val() != "" && $("input#no_spk").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("select#tipe_pajak").val() != "" && $("input[name=catatan]").val() != "" && $("select[name=nama_pelanggan]").val() != "") {
+							$("button#btn_terbitkan_spk").removeAttr("disabled");
+						} else {
+							$("button#btn_terbitkan_spk").attr("disabled", "disabled");
+						}
+					});
+
+					// Simpan Validation
+
+			$(document).on('click','.btn_hapus', function() {
+				var index = $(this).data("index");
+
+				swal({
+					title: 'Apakah anda yakin menghapus item ini?',
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonText: 'Ya,Hapus!'
+				}).then(function(result) {
+					if (result.value) {
+						swal(
+							'Dihapus!',
+							'item telah dihapus dari item pemasangan',
+							'success'
+							)
+					}
+				});
+
+				item.splice(index,1);
+
+					var tbl_item_pemasangan_tbody_hapus = "";
+					for(var i = 0;i < item.length;i++) {
+						var barang = item[i].barang.split("||");
+						var kode_barang = barang[0];
+						var nama_barang = barang[1];
+						tbl_item_pemasangan_tbody_hapus += "<tr>";
+						tbl_item_pemasangan_tbody_hapus += "<td>" + (i+1) + "</td>";
+						tbl_item_pemasangan_tbody_hapus += "<td>" + kode_barang + "</td>";
+						tbl_item_pemasangan_tbody_hapus += "<td>" + nama_barang + "</td>";
+						tbl_item_pemasangan_tbody_hapus += "<td>" + item[i].jumlah_barang + "</td>";
+						tbl_item_pemasangan_tbody_hapus += "<td>" + item[i].keterangan + "</td>";
+						tbl_item_pemasangan_tbody_hapus += "<td><a class='btn btn-sm btn-danger btn_hapus' style='color:white; width:80px;' data-index='"+i+"'>Hapus</a></td>";
+						tbl_item_pemasangan_tbody_hapus += "</tr>";
+					}
+
+					$("table#tbl_item_pemasangan tbody").html(tbl_item_pemasangan_tbody_hapus);
+
+					swal("Telah di Hapus!", "Data yang anda inputkan telah di hapus", "success");
+					console.log(item);
+
+			});
+
+				var Select2 = function() {
+				var demos = function() {
+				 // basic
+				 $('.dropdown_search, .dropdown_search_validate').select2({
+				 	placeholder: "Select a state"
+				 });
+				}
+				var modalDemos = function() {
+					$('#m_select2_modal').on('shown.bs.modal', function () {
+					// basic
+						$('.dropdown_search_modal').select2({
+							placeholder: "Select a state"
+						});
+					});
+				}
+				return {
+					init: function() {
+						demos();
+						modalDemos();
+					}
+				};
+			}();
+			//== Initialization
+			jQuery(document).ready(function() {
+				Select2.init();
+			});
+
+			var SweetAlert2Demo = function() {
+
+			//== Demos
+			var initDemos = function() {
+
+				$('#btn_terbitkan_spk').click(function(e) {
+					if(!confirm('Apakah data yang anda inputkan sudah benar ?')) return false;
+					if(item.length == 0) {
+						swal("List Item Kosong", "Item Pemasangan Kosong","warning");
+
+					} else {
+						$.ajax({
+							url:"<?= site_url() ?>spk_pemasangan_edit_submit",
+							type:"post",
+							data:{
+								tipe_pajak:$("select[name=tipe_pajak]").val(),
+								no_spk:$("input#no_spk").val(),
+								tanggal:$("input#tanggal_pembuatan_spk").val(),
+								nama_pelanggan:$("select[name=nama_pelanggan]").val(),
+								telepon:$("input[name=no_telpon]").val(),
+								email:$("input[name=email_pelanggan]").val(),
+								alamat:$("input[name=alamat_pelanggan]").val(),
+								waktu_pengerjaan:$("input#tgl_mulai").val(),
+								catatan:$("#catatan").val(),
+								status:$("select[name=status]").val(),
+								item:item
+							},
+							dataType:"json"
+						}).done(function(res) {
+
+							if(res.state) {
+
+								swal({
+									title:res.title,
+									text:res.message,
+									type:res.status,
+									confirmButtonText: 'Ok'
+									}).then(function(result) {
+
+										if (result.value) {
+											document.location = '<?= site_url() ?>kantor/order/spk-pemasangan';
+										}
+									});
+
+							} else {
+
+								swal({
+									title:res.title,
+									text:res.message,
+									type:res.status,
+									confirmButtonText: 'Ok'
+								}).then(function(result) {});
+
+							}
+
+						}).fail(function(res) {
+							swal("Error", "Terjadi Kesalahan","warning");
+							console.log(res);
+						});
+					}
+				});
+
+				$('#btn_tambah_pemasangan').click(function(e) {
+
+					item.push({
+						"barang":$("select[name=nama_barang_modal]").val(),
+						"jumlah_barang":$("input[name=jumlah_barang]").val(),
+						"keterangan":$("#item_keterangan").val()
+					});
+
+					var tbl_item_pemasangan_tbody = "";
+					for(var i = 0;i < item.length;i++) {
+						var barang = item[i].barang.split("||");
+						var kode_barang = barang[0];
+						var nama_barang = barang[1];
+						tbl_item_pemasangan_tbody += "<tr>";
+						tbl_item_pemasangan_tbody += "<td>" + (i+1) + "</td>";
+						tbl_item_pemasangan_tbody += "<td>" + kode_barang + "</td>";
+						tbl_item_pemasangan_tbody += "<td>" + nama_barang + "</td>";
+						tbl_item_pemasangan_tbody += "<td>" + item[i].jumlah_barang + "</td>";
+						tbl_item_pemasangan_tbody += "<td>" + item[i].keterangan + "</td>";
+						tbl_item_pemasangan_tbody += "<td><a class='btn btn-sm btn-danger btn_hapus' style='color:white; width:80px;' data-index='"+i+"'>Hapus</a></td>";
+						tbl_item_pemasangan_tbody += "</tr>";
+					}
+
+					$("table#tbl_item_pemasangan tbody").html(tbl_item_pemasangan_tbody);
+
+					swal("Telah ditambahkan!", "data yang anda inputkan telah tersimpan", "success");
+					console.log(item);
+					$("select[name=nama_barang_modal]").val("").change();
+					$("input[name=jumlah_barang]").val("");
+					$("#item_keterangan").val("");
+
+				});
+			};
+
+			return {
+					//== Init
+					init: function() {
+						initDemos();
+					},
+				};
+
+			}();
+
+			//== Class Initialization
+			jQuery(document).ready(function() {
+				SweetAlert2Demo.init();
+			});
+
+
+			$("select[name=nama_pelanggan]").change(function() {
+					var id = $(this).val();
+					$.ajax({
+							url:"<?= site_url() ?>getcustomer",
+							type:"post",
+							data:{
+								id:id
+							},
+							dataType:"json"
+						}).done(function(res) {
+							$("input[name=no_telpon]").val(res.telepon);
+							$("input[name=email_pelanggan]").val(res.email);
+							$("input[name=email_pelanggan]").val(res.email);
+							$("input[name=alamat_pelanggan]").val(res.alamat);
+						}).fail(function(res) {
+							console.log(res);
+						});
+			});
+
+
+				<?php } if($data['route'] == "kantor/order/spk-service") { ?>
+
+					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#spk-service").addClass("m-menu__item--active");
+
+				<?php } if($data['route'] == "kantor/order/spk-free") { ?>
+					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#spk-free").addClass("m-menu__item--active");
+
+				<?php } if($data['route'] == "kantor/order/spk-komplain") { ?>
+					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#spk-komplain").addClass("m-menu__item--active");
+
+				<?php } if($data['route'] == "kantor/order/spk-survey") { ?>
+					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#spk-survey").addClass("m-menu__item--active");
+
+				<?php } if($data['route'] == "kantor/penawaran") { ?>
+					$("li#offer").addClass("m-menu__item--active");
+
+			var tbl_list_penawaran = $('#tbl_list_penawaran').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'POST',
+			            url: '<?= site_url() ?>getalldatapenawaran',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'no',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						return data.getIndex() + 1;
+					}
+				},
+				{
+					field: 'tanggal',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						var tanggal = data.tanggal.split("-");
+						return tanggal[2] + "/" + tanggal[1] + "/" + tanggal[0];
+					}
+				},
+				{
+					field: 'reff',
+					textAlign: 'center',
+				},
+				{
+					field: 'penerima',
+					textAlign: 'center',
+				},
+				{
+					field: 'perihal',
+					textAlign: 'center',
+				},
+				{
+					field: 'aksi',
+					textAlign: 'center',
+					template: function(data) {
+						var html = "<a href='<?= site_url() ?>kantor/penawaran/rincian/"+data.reff+"' class='btn btn-sm btn-primary' style='color:white; width:80px;' >Rincian</a>";
+						return html;
+					}
+				}
+
+				],
+			});
+				<?php } if($data['route'] == "kantor/penawaran/create") { ?>
+					$("li#offer").addClass("m-menu__item--active");
+					var data_tambah_item = [];
+					var data_tambah_jasa = [];
+
+					var sub_total = 0;
+					var total_keseluruhan = 0;
+
+					$("#sub_total").text("Rp."+sub_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+					$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+					$("select#tipe_pajak").on("change", function() {
+						if($(this).val() != "" && $("input#no_reff").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("input#nama_penerima").val() && $("input#perihal").val()) {
+							$("button#btn_buat_penawaran").removeAttr("disabled");
+						} else {
+							$("button#btn_buat_penawaran").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#no_reff").on("input", function() {
+						if($(this).val() != "" && $("select#tipe_pajak").val() != "" && $("input#tanggal_pembuatan_spk").val() != "" && $("input#nama_penerima").val() && $("input#perihal").val()) {
+							$("button#btn_buat_penawaran").removeAttr("disabled");
+						} else {
+							$("button#btn_buat_penawaran").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#tanggal_pembuatan_spk").on("input", function() {
+						if($(this).val() != "" && $("select#tipe_pajak").val() != "" && $("input#no_reff").val() != "" && $("input#nama_penerima").val() && $("input#perihal").val()) {
+							$("button#btn_buat_penawaran").removeAttr("disabled");
+						} else {
+							$("button#btn_buat_penawaran").attr("disabled", "disabled");
+						}
+					});
+
+
+					$("input#nama_penerima").on("input", function() {
+						if($(this).val() != "" && $("select#tipe_pajak").val() != "" && $("input#no_reff").val() != "" && $("input#tanggal_pembuatan_spk").val() && $("input#perihal").val()) {
+							$("button#btn_buat_penawaran").removeAttr("disabled");
+						} else {
+							$("button#btn_buat_penawaran").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#perihal").on("input", function() {
+						if($(this).val() != "" && $("select#tipe_pajak").val() != "" && $("input#no_reff").val() != "" && $("input#tanggal_pembuatan_spk").val() && $("input#nama_penerima").val()) {
+							$("button#btn_buat_penawaran").removeAttr("disabled");
+						} else {
+							$("button#btn_buat_penawaran").attr("disabled", "disabled");
+						}
+					});
+
+
+					$("select[name=type_penawaran_barang]").change(function() {
+						var id = $(this).val();
+
+						$.ajax({
+							url:"<?= site_url() ?>kantor/getmodel",
+							type:"post",
+							data:{id:id},
+							dataType:"json"
+						}).done(function(res) {
+							// x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							$("input[name=model_stock]").val(res.tipe);
+							$("input[name=harga_item]").val(res.kantor);
+
+						}).fail(function(res) {
+							console.log(res);
+							swal(
+							'Terjadi Kesalahan',
+							'Mohon Periksa koneksi atau Hubungi Admin',
+							'warning'
+							)
+						});
+
+					});
+
+					$("select[name=type_penawaran_jasa]").change(function() {
+						var id = $(this).val();
+
+						$.ajax({
+							url:"<?= site_url() ?>kantor/getmodel",
+							type:"post",
+							data:{id:id},
+							dataType:"json"
+						}).done(function(res) {
+
+							$("input[name=model_jasa]").val(res.tipe);
+							$("input[name=harga_jasa]").val(res.kantor);
+
+						}).fail(function(res) {
+							console.log(res);
+							swal(
+							'Terjadi Kesalahan',
+							'Mohon Periksa koneksi atau Hubungi Admin',
+							'warning'
+							)
+						});
+
+					});
+
+			$('.btn_hapus').click(function(e) {
+				swal({
+					title: 'Apakah anda yakin menghapus item ini?',
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonText: 'Ya,Hapus!'
+				}).then(function(result) {
+					if (result.value) {
+						swal(
+							'Dihapus!',
+							'item telah dihapus dari item pemasangan',
+							'success'
+							)
+					}
+				});
+			});
+
+
+			$('button#btn_tambah_pemasangan').click(function() {
+				$("table#tbl_item_penawaran tbody").html("");
+
+				data_tambah_item.push({
+					"type_penawaran_barang":$("select[name=type_penawaran_barang] :selected").val(),
+					"model_stock":$("input[name=model_stock]").val(),
+					"btu":$("input[name=btu]").val(),
+					"daya_listrik":$("input[name=daya_listrik]").val(),
+					"harga_item":$("input[name=harga_item]").val(),
+					"jumlah_barang":$("input[name=jumlah_barang]").val()
+				});
+
+				sub_total += parseInt($("input[name=jumlah_barang]").val()) * parseInt($("input[name=harga_item]").val());
+				total_keseluruhan += parseInt($("input[name=jumlah_barang]").val()) * parseInt($("input[name=harga_item]").val());
+
+				$("select[name=type_penawaran_barang]").val("");
+				$("input[name=model_stock]").val("");
+				$("input[name=btu]").val("");
+				$("input[name=daya_listrik]").val("");
+				$("input[name=harga_item]").val("");
+				$("input[name=jumlah_barang]").val("");
+
+					console.log(data_tambah_item);
+
+					var tbl_item_penawaran = "";
+					var no_index_penawaran = 0;
+					for (var i = 0; i < data_tambah_item.length; i++) {
+
+						tbl_item_penawaran += "<tr>";
+						tbl_item_penawaran += "<td>"+(no_index_penawaran+1)+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].type_penawaran_barang+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].model_stock+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].btu+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].daya_listrik+"</td>";
+						tbl_item_penawaran += "<td>"+data_tambah_item[i].jumlah_barang+"</td>";
+						tbl_item_penawaran += "<td> Rp."+(data_tambah_item[i].harga_item).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+						tbl_item_penawaran += "<td>" + "<button class='btn btn-danger btn_tambah_hapus' data-index='"+no_index_penawaran+"'> <i class='fa fa-trash'></i></button>" + "</td>";
+
+
+						no_index_penawaran++;
+
+					}
+
+					$("#sub_total").text("Rp."+sub_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+					$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+					$("table#tbl_item_penawaran tbody").html(tbl_item_penawaran);
+
+				});
+
+				$(document).on('click','.btn_tambah_hapus', function(e) {
+					e.preventDefault();
+
+					var index = $(this).data('index');
+
+					console.log("before:" + sub_total);
+					console.log("before:" + total_keseluruhan);
+
+					sub_total -= parseInt(data_tambah_item[index].jumlah_barang) * parseInt(data_tambah_item[index].harga_item);
+					total_keseluruhan -= parseInt(data_tambah_item[index].jumlah_barang) * parseInt(data_tambah_item[index].harga_item);
+
+					console.log("after:" +sub_total);
+					console.log("after:" +total_keseluruhan);
+
+					data_tambah_item.splice(index,1);
+					console.log(data_tambah_item);
+
+					$("#sub_total").text("Rp."+sub_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+					$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+					$("table#tbl_item_penawaran tbody").html("");
+					var hapus_tbl_item_penawaran = "";
+					var hapus_no_index_penawaran = 0;
+					for (var i = 0; i < data_tambah_item.length; i++) {
+
+						hapus_tbl_item_penawaran += "<tr>";
+						hapus_tbl_item_penawaran += "<td>"+(hapus_no_index_penawaran+1)+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].type_penawaran_barang+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].model_stock+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].btu+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].daya_listrik+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].jumlah_barang+"</td>";
+						hapus_tbl_item_penawaran += "<td>"+data_tambah_item[i].harga_item+"</td>";
+						hapus_tbl_item_penawaran += "<td>" + "<button class='btn btn-danger btn_tambah_hapus' data-index='"+hapus_no_index_penawaran+"'> <i class='fa fa-trash'></i></button>" + "</td>";
+
+						hapus_no_index_penawaran++;
+					}
+
+					$("table#tbl_item_penawaran tbody").html(hapus_tbl_item_penawaran);
+				});
+
+
+				$(document).on('click','.btn_jasa_hapus', function(e) {
+					e.preventDefault();
+
+					var index = $(this).data('index');
+
+					total_keseluruhan -= parseInt(data_tambah_jasa[index].total);
+					$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+					data_tambah_jasa.splice(index,1);
+
+					console.log(data_tambah_jasa);
+
+					$("table#tbl_item_pemasangan tbody").html("");
+					var tbl_jasa_penawaran = "";
+					var no_index_penawaran = 0;
+					for (var i = 0; i < data_tambah_jasa.length; i++) {
+
+						tbl_jasa_penawaran += "<tr>";
+						tbl_jasa_penawaran += "<td>"+(no_index_penawaran+1)+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].uraian_pekerjaan+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].model+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].jumlah+"</td>";
+						tbl_jasa_penawaran += "<td> Rp."+(data_tambah_jasa[i].harga).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+						tbl_jasa_penawaran += "<td> Rp."+(data_tambah_jasa[i].total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+
+						tbl_jasa_penawaran += "<td>" + "<button class='btn btn-danger btn_jasa_hapus' data-index='"+no_index_penawaran+"'> <i class='fa fa-trash'></i></button>" + "</td>";
+						no_index_penawaran++;
+					}
+
+					$("table#tbl_jasa_pemasangan tbody").html(tbl_jasa_penawaran);
+
+				});
+
+
+				$('#btn_tambah_pekerjaan').click(function(e) {
+				e.preventDefault();
+
+				$("table#tbl_jasa_pemasangan tbody").html("");
+				data_tambah_jasa.push({
+					"uraian_pekerjaan":$("select[name=type_penawaran_jasa] :selected").val(),
+					"model":$("input[name=model_jasa]").val(),
+					"jumlah":$("input[name=jumlah_jasa]").val(),
+					"harga":$("input[name=harga_jasa]").val(),
+					"total":parseInt($("input[name=jumlah_jasa]").val()) * parseInt($("input[name=harga_jasa]").val()),
+				});
+
+				total_keseluruhan += parseInt($("input[name=jumlah_jasa]").val()) * parseInt($("input[name=harga_jasa]").val());
+
+				$("#total_keseluruhan").text("Rp."+total_keseluruhan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+				$("select[name=type_penawaran_jasa]").val("").change();
+				$("input[name=model_jasa]").val("");
+				$("input[name=jumlah_jasa]").val("");
+
+					console.log(data_tambah_jasa);
+
+					var tbl_jasa_penawaran = "";
+					var no_index_penawaran = 0;
+					for (var i = 0; i < data_tambah_jasa.length; i++) {
+
+						tbl_jasa_penawaran += "<tr>";
+						tbl_jasa_penawaran += "<td>"+(no_index_penawaran+1)+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].uraian_pekerjaan+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].model+"</td>";
+						tbl_jasa_penawaran += "<td>"+data_tambah_jasa[i].jumlah+"</td>";
+						tbl_jasa_penawaran += "<td> Rp."+(data_tambah_jasa[i].harga).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+						tbl_jasa_penawaran += "<td> Rp."+(data_tambah_jasa[i].total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+
+						tbl_jasa_penawaran += "<td>" + "<button class='btn btn-danger btn_jasa_hapus' data-index='"+no_index_penawaran+"'> <i class='fa fa-trash'></i></button>" + "</td>";
+						no_index_penawaran++;
+					}
+
+					$("table#tbl_jasa_pemasangan tbody").html(tbl_jasa_penawaran);
+
+				});
+
+
+			var SweetAlert2Demo = function() {
+
+			//== Demos
+			var initDemos = function() {
+
+				$('#btn_buat_penawaran').click(function(e) {
+
+					var tipe_pajak = $("#tipe_pajak").val();
+					var reff = $("#no_reff").val();
+					var tanggal = $("#tanggal_pembuatan_spk").val();
+					var penerima = $("#nama_penerima").val();
+					var perihal = $("#perihal").val();
+
+					var data = {
+						"tipe_pajak":tipe_pajak,
+						"reff":reff,
+						"tanggal":tanggal,
+						"penerima":penerima,
+						"perihal":perihal
+					};
+
+					if(data_tambah_item.length == 0) {
+						swal('List Penawaran Kosong','Harap isi list penawaran','warning');
+					} else if(data_tambah_jasa.length == 0) {
+						swal('Jasa Pemasangan dan Material AC Kosong','Harap isi jasa pemasangan dan material ac','warning');
+					} else {
+
+						data.list_item_penawaran = data_tambah_item;
+						data.jasa_pemasangan = data_tambah_jasa;
+
+						swal({
+							title: 'Apakah anda yakin menyimpan data ini?',
+							type: 'warning',
+							showCancelButton: true,
+							confirmButtonText: 'Ya, Simpan'
+						}).then(function(result) {
+							if (result.value) {
+								$.ajax({
+									url:"<?= site_url() ?>kantor/penawaran/simpan",
+									type:"post",
+									data:data,
+									cache:false
+								}).done(function(res) {
+
+									console.log(res);
+									if(res.state) {
+
+										swal({
+											title: res.title,
+											text: res.text,
+											type: res.status
+										}).then(function(result) {
+											document.location = "<?= site_url() ?>kantor/penawaran";
+										});
+
+									} else {
+
+										swal({
+											title: res.title,
+											text: res.text,
+											type: res.status
+										}).then(function(result) { });
+
+									}
+
+								}).fail(function(res) {
+									console.log(res);
+								});
+
+							}
+						});
+
+					}
+
+				});
+
+			};
+
+			return {
+					//== Init
+					init: function() {
+						initDemos();
+					},
+				};
+			}();
+
+			//== Class Initialization
+			jQuery(document).ready(function() {
+				SweetAlert2Demo.init();
+			});
+		</script>
+		<script>
+			var Select2 = function() {
+				var demos = function(){
+				 // basic
+				 $('.dropdown_search, .dropdown_search_validate').select2({
+				 	placeholder: "Select a state"
+				 });
+				}
+				var modalDemos = function(){
+					$('#m_select2_modal').on('shown.bs.modal', function () {
+				// basic
+				$('.dropdown_search_modal').select2({
+					placeholder: "Select a state"
+				});
+			});
+				}
+				return {
+					init: function() {
+						demos();
+						modalDemos();
+					}
+				};
+			}();
+		//== Initialization
+		jQuery(document).ready(function() {
+			Select2.init();
+		});
+
+
+
+				<?php } if($data['route'] == "kantor/stock") { ?>
+					$("li#stock").addClass("m-menu__item--active");
+
+				<?php } if($data['route'] == "kantor/price") { ?>
+					$("li#price").addClass("m-menu__item--active");
+
+					var harga_barang = {};
+					var harga_jasa = {};
+
+					$("select[name='kode_item']").on("change", function() {
+						if($(this).val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val() != "" && $("inputharga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_modal").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_partai").val() != "" && $("input#harga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_partai").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_modal").val() != "" && $("input#harga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_kantor").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					// JASA
+
+					$("select[name='kode_item_jasa']").on("change", function() {
+						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("inputharga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_modal_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_partai_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_kantor_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+				var Select2 = function() {
+				var demos = function(){
+				 // basic
+				 $('.dropdown_search, .dropdown_search_validate').select2({
+				 	placeholder: "Select a state"
+				 });
+				}
+				var modalDemos = function(){
+					$('#m_select2_modal').on('shown.bs.modal', function () {
+				// basic
+				$('.dropdown_search_modal').select2({
+					placeholder: "Select a state"
+				});
+			});
+				}
+				return {
+					init: function() {
+						demos();
+						modalDemos();
+					}
+				};
+			}();
+			//== Initialization
+			jQuery(document).ready(function() {
+				Select2.init();
+			});
+
+
+			var SweetAlert2Demo = function() {
+
+			//== Demos
+			var initDemos = function() {
+
+				$('#btn_tambah').click(function(e) {
+					$.ajax({
+							url:"<?= site_url() ?>kantor/price/submit_barang",
+							type:"post",
+							data:{
+								master_stock_id:$("select[name=kode_item]").val(),
+								tipe:$("select[name=barang]").val(),
+								modal:$("input#harga_modal").val(),
+								partai:$("input#harga_partai").val(),
+								kantor:$("input#harga_kantor").val(),
+							},
+							cache:false
+						}).done(function(res) {
+
+								swal({
+									title: res.title,
+									text: res.message,
+									type: res.status
+								}).then(function(result) {
+									document.location = "<?= base_url() ?>kantor/price";
+								});
+
+						}).fail(function(res) {
+							console.log(res);
+						});
+				});
+				$('#btn_tambah_harga_jasa').click(function(e) {
+					$.ajax({
+							url:"<?= site_url() ?>kantor/price/submit_jasa",
+							type:"post",
+							data:{
+								master_stock_id:$("select[name=kode_item_jasa]").val(),
+								tipe:$("select[name=jasa]").val(),
+								modal:$("input#harga_modal_jasa").val(),
+								partai:$("input#harga_partai_jasa").val(),
+								kantor:$("input#harga_kantor_jasa").val(),
+							},
+							cache:false
+						}).done(function(res) {
+
+								swal({
+									title: res.title,
+									text: res.message,
+									type: res.status
+								}).then(function(result) {
+									document.location = "<?= base_url() ?>kantor/price";
+								});
+
+						}).fail(function(res) {
+							console.log(res);
+						});
+				});
+				$('#btn_selesai_edit').click(function(e) {
+					swal("Berhasil!", "data harga item telah berhasil diedit","success");
+				});
+				$('#btn_selesai_edit_harga_jasa').click(function(e) {
+					swal("Berhasil!", "data harga item telah berhasil diedit","success");
+				});
+			};
+
+			return {
+					//== Init
+					init: function() {
+						initDemos();
+					},
+				};
+			}();
+
+			//== Class Initialization
+			jQuery(document).ready(function() {
+				SweetAlert2Demo.init();
+			});
+
+
+			var tbl_list_harga = $('#tbl_list_harga').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'POST',
+			            url: '<?= site_url() ?>getpriceitem',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'no',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						return data.getIndex() + 1;
+					}
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'tipe',
+					textAlign: 'center',
+				},
+				{
+					field: 'merk',
+					textAlign: 'center',
+				},
+				{
+					field: 'partai',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.partai).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'kantor',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.kantor).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'modal',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.modal).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+					template: function(data) {
+						return "-";
+					}
+				},
+
+				],
+			});
+
+
+
+				var tbl_list_harga_jasa = $('#tbl_list_harga_jasa').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            method: 'POST',
+			            url: '<?= site_url() ?>getpricejasa',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'no',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						return data.getIndex() + 1;
+					}
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'No Seri',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'tipe',
+					textAlign: 'center',
+				},
+				{
+					field: 'merk',
+					textAlign: 'center',
+				},
+				{
+					field: 'partai',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.partai).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'kantor',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.kantor).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'modal',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.modal).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+					template: function(data) {
+						return "-";
+					}
+				},
+				{
+					field: 'aksi',
+					textAlign: 'center',
+				}
+
+				],
+			});
+
+
+
+				<?php } if($data['route'] == "kantor/penawaran/rincian/(:any)") { ?>
+					$("li#offer").addClass("m-menu__item--active");
+  			    <?php }
 
 				# END KANTOR
 
 				# HRD
 
-				if($data['route'] == "hrd") { ?>
+			   if($data['route'] == "hrd") { ?>
 					$("li#manajemen-penugasan").addClass("m-menu__item--active");
 
 				<?php }

@@ -33,22 +33,68 @@ class Penawaran extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
+    public function create() {
+        
+        $this->load->model('kantor/PenawaranModel');
+        $get_listitem = $this->PenawaranModel->get_listitem();
+        $get_jasapemasangan_materialac = $this->PenawaranModel->get_jasapemasangan_materialac();
 
-    public function getRoute() {
-        $routes = array_reverse($this->router->routes); // All routes as specified in config/routes.php, reserved because Codeigniter matched route from last element in array to first.
-        foreach ($routes as $key => $val) {
-        $route = $key; // Current route being checked.
+        $content['data'] = [
+            "get_listitem" => $get_listitem,
+            "get_jasapemasangan_materialac" => $get_jasapemasangan_materialac
+        ];
         
-            // Convert wildcards to RegEx
-            $key = str_replace(array(':any', ':num'), array('[^/]+', '[0-9]+'), $key);
+        $footer['data'] = [
+            "route" => $this->getRoute()
+        ];
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('kantor/penawaran_buat',$content);
+        $this->load->view('footer',$footer);
+    }
+
+    public function store() {
+        $this->load->model('kantor/PenawaranModel');
+        $response = $this->PenawaranModel->store($_POST);
+        $this->sendResponse($response);
+    }
+
+    public function rincian($reff) {
+        $this->load->model('kantor/PenawaranModel');
+        $data_manajemen_penawaran = $this->PenawaranModel->getdata($reff);
         
-            // Does the RegEx match?
-            if (preg_match('#^'.$key.'$#', $this->uri->uri_string(), $matches)) break;
-        }
+        $content['data'] = $data_manajemen_penawaran;
         
-        if ( ! $route) $route = $routes['default_route']; // If the route is blank, it can only be mathcing the default route.
+        $footer['data'] = [
+            "route" => $this->getRoute()
+        ];
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('kantor/penawaran_rincian',$content);
+        $this->load->view('footer',$footer);        
+    }
+
+    public function print($reff) {
+
+        $this->load->model('kantor/PenawaranModel');
+        $data_manajemen_penawaran = $this->PenawaranModel->getdata($reff);
         
-        return $route;
-    }        
+        $content['data'] = $data_manajemen_penawaran;
+
+        $this->load->view('kantor/penawaran_print',$content);
+    }
+
+    public function getalldata() {
+        $this->load->model("kantor/PenawaranModel");
+        $response = $this->PenawaranModel->getalldata();
+        $this->sendResponse($response);   
+    }
+
+    public function getmodel() {
+        $master_stock_id = $this->input->post("id");
+        $this->load->model('kantor/PenawaranModel');
+        $response = $this->PenawaranModel->getmodel($master_stock_id);
+        $this->sendResponse($response);
+    }
 
 }

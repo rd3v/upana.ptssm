@@ -79,10 +79,12 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     # order
     $route['kantor/order/spk-pemasangan']['get'] = 'kantor/Pesanan/spk_pemasangan_index';
     $route['kantor/order/spk-pemasangan/tambah']['get'] = 'kantor/Pesanan/spk_pemasangan_tambah';
+    $route['kantor/order/spk-pemasangan/edit/(:num)']['get'] = 'kantor/Pesanan/spk_pemasangan_edit/$1';
     $route['spk-pemasangan/getdata']['post'] = 'kantor/Pesanan/spk_pemasangan_getdata';
     $route['getcustomer']['post'] = 'kantor/Pesanan/getcustomer';
     
     $route['spk_pemasangan_submit']['post'] = 'kantor/Pesanan/spk_pemasangan_submit';
+    $route['spk_pemasangan_edit_submit']['post'] = 'kantor/Pesanan/spk_pemasangan_edit_submit';
 
     $route['kantor/order/spk-service']['get'] = 'kantor/Pesanan/spk_service_index';
     $route['kantor/order/spk-free']['get'] = 'kantor/Pesanan/spk_free_index';
@@ -91,12 +93,24 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     
     #penawaran
     $route['kantor/penawaran']['get'] = 'kantor/Penawaran/index';
+    $route['kantor/penawaran/create']['get'] = 'kantor/Penawaran/create';
+    $route['kantor/penawaran/rincian/(:any)']['get'] = 'kantor/Penawaran/rincian/$1';
+    $route['kantor/penawaran/print/(:any)']['get'] = 'kantor/Penawaran/print/$1';
+    $route['getalldatapenawaran']['post'] = 'kantor/Penawaran/getalldata';
+    $route['kantor/penawaran/simpan']['post'] = 'kantor/Penawaran/store';
     
     #stock
     $route['kantor/stock']['get'] = 'kantor/stock/index';
     
     #price
     $route['kantor/price']['get'] = 'kantor/price/index';
+    $route['getpriceitem']['post'] = 'kantor/price/getpriceitem';
+    $route['getpricejasa']['post'] = 'kantor/price/getpricejasa';
+
+    $route['kantor/price/submit_barang']['get'] = 'kantor/price/submit_barang';
+    $route['kantor/price/submit_jasa']['get'] = 'kantor/price/submit_jasa';
+
+    $route['kantor/getmodel']['post'] = 'kantor/penawaran/getmodel';
 
 # FINANCE
 
