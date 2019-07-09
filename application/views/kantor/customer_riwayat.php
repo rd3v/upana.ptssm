@@ -117,7 +117,7 @@ foreach ($data['riwayat'] as $row) { ?>
 												<td><?=$row['kepuasan']?></td>
 												<td><?=$status[$row['status']]?></td>
 												<td>
-													<a href="<?=site_url('kantor/order/spk-service/rincian/'.$row['nomor_spk'])?>" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
+													<a href="<?=site_url('kantor/order/spk-'.strtolower($row['jenis_spk']).'/rincian/'.$row['id_spk'])?>" class="btn btn-sm btn-primary" style="color:white; width:80px;">Rincian</a>
 												</td>
 											</tr>
 <?php $i++; } ?>

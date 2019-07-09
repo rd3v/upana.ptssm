@@ -11,4 +11,13 @@ class AcModel extends CI_Model {
         return $result;
     }
 
+   public function getitem($id) {
+       $this->db->select("*");
+       $this->db->from("data_ac");
+       $this->db->where("id",$id);
+       $result = $this->db->get();
+       $ret = $result->row();
+       return $ret;
+   }
+
 }

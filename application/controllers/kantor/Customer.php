@@ -100,7 +100,103 @@ class Customer extends MY_Controller {
 
         $this->load->view('header_menu',$this->header);
         $this->load->view('kantor/customer_rincian',$content);
-        $this->load->view('footer',$footer);
+        $this->load->view('footer2',$footer);
+    }
+
+    public function submit_ac() {
+        $valid = $this->form_validation;
+        $valid->set_error_delimiters('', '');
+        $valid->set_rules('id', 'ID Unit', 'required|trim');
+        $valid->set_rules('nama', 'Nama Barang', 'required|trim');
+        $valid->set_rules('tipe', 'Tipe Barang', 'required|trim');
+        $valid->set_rules('merk', 'Merk Barang', 'required|trim');
+
+        if ($valid->run() === FALSE) {
+            $this->sendResponse([
+                'success'   => FALSE,
+                'error'     => array(
+                    'id'    => form_error('id'),
+                    'nama'  => form_error('nama'),
+                    'tipe'  => form_error('tipe'),
+                    'merk'  => form_error('merk')
+                )
+            ]);
+        } else {
+            $input = $this->input->post(NULL, TRUE);
+
+            if (!$input['action']) {
+                $insert = array(
+                    'id'            => $input['id'],
+                    'customer_id'   => $input['customer_id'],
+                    'nama'          => $input['nama'],
+                    'tipe'          => $input['tipe'],
+                    'merk'          => $input['merk'],
+                    'iat'           => date('Y-m-d H:i:s')
+                );
+
+                $this->crud->i('data_ac', $insert);
+
+                $this->sendResponse([
+                    'success'   => TRUE,
+                    'add'       => TRUE
+                ]);
+            } else {
+                $data = $this->crud->gd('data_ac', array('id' => $input['id']));
+
+                if ($data) {
+                    $update = array(
+                        'id'    => $input['id'],
+                        'nama'  => $input['nama'],
+                        'tipe'  => $input['tipe'],
+                        'merk'  => $input['merk']
+                    );
+
+                    $this->crud->u('data_ac', $update, array('id' => $input['id']));
+
+                    $this->sendResponse([
+                        'success'   => TRUE,
+                        'add'       => FALSE
+                    ]);
+                } else {
+                    $this->sendResponse([
+                        'success'   => FALSE
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function hapus_ac()
+    {
+        $this->crud->d('data_ac', ['id' => $this->input->post('id', TRUE)]);
+        $this->sendResponse([
+            'success'   => TRUE
+        ]);
+    }
+
+    public function print_rincian_item($id) {
+
+        $this->load->model('kantor/AcModel');
+        $result = $this->AcModel->getitem($id);
+
+        if(!empty($result)) {
+            $content['data'] = $result;
+        } else {
+            redirect(base_url()."customer");
+        }
+
+        $this->load->view('kantor/print_rincian_pelanggan_item',$content);
+    }
+
+    public function generate_barcode() {
+        if (isset($_GET['d'])) {
+            $format = (isset($_GET['f']) ? $_GET['f'] : 'png');
+            $symbology = (isset($_GET['s']) ? $_GET['s'] : 'code-128');
+
+            $this->load->library('barcode');
+            $this->barcode->output_image($format, $symbology, $_GET['d'], $_GET);
+            exit(0);
+        }
     }
 
     public function riwayat($customer_id) {

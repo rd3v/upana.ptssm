@@ -85,7 +85,7 @@
 											</h4>
 										</div>
 										<div align="right" class="col-6">
-											<button style="width: 200px"  data-toggle="modal" data-target="#modal_tambah_item" type="button" class="btn btn-success">+ Tambah Item</button>
+											<button style="width: 200px"  data-toggle="modal" data-target="#form-modal" type="button" class="btn btn-success" onclick="modify_form(0, '<?=$data->id?>-', '<?=$data->id?>', '', '', '')">+ Tambah Item</button>
 										</div>
 										<div class=" col-md-6 ">
 												<div class="m-input-icon m-input-icon--left">
@@ -125,12 +125,12 @@
 	</div>
 	<!-- end:: Body -->
 	<!-- Modal here -->
-	<div class="modal fade" id="modal_tambah_item"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="form-modal"  role="dialog" aria-labelledby="form-title" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">
-						+ Tambah Item
+					<h5 class="modal-title" id="form-title">
+						Tambah Item
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
@@ -145,7 +145,7 @@
 						</label>
 						<div class="col-9">
 							<div class="input-group">
-								<input name="name_item" type="text" class="form-control m-input" value="AC Daikin" >
+								<input type="text" class="form-control m-input" id="nama" />
 								<div class="input-group-append">
 								</div>
 							</div>
@@ -158,7 +158,12 @@
 						</label>
 						<div class="col-9">
 							<div class="input-group">
-								<input name="name_item" type="text" class="form-control m-input" value="Ac Indoor" >
+								<!-- <input type="text" class="form-control m-input" id="tipe" /> -->
+								<select class="form-control m-input" id="tipe">
+									<option value=""></option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+								</select>
 								<div class="input-group-append">
 								</div>
 							</div>
@@ -170,7 +175,7 @@
 						</label>
 						<div class="col-9">
 							<div class="input-group">
-								<input name="name_item" type="text" class="form-control m-input" value="Panasonic" >
+								<input type="text" class="form-control m-input" id="merk" />
 								<div class="input-group-append">
 								</div>
 							</div>
@@ -183,7 +188,8 @@
 						</label>
 						<div class="col-9">
 							<div class="input-group">
-								<input name="jumlah_barang" type="number" class="form-control m-input" value="01" aria-describedby="basic-addon2">
+								<input type="text" class="form-control m-input" id="id" aria-describedby="basic-addon2">
+								<input type="hidden" id="customer_id" />
 								<div class="input-group-append">
 								</div>
 							</div>
@@ -191,87 +197,11 @@
 					</div>
 				</div>
 				<div class="modal-footer">
+					<input type="hidden" id="action" />
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Tutup
 					</button>
-					<button id="btn_tambah_item" data-dismiss="modal" type="button" class="btn btn-primary">
-						Tambahkan
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="modal_edit_item"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">
-						Edit Item
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">
-							&times;
-						</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="form-group m-form__group row">
-						<label for="example-text-input" class="col-3 col-form-label">
-							Nama Barang
-						</label>
-						<div class="col-9">
-							<div class="input-group">
-								<input name="name_item" type="text" class="form-control m-input" value="AC Daikin" >
-								<div class="input-group-append">
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group m-form__group row">
-						<label for="example-text-input" class="col-3 col-form-label">
-							Type Barang
-						</label>
-						<div class="col-9">
-							<div class="input-group">
-								<input name="name_item" type="text" class="form-control m-input" value="Ac Indoor" >
-								<div class="input-group-append">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-group m-form__group row">
-						<label for="example-text-input" class="col-3 col-form-label">
-							Merek Barang
-						</label>
-						<div class="col-9">
-							<div class="input-group">
-								<input name="name_item" type="text" class="form-control m-input" value="Panasonic" >
-								<div class="input-group-append">
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group m-form__group row">
-						<label for="example-text-input" class="col-3 col-form-label">
-							ID Unit
-						</label>
-						<div class="col-9">
-							<div class="input-group">
-								<input name="jumlah_barang" type="number" class="form-control m-input" value="12123122" aria-describedby="basic-addon2">
-								<div class="input-group-append">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">
-						Tutup
-					</button>
-					<button id="btn_tambah_item" data-dismiss="modal" type="button" class="btn btn-primary">
+					<button type="button" class="btn btn-primary" onclick="submit_form()">
 						Simpan
 					</button>
 				</div>
@@ -280,3 +210,80 @@
 	</div>
 
 	<!-- Modal End Here -->
+
+	<script>
+        function modify_form(action, id, customer_id, nama, tipe, merk) {
+            $('#action').val(action);
+            $('#id').val(id);
+            $('#customer_id').val(customer_id);
+            $('#nama').val(nama);
+            $('#tipe').val(tipe);
+            $('#merk').val(merk);
+
+            if (!action) {
+                $('#form-title').html('Tambah Data');
+                $('#id').prop('disabled', false);
+            } else {
+                $('#form-title').html('Edit Data');
+                $('#id').prop('disabled', true);
+            }
+        }
+
+        function submit_form() {
+            $(this).prop('disabled', true);
+            $('.file-loading').show();
+
+            $.post('<?=site_url('kantor/customer/submit-ac')?>', {
+                'action': $('#action').val(),
+                'id': $('#id').val(),
+                'customer_id': $('#customer_id').val(),
+                'nama': $('#nama').val(),
+                'tipe': $('#tipe').val(),
+                'merk': $('#merk').val()
+            }, function(result, status) {
+                if (status == 'success') {
+                    $(this).prop('disabled', false);
+                    $('.file-loading').hide();
+
+                    if (result.success) {
+                        $('#form-modal').modal('hide');
+                        show_toast('Data berhasil '+(result.add ? 'ditambah' : 'diubah')+'.', 'success');
+                        tbl_item_ac.reload();
+                    } else {
+                        $('.btn-error-form').removeClass('btn-primary');
+                        $('.btn-error-form').addClass('btn-danger');
+
+                        if (result.error.id) $('#id').addClass('is-invalid');
+                        if (result.error.nama) $('#nama').addClass('is-invalid');
+                        if (result.error.tipe) $('#tipe').addClass('is-invalid');
+                        if (result.error.merk) $('#merk').addClass('is-invalid');
+                    }
+                } else show_toast('Data gagal dikirim.', 'error');
+            });
+        }
+
+        function hapus_data(id) {
+            swadel({
+                preConfirm: function() {
+                    return new Promise(function(resolve) {
+                        $.post('<?=site_url('kantor/customer/hapus-ac')?>', {
+                            'id': id
+                        }, function(result, status) {
+                            if (status == 'success') {
+                                resolve(result);
+                            }
+                        });
+                    });
+                }
+            }).then(function(result) {
+                if (result.value) {
+                    if (result.value.success) {
+                        show_toast('Data berhasil dihapus.', 'success');
+                        tbl_item_ac.reload();
+                    } else {
+                        show_toast('Gagal menghapus data.', 'error');
+                    }
+                }
+            });
+        }
+	</script>
