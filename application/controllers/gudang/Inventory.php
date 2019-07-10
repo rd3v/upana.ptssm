@@ -6,8 +6,8 @@ class Inventory extends MY_Controller {
     private $header = [];
 
     public function __construct() {
-		parent::__construct();
-		$this->load->library('session');
+        parent::__construct();
+        $this->load->library('session');
         $this->load->helper('url');
         if($this->session->userdata('id') == null) {
             redirect(base_url()."login",'refresh');
@@ -23,9 +23,15 @@ class Inventory extends MY_Controller {
     }
 
     public function index() {
+        $this->load->model('gudang/InventoryModel');
+        $this->load->model('gudang/UserModel');
 
+        $data = $this->InventoryModel->getdata();
+        $teknisi = $this->UserModel->get_teknisi();
+        
         $content['data'] = [
-
+            "inventory" => $data,
+            "teknisi" => $teknisi
         ];
 
         $footer['data'] = [
@@ -37,49 +43,60 @@ class Inventory extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
-    public function tambahdata() {
-
-        $this->load->model("customerModel");
-        $result = $this->customerModel->getlastid();
-        if(!empty($result)) {
-            $tempid = substr($result->id,0,3);
-            $id = $this->generateIdPelanggan((int) $tempid + 1);
-        } else {
-            $id = $this->generateIdPelanggan(1);
-        }
-
-        $content['data'] = [
-            "id" => $id
-        ];
+    public function tambah() {
 
         $footer['data'] = [
             "route" => $this->getRoute()
         ];
 
         $this->load->view('header_menu',$this->header);
-        $this->load->view('customer_tambah',$content);
+        $this->load->view('gudang/inventory_tambah');
         $this->load->view('footer',$footer);        
     }
 
+    public function kembalikan_pinjam() {
+        $id = $this->input->post('id');
+        $this->load->model('gudang/InventoryModel');
+        $response = $this->InventoryModel->kembalikan_pinjam($id);
+        $this->sendResponse($response);
+    }
+
     public function edit($id) {
-        
-        $this->load->model('customerModel');
-        $result = $this->customerModel->getcustomer($id);
+        $this->load->model('gudang/InventoryModel');
+        $result = $this->InventoryModel->getone($id);
 
         if(!empty($result)) {
             $content['data'] = $result;
         } else {
-            redirect(base_url()."customer");
+            $this->session->set_flashdata('status', 'warning');
+            $this->session->set_flashdata('flsh_msg', 'Data tidak di temukan !');
+            redirect(base_url()."gudang/inventory");
         }
-
 
         $footer['data'] = [
             "route" => $this->getRoute()
         ];
 
         $this->load->view('header_menu',$this->header);
-        $this->load->view('customer_edit',$content);
+        $this->load->view('gudang/inventory_edit',$content);
         $this->load->view('footer',$footer);        
+    }
+
+    public function hapus() {
+        $id = $this->input->post('id');
+        $gambar = $this->input->post('gambar');
+
+        $this->load->model('gudang/InventoryModel');
+        $response = $this->InventoryModel->hapus($id,$gambar);
+        $this->sendResponse($response);
+    }
+
+    public function pinjam() {
+        $id = $this->input->post('id');
+        $teknisi_id = $this->input->post('teknisi_id');
+        $this->load->model('gudang/InventoryModel');
+        $response = $this->InventoryModel->pinjam($id,$teknisi_id);
+        $this->sendResponse($response);
     }
 
     public function rincian($id) {
@@ -137,71 +154,199 @@ class Inventory extends MY_Controller {
         $this->load->view('footer',$footer);        
     }
 
-    public function store() {
-        $this->load->model('customerModel');
+    public function submit() {
 
-        $id = $this->input->post('id');
-        $nama = $this->input->post('nama');
-        $telepon = $this->input->post('telepon');
-        $alamat = $this->input->post('alamat');
-        $tipe = $this->input->post('tipe');
+        $id_barang = $this->input->post("id_barang");
+        $nama_barang = $this->input->post("nama_barang");
+        $no_seri = $this->input->post("no_seri");
+ 
+        $this->load->model('gudang/InventoryModel');
+        
+        if($_FILES["image_source"]["error"] == 0) {
 
-        $request = [
-            "id" => $id,
-            "nama" => $nama,
-            "telepon" => $telepon,
-            "alamat" => $alamat,
-            "tipe" => $tipe
-        ];
+                $target_dir = $_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/";
+                $target_file = $target_dir . basename($_FILES["image_source"]["name"]);
+                
+                if(file_exists($target_file)) {
+                        $this->session->set_flashdata('status', 'warning');
+                        $this->session->set_flashdata('flsh_msg', 'Nama gambar ada yang sama, silahkan ganti nama gambar anda !');
+                        redirect(base_url()."gudang/inventory");
+                }
 
-        $result = $this->customerModel->store($request);
-        if($result) {
-            $response = [
-                'title' => 'Berhasil',
-                'message' => 'Data Pelanggan telah di Tambahkan',
-                'status' => 'success'
-            ];
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                // Check if image file is a actual image or fake image
+                
+                $check = getimagesize($_FILES["image_source"]["tmp_name"]);
+                if($check !== false) {
+                    $uploadOk = 1;
+                } else {
+                    $uploadOk = 0;
+                }
+                
+                // Check if file already exists
+                if (file_exists($target_file)) {
+                    $uploadOk = 0;
+                }
+
+                // Allow certain file formats
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                    $uploadOk = 0;
+                }
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+
+                } else {
+                    
+                    if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
+
+                        $request = [
+                            "id" => $id_barang,
+                            "nama" => $nama_barang,
+                            "no_seri" => $no_seri,
+                            "gambar" => $_FILES["image_source"]["name"],
+                            "status" => "tersedia"
+                        ];
+                    
+                        $resultstore = $this->InventoryModel->store($request);
+                        if($resultstore) {
+                            $result = true;
+                        } else {
+                            $result = false;
+                        }
+                    } else {
+                       $result = false;
+                    }
+                }            
+
         } else {
-            $response = [
-                'title' => 'Gagal',
-                'message' => 'Data Pelanggan Gagal di Tambahkan',
-                'status' => 'danger'
-            ];
+
+                $request = [
+                    "id" => $id_barang,
+                    "nama" => $nama_barang,
+                    "no_seri" => $no_seri,
+                    "status" => "tersedia"
+                ];
+        
+            $resultstore = $this->InventoryModel->store($request);
+            if(!$resultstore) {
+                $this->session->set_flashdata('status', 'danger');
+                $this->session->set_flashdata('flsh_msg', 'ID Barang sudah ada');
+                redirect(base_url()."gudang/inventory");
+            } else {
+                $result = true;
+            }
         }
-        $this->sendResponse($response);
+        
+        if($result) {
+            $this->session->set_flashdata('status', 'success');
+            $this->session->set_flashdata('flsh_msg', 'Data telah di tambahkan');
+            redirect(base_url()."gudang/inventory");
+        } else {
+            $this->session->set_flashdata('status', 'danger');
+            $this->session->set_flashdata('flsh_msg', 'Gagal mengupload gambar');
+            redirect(base_url()."gudang/inventory");
+        }
+
     }
+
+    public function barcode($no_seri) {
+        $content['no_seri'] = $no_seri;
+        $this->load->view('gudang/inventory_barcode',$content);
+    }
+
 
     public function update() {
-        $this->load->model('customerModel');
+        
+        $id_barang = $this->input->post("id_barang");
+        $nama_barang = $this->input->post("nama_barang");
+        $no_seri = $this->input->post("no_seri");
+ 
+        $this->load->model('gudang/InventoryModel');
+        
+        if($_FILES["image_source"]["error"] == 0) {
 
-        $id = $this->input->post('id');
-        $nama = $this->input->post('nama');
-        $telepon = $this->input->post('telepon');
-        $alamat = $this->input->post('alamat');
+                $target_dir = $_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/";
+                $target_file = $target_dir . basename($_FILES["image_source"]["name"]);
+                
+                unlink($_SERVER["DOCUMENT_ROOT"]."/upana.ptssm/assets/img/".$_FILES["image_source"]["name"]);
 
-        $request = [
-            "id" => $id,
-            "nama" => $nama,
-            "telepon" => $telepon,
-            "alamat" => $alamat
-        ];
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                // Check if image file is a actual image or fake image
+                
+                $check = getimagesize($_FILES["image_source"]["tmp_name"]);
+                if($check !== false) {
+                    $uploadOk = 1;
+                } else {
+                    $uploadOk = 0;
+                }
+                
+                // Check if file already exists
+                if (file_exists($target_file)) {
+                    $uploadOk = 0;
+                }
 
-        $result = $this->customerModel->update($request);
-        if($result) {
-            $response = [
-                'title' => 'Berhasil',
-                'message' => 'Data Pelanggan telah di Update',
-                'status' => 'success'
-            ];
+                // Allow certain file formats
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                    $uploadOk = 0;
+                }
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+
+                } else {
+                    
+                    if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
+
+                        $request = [
+                            "id" => $id_barang,
+                            "nama" => $nama_barang,
+                            "no_seri" => $no_seri,
+                            "gambar" => $_FILES["image_source"]["name"]
+                        ];
+                    
+                        $resultstore = $this->InventoryModel->update($request);
+                        if($resultstore) {
+                            $result = true;
+                        } else {
+                            $result = false;
+                        }
+                    } else {
+                       $result = false;
+                    }
+                }            
+
         } else {
-            $response = [
-                'title' => 'Gagal',
-                'message' => 'Data Pelanggan Gagal di Update',
-                'status' => 'danger'
-            ];
+
+                $request = [
+                    "id" => $id_barang,
+                    "nama" => $nama_barang,
+                    "no_seri" => $no_seri,
+                ];
+        
+            $resultstore = $this->InventoryModel->update($request);
+            if(!$resultstore) {
+                $this->session->set_flashdata('status', 'danger');
+                $this->session->set_flashdata('flsh_msg', 'ID Barang sudah ada');
+                redirect(base_url()."gudang/inventory");
+            } else {
+                $result = true;
+            }
         }
-        $this->sendResponse($response);        
+        
+        if($result) {
+            $this->session->set_flashdata('status', 'success');
+            $this->session->set_flashdata('flsh_msg', 'Data telah di update');
+            redirect(base_url()."gudang/inventory");
+        } else {
+            $this->session->set_flashdata('status', 'danger');
+            $this->session->set_flashdata('flsh_msg', 'Gagal mengupload gambar');
+            redirect(base_url()."gudang/inventory");
+        }
+
     }
+
+
 
     public function getdata() {
         $this->load->model('customerModel');

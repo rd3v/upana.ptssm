@@ -1676,6 +1676,9 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 				<?php } if($data['route'] == "kantor/order/spk-pemasangan/edit/(:num)") { ?>
 
+
+				<?php } if($data['route'] == "kantor/order/spk-service") { ?>
+
 				<?php } if($data['route'] == "kantor/order/spk-service") { ?>
 
 					$("li#order").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
@@ -3063,9 +3066,180 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				<?php } if($data['route'] == "gudang/inventory") { ?>
 					$("li#inventory").addClass("m-menu__item--active");
 
+						$(document).on('click', '.btn_selesai', function() {
+							var id = $(this).data("id");
+							var nama = $(this).data("nama");
+							
+							if(!confirm(nama + ' sudah di kembalikan ?')) return false;
+
+							$.ajax({
+								url:"<?= site_url() ?>gudang/inventory/kembalikan_pinjam",
+								type:"post",
+								data:{
+									id:id
+								},
+								dataType:"json"
+							}).done(function(res) {
+								console.log(res);
+								
+								swal(res.title,res.text,res.status);
+								setTimeout(function() {
+									if(res.state) {
+										location.reload();
+									}
+								},2000);
+
+							}).fail(function(res) {
+								console.log(res);
+							});
+
+
+						});
+
+						$(document).on('click','.btn_hapus', function() {
+							var id = $(this).data("id");
+							var nama = $(this).data("nama");
+							var gambar = $(this).data("gambar");
+
+							if(!confirm(' Hapus Inventory '+nama+' ?')) return false;
+							
+							$.ajax({
+								url:"<?= site_url() ?>gudang/inventory/hapus",
+								type:"post",
+								data:{
+									id:id,
+									gambar:gambar
+								},
+								dataType:"json"
+							}).done(function(res) {
+								console.log(res);
+								
+								swal(res.title,res.text,res.status);
+								setTimeout(function() {
+									if(res.state) {
+										location.reload();
+									}
+								},1500);
+
+							}).fail(function(res) {
+								console.log(res);
+							});
+
+						});
+
+						$("select[name=set_peminjam]").change(function() {
+							var id = $(this).find(":selected").attr("data-id");
+							var barang = $(this).find(":selected").attr("data-nama");
+							var teknisi_id = $(this).val();
+
+							if(teknisi_id == "") { } else {
+								if(!confirm(' Pinjam barang '+barang+' ?')) return false;
+								$.ajax({
+									url:"<?= site_url() ?>gudang/inventory/pinjam",
+									type:"post",
+									data:{
+										id:id,
+										teknisi_id:teknisi_id
+									},
+									dataType:"json"
+								}).done(function(res) {
+									swal(res.title,res.text,res.status);
+									setTimeout(function() {
+										if(res.state) {
+											location.reload();
+										}
+									},1500);
+
+								}).fail(function(res) {
+									console.log(res);
+									swal(res.title,res.text,res.status);
+								});
+							}
+							
+						});
+
+				<?php } if($data['route'] == "gudang/inventory/tambah") { ?>
+					$("li#inventory").addClass("m-menu__item--active");		
+
+					$("input[name='id_barang']").on("input", function() {
+						if($(this).val() != "" && $("input[name='nama_barang']").val() != "" && $("input[name='no_seri']").val()) {
+							$("button#btn_tambah_item_inventory").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_item_inventory").attr("disabled", "disabled");
+						}
+					});
+
+					$("input[name='nama_barang']").on("input", function() {
+						if($(this).val() != "" && $("input[name='id_barang']").val() != "" && $("input[name='no_seri']").val()) {
+							$("button#btn_tambah_item_inventory").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_item_inventory").attr("disabled", "disabled");
+						}
+					});
+
+					$("input[name='no_seri']").on("input", function() {
+						if($(this).val() != "" && $("input[name='id_barang']").val() != "" && $("input[name='nama_barang']").val()) {
+							$("button#btn_tambah_item_inventory").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_item_inventory").attr("disabled", "disabled");
+						}
+					});
+
+					function previewImage() {
+						document.getElementById("image-preview").style.display = "block";
+						var oFReader = new FileReader();
+						oFReader.readAsDataURL(document.getElementById("image_source").files[0]);
+
+						oFReader.onload = function(oFREvent) {
+							document.getElementById("image-preview").src = oFREvent.target.result;
+						};
+					};
+
+
+					$("button#btn_tambah_item_inventory").click(function() {
+
+						$("form#tambah_inventory").trigger('submit');
+
+					});
+
+				<?php } if($data['route'] == "gudang/inventory/edit/(:any)") { ?>
+					$("li#inventory").addClass("m-menu__item--active");
+
+					$("input[name='nama_barang']").on("input", function() {
+						if($(this).val() != "" && $("input[name='no_seri']").val()) {
+							$("button#btn_edit_item_inventory").removeAttr("disabled");
+						} else {
+							$("button#btn_edit_item_inventory").attr("disabled", "disabled");
+						}
+					});
+
+					$("input[name='no_seri']").on("input", function() {
+						if($(this).val() != "" && $("input[name='nama_barang']").val()) {
+							$("button#btn_edit_item_inventory").removeAttr("disabled");
+						} else {
+							$("button#btn_edit_item_inventory").attr("disabled", "disabled");
+						}
+					});
+
+					function previewImage() {
+						document.getElementById("gambar_barang").style.display = "none";
+						document.getElementById("image-preview").style.display = "block";
+						var oFReader = new FileReader();
+						oFReader.readAsDataURL(document.getElementById("image_source").files[0]);
+
+						oFReader.onload = function(oFREvent) {
+							document.getElementById("image-preview").src = oFREvent.target.result;
+						};
+					};
+
+
+					$("button#btn_edit_item_inventory").click(function() {
+						if(!confirm('Yakin ingin mengupdate data ini ?')) return false;
+						$("form#edit_inventory").trigger('submit');
+					});
+
 				<?php } if($data['route'] == "gudang/stock/manajemen") { ?>
 					$("li#stock-manajemen").addClass("m-menu__item--active");
-
 
 				var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_kantor').mDatatable({
 				data: {

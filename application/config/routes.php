@@ -167,6 +167,14 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
 
     # Inventory
     $route['gudang/inventory']['get'] = 'gudang/inventory/index'; # list
+    $route['gudang/inventory/tambah']['get'] = 'gudang/inventory/tambah';
+    $route['gudang/inventory/barcode/(:any)']['post'] = 'gudang/inventory/barcode/$1';
+    $route['gudang/inventory/edit/(:any)']['get'] = 'gudang/inventory/edit/$1';
+    $route['gudang/inventory/update']['post'] = 'gudang/inventory/update';
+    $route['gudang/inventory/hapus']['post'] = 'gudang/inventory/hapus';
+    $route['gudang/inventory/pinjam']['post'] = 'gudang/inventory/pinjam';
+    $route['gudang/inventory/submit']['post'] = 'gudang/inventory/submit';
+    $route['gudang/inventory/kembalikan_pinjam']['post'] = 'gudang/inventory/kembalikan_pinjam';
 
     # Stock
     $route['gudang/stock/manajemen']['get'] = 'gudang/stock/manajemen';
