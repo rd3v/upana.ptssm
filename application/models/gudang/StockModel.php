@@ -39,7 +39,7 @@ class StockModel extends CI_Model {
        if($result->gambar == "" or $result->gambar == null) {
          $master_stock = $this->db->delete('master_stock', ['kode' => $kode]);
        } else {
-         unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/app2/assets/img/".$result->gambar);
+         unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$result->gambar);
          $master_stock = $this->db->delete('master_stock', ['kode' => $kode]);
        }
        return $master_stock;
