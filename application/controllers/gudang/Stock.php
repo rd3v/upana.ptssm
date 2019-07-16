@@ -243,7 +243,21 @@ class Stock extends MY_Controller {
     public function store() {
 
         $input_kode_barang = $this->input->post('input_kode_barang');
-        $kategori_item = $this->input->post('kategori_item');
+        switch ($this->input->post('kategori_item')) {
+            case '1':
+                $kategori_item = "unit"; 
+                break;
+            case '2':
+                $kategori_item = "material"; 
+                break;
+            case '3':
+                $kategori_item = "sparepart"; 
+                break;
+            case '4':
+                $kategori_item = "jasa"; 
+                break;
+        }
+        
         $nama_barang = $this->input->post('nama_barang');
         $input_satuan_barang = $this->input->post('input_satuan_barang');
         $stock_minimal = $this->input->post('stock_minimal');
