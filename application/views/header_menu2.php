@@ -104,7 +104,7 @@
 								<div class="m-stack m-stack--ver m-stack--general">
 									<div class="m-stack__item m-stack__item--middle m-brand__logo">
 										<a href="<?= base_url() ?>" class="m-brand__logo-wrapper">
-											<img alt="" src="<?= base_url() ?>assets/demo/default/media/img/logo/logo_pt_ssm.png"/>
+											<img alt="" src="<?= base_url() ?>assets/demo/default/media/img/logo/Logo_pt_ssm.png"/>
 										</a>
 									</div>
 									<div class="m-stack__item m-stack__item--middle m-brand__tools">
