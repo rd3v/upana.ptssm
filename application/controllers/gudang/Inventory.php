@@ -164,7 +164,7 @@ class Inventory extends MY_Controller {
         
         if($_FILES["image_source"]["error"] == 0) {
 
-                $target_dir = $_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/";
+                $target_dir = "./assets/img/";
                 $target_file = $target_dir . basename($_FILES["image_source"]["name"]);
                 
                 if(file_exists($target_file)) {
@@ -266,10 +266,10 @@ class Inventory extends MY_Controller {
         
         if($_FILES["image_source"]["error"] == 0) {
 
-                $target_dir = $_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/";
+                $target_dir = "./assets/img/";
                 $target_file = $target_dir . basename($_FILES["image_source"]["name"]);
                 
-                unlink($_SERVER["DOCUMENT_ROOT"]."/upana.ptssm/assets/img/".$_FILES["image_source"]["name"]);
+                unlink("./assets/img/".$_FILES["image_source"]["name"]);
 
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
