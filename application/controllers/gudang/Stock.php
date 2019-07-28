@@ -78,8 +78,9 @@ class Stock extends MY_Controller {
         
         if($_FILES["image_source_edit"]["error"] == 0) {
             
-                $target_dir = $_SERVER['DOCUMENT_ROOT']."/ptssm/app2/assets/img/";
-                $target_file = $target_dir . basename($_FILES["image_source_edit"]["name"]);
+                $target_dir = $_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/";
+                $randomstr = $this->getRandomString(5);
+                $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source_edit"]["name"]);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
                 // Check if image file is a actual image or fake image
@@ -104,7 +105,7 @@ class Stock extends MY_Controller {
                 if ($uploadOk == 0) {
 
                 } else {
-                    unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/app2/assets/img/".$_FILES["image_source_edit"]["name"]);
+                    unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$_FILES["image_source_edit"]["name"]);
                     if (move_uploaded_file($_FILES["image_source_edit"]["tmp_name"], $target_file)) {
 
                         $request = [
@@ -118,13 +119,12 @@ class Stock extends MY_Controller {
                             "btu" => $btu,
                             "daya_listrik" => $daya,
                             "keterangan" => $keterangan_barang,
-                            "gambar" => $_FILES["image_source_edit"]["name"],
+                            "gambar" => $randomstr."_".$_FILES["image_source_edit"]["name"],
 
                         ];
 
                         $this->db->where('kode', $input_kode_barang);
                         $resultstore = $this->db->update('master_stock', $request);                    
-
                         if($resultstore) {
                             $result = true;
                         } else {
@@ -241,9 +241,23 @@ class Stock extends MY_Controller {
     }    
     
     public function store() {
-        
+
         $input_kode_barang = $this->input->post('input_kode_barang');
-        $kategori_item = $this->input->post('kategori_item');
+        switch ($this->input->post('kategori_item')) {
+            case '1':
+                $kategori_item = "unit"; 
+                break;
+            case '2':
+                $kategori_item = "material"; 
+                break;
+            case '3':
+                $kategori_item = "sparepart"; 
+                break;
+            case '4':
+                $kategori_item = "jasa"; 
+                break;
+        }
+        
         $nama_barang = $this->input->post('nama_barang');
         $input_satuan_barang = $this->input->post('input_satuan_barang');
         $stock_minimal = $this->input->post('stock_minimal');
@@ -257,9 +271,11 @@ class Stock extends MY_Controller {
         $this->load->model('gudang/StockModel');
         
         if($_FILES["image_source"]["error"] == 0) {
-            
-                $target_dir = $_SERVER['DOCUMENT_ROOT']."/ptssm/app2/assets/img/";
-                $target_file = $target_dir . basename($_FILES["image_source"]["name"]);
+
+                $target_dir = $_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/";
+                $randomstr = $this->getRandomString(5);
+                $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source"]["name"]);
+
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
                 // Check if image file is a actual image or fake image
@@ -284,21 +300,22 @@ class Stock extends MY_Controller {
                 if ($uploadOk == 0) {
 
                 } else {
+                    
                     if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
 
                         $request = [
                             "kode" => $input_kode_barang,
-                            "kategori" => $kategori_item,
                             "nama" => $nama_barang,
-                            "satuan" => $input_satuan_barang,
                             "stock" => $stock_minimal,
-                            "tipe" => $tipe,
                             "merk" => $merek,
-                            "tipe_gudang" => $tipe_gudang,
                             "btu" => $btu,
+                            "kategori" => $kategori_item,
+                            "satuan" => $input_satuan_barang,
+                            "tipe" => $tipe,
+                            "tipe_gudang" => $tipe_gudang,
                             "daya_listrik" => $daya,
                             "keterangan" => $keterangan_barang,
-                            "gambar" => $_FILES["image_source"]["name"],
+                            "gambar" => $randomstr."_".$_FILES["image_source"]["name"],
 
                         ];
                     

@@ -1,21 +1,20 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class SpkPemasanganModel extends CI_Model {
+class SpkServiceModel extends CI_Model {
 
-	public function getalldata($tipe) {
-		$this->db->select("data_spk_pemasangan.id, data_spk_pemasangan.tanggal, data_spk_pemasangan.no_spk, data_customer.nama, data_customer.telepon, data_spk_pemasangan.status");
-		$this->db->from("data_spk_pemasangan");
-		$this->db->join("data_customer", 'data_customer.id = data_spk_pemasangan.id_pelanggan');
-		$this->db->where("data_spk_pemasangan.tipe", $tipe);
-		$this->db->order_by("data_spk_pemasangan.iat DESC");
+	public function getalldata() {
+		$this->db->select("data_spk_service.id, data_spk_service.tanggal, data_spk_service.no_spk, data_customer.nama, data_customer.telepon, data_spk_service.status");
+		$this->db->from("data_spk_service");
+		$this->db->join("data_customer", 'data_customer.id = data_spk_service.id_pelanggan');
+		$this->db->order_by("data_spk_service.iat DESC");
 		$result = $this->db->get()->result_array();
 		return $result;
 	}
 
 	public function getdata($no_spk) {
 		$this->db->select("*");
-		$this->db->from("data_spk_pemasangan");
+		$this->db->from("data_spk_service");
 		$this->db->where("no_spk",$no_spk);
 		$result = $this->db->get()->row();
 		return $result;
@@ -23,7 +22,7 @@ class SpkPemasanganModel extends CI_Model {
 
 	public function getdataitem($no_spk) {
 		$this->db->select("*");
-		$this->db->from("data_spk_pemasangan_item");
+		$this->db->from("data_spk_service_item");
 		$this->db->where("no_spk",$no_spk);
 		$result = $this->db->get()->result_array();
 		return $result;
@@ -31,7 +30,7 @@ class SpkPemasanganModel extends CI_Model {
 
 	public function store() {
 		$this->db->select("no_spk");
-		$this->db->from("data_spk_pemasangan");
+		$this->db->from("data_spk_service");
 		$this->db->where("no_spk",$_POST['no_spk']);
 		$result = $this->db->get()->row();
 
@@ -57,7 +56,7 @@ class SpkPemasanganModel extends CI_Model {
 			"status" => $_POST['status']
 		];
 
-		$result1 = $this->db->insert("data_spk_pemasangan",$data1);
+		$result1 = $this->db->insert("data_spk_service",$data1);
 
 		if($result1) {
 			for($i = 0;$i < count($_POST['item']);$i++) {
@@ -71,7 +70,7 @@ class SpkPemasanganModel extends CI_Model {
 					"jumlah" => $_POST['item'][$i]['jumlah_barang'],
 					"keterangan" => $_POST['item'][$i]['keterangan']
 				];
-				$result2 = $this->db->insert("data_spk_pemasangan_item",$data2);
+				$result2 = $this->db->insert("data_spk_service_item",$data2);
 				if($result2) {
 					return [
 						"state" => true,
@@ -117,11 +116,11 @@ class SpkPemasanganModel extends CI_Model {
 		];
 
 		$this->db->where("no_spk",$_POST['no_spk']);
-		$result1 = $this->db->update("data_spk_pemasangan",$data1);
+		$result1 = $this->db->update("data_spk_service",$data1);
 
 		if($result1) {
 
-			$resultdelete = $this->db->delete("data_spk_pemasangan_item",["no_spk" => $_POST['no_spk']]);
+			$resultdelete = $this->db->delete("data_spk_service_item",["no_spk" => $_POST['no_spk']]);
 
 			if($resultdelete) {
 
@@ -137,7 +136,7 @@ class SpkPemasanganModel extends CI_Model {
 						"keterangan" => $_POST['item'][$i]['keterangan']
 					];
 
-					$result2 = $this->db->insert("data_spk_pemasangan_item",$data2);
+					$result2 = $this->db->insert("data_spk_service_item",$data2);
 				}
 
 

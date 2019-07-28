@@ -67,6 +67,27 @@
 				}
 			</style>
 
+		<style type="text/css">
+            .swal2-icon.swal2-question { font-size: 13px; line-height: 65px; }
+            .swal2-icon.swal2-warning { font-size: 13px; line-height: 65px; }
+            .swal2-icon.swal2-info { font-size: 13px; line-height: 65px; }
+            .swal2-icon.swal2-error { font-size: 13px; line-height: 65px; }
+		</style>
+
+		<!--begin::Base Scripts -->
+		<script src="<?= base_url() ?>assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+		<script src="<?= base_url() ?>assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
+		<!--end::Base Scripts -->
+		<!--begin::Page Vendors -->
+		<script src="<?= base_url() ?>assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
+        <script src="<?=base_url()?>assets/vendors/custom/sweetalert2/sweetalert2.all.min.js"></script>
+        <script src="<?=base_url()?>assets/vendors/custom/promise-polyfill/promise.min.js"></script>
+		<!--end::Page Vendors -->
+		<!--begin::Page Snippets -->
+		<script src="<?= base_url() ?>assets/app/js/dashboard.js" type="text/javascript"></script>
+        <script src="<?=base_url()?>assets/app/js/helper.js" type="text/javascript"></script>
+		<!--end::Page Snippets -->
+
 	</head>
 	<!-- end::Head -->
 	<!-- end::Body -->

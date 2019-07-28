@@ -8,7 +8,7 @@
 								</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
-										<a href="<?= base_url() ?>" class="m-nav__link m-nav__link--icon">
+										<a href="<?= base_url() ?>gudang" class="m-nav__link m-nav__link--icon">
 											<i class="m-nav__link-icon la la-home"></i>
 										</a>
 									</li>
@@ -16,7 +16,7 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= base_url() ?>inventory" class="m-nav__link">
+										<a href="<?= base_url() ?>gudang/inventory" class="m-nav__link">
 											<span class="m-nav__link-text">
 												Inventory
 											</span>
@@ -36,7 +36,10 @@
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
-													List Pengeluaran Material
+													List Pengeluaran Material <br><?php 
+													if($this->session->flashdata('status')) {
+														echo "<div class='alert alert-".$this->session->flashdata('status')."'>".$this->session->flashdata('flsh_msg')."</div>";
+													} ?>
 												</h3>
 											</div>
 										</div>
@@ -69,17 +72,17 @@
 																				<h3 class="m-portlet__head-text">
 																					List Inventory
 																				</h3>
-																				<button onclick="window.location.href = 'tambah_inventory.html';" type="button" class="btn btn-success btn_tambah_spk">Tambah Item Inventory</button>
+								<button onclick="window.location.href = '<?= site_url() ?>gudang/inventory/tambah';" type="button" class="btn btn-success btn_tambah_spk">Tambah Item Inventory</button>
 																			</div>
 																		</div>
-																		<div class="col-md-4 offset-md-4">
-																			<div class="m-input-icon m-input-icon--left">
-																				<input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
-																				<span class="m-input-icon__icon m-input-icon__icon--left">
-																					<span>
-																						<i class="la la-search"></i>
-																					</span>
-																				</span>
+								<div class="col-md-4 offset-md-4">
+								<div class="m-input-icon m-input-icon--left">
+								<input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
+								<span class="m-input-icon__icon m-input-icon__icon--left">
+								<span>
+									<i class="la la-search"></i>
+								</span>
+								</span>
 																			</div>
 																		</div>
 																	</div>
@@ -102,35 +105,51 @@
 																</tr>
 															</thead>
 															<tbody>
-																<tr>
-																	<td>1</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	<td>
-																		<img class="" src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//1027/alexander_alexander-step-ladder-aluminium-tangga--135-cm-_full02.jpg" width="100px">
-																	</td>
-																	<td> 
-																		<select class="form-control s-input s-input--square" id="pilih_status">
-																			<option>Tersedia</option>
-																			<option>Pak Tarno(T21)</option>
-																			<option>Sulaiman (T22)</option>
-																			<option>Kadir(T33)</option>
-																			<option>Bso(T44)</option>
-																		</select>
-																	</td>
-																	<td>
-																		<a href="print_barcode_inventory.html" class="btn btn-sm btn-secondary btn_print_barcode"  style="color:black; width:40px;">
-																			<i class="fa fa-barcode"></i>
-																		</a>
-																		<a href="edit_inventory.html" class="btn btn-sm btn-secondary btn_edit"  style="color:black; width:40px;">
-																			<i class="fa fa-edit"></i>
-																		</a>
-																		<a class="btn btn-sm btn-secondary btn_hapus"  style="color:black; width:40px;">
-																			<i class="fa fa-trash-o"></i>
-																		</a>
-																	</td>
-																</tr>
+									<?php 
+									if(!isset($data['inventory']['tersedia'])) { ?>
+										<tr>
+											<td colspan="6" class="text-center">Tidak ada Material yang Tersedia</td>
+										</tr>
+									<?php } else {
+										$no = 1;
+
+									for ($i=0; $i < count($data['inventory']['tersedia']); $i++) { ?>
+											<tr>
+												<td><?= $no; ?></td>
+												<td><?= $data['inventory']['tersedia'][$i]['id']; ?></td>
+												<td><?= $data['inventory']['tersedia'][$i]['nama']; ?></td>
+												<td><?= $data['inventory']['tersedia'][$i]['no_seri']; ?></td>
+												<td>
+													<img style="width: 150px !important" src="<?= base_url() ?>assets/img/<?= $data['inventory']['tersedia'][$i]['gambar']; ?>" alt="<?= $data['inventory']['tersedia'][$i]['gambar']; ?>">
+															
+												</td>
+												<td>
+													<select name="set_peminjam" id="set_peminjam" class="form-control">
+														<option value="">Tersedia</option>
+														<?php 
+
+															foreach ($data['teknisi'] as $value) { ?>
+
+																<option data-id="<?= $data['inventory']['tersedia'][$i]['id'] ?>" data-nama="<?= $data['inventory']['tersedia'][$i]['nama'] ?>" value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+
+														<?php }
+
+														 ?>
+													</select>
+												</td>
+												<td>
+													<a target="_blank" href="<?= site_url() ?>gudang/inventory/barcode/<?= $data['inventory']['tersedia'][$i]['no_seri'] ?>" class="btn btn-sm btn-secondary btn_print_barcode"  style="color:black; width:40px;">
+														<i class="fa fa-barcode"></i>
+													</a>
+													<a href="<?= site_url() ?>gudang/inventory/edit/<?= $data['inventory']['tersedia'][$i]['id'] ?>" class="btn btn-sm btn-secondary"  style="color:black; width:40px;">
+														<i class="fa fa-edit"></i>
+													</a>
+													<a class="btn btn-sm btn-secondary btn_hapus"  style="color:black; width:40px;" data-id="<?= $data['inventory']['tersedia'][$i]['id'] ?>" data-nama="<?= $data['inventory']['tersedia'][$i]['nama'] ?>" data-gambar="<?= $data['inventory']['tersedia'][$i]['gambar'] ?>">
+														<i class="fa fa-trash-o"></i>
+													</a>
+												</td>
+											</tr>
+									<?php $no++; } } ?>
 															</tbody>
 														</table>
 														<!--end: Datatable -->
@@ -171,94 +190,43 @@
 														<!-- <div class="m_datatable" id="local_data"></div> -->
 														<table class="table" id="tbl_list_item_peminjaman">
 															<thead>
-																<tr>
-																	<th>No</th>
-																	<th>ID Barang</th>
-																	<th>Nama Barang</th>
-																	<th>No Seri</th>
-																	<th>Gambar</th>
-																	<th>Status</th>
-																	<th>Aksi</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>1</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	<td>
-																		<img class="gambar_inventory" src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//1027/alexander_alexander-step-ladder-aluminium-tangga--135-cm-_full02.jpg">
-																	</td>
-																	
-																	<td>Aldi</td>
-																	<td>
-																		<button class="btn btn-success btn_selesai">
-																			Selesai
-																		</button>
-																	</td>
-																</tr>
-																<tr>
-																	<td>2</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	<td>
-																		<img class="gambar_inventory" src="https://www.arrowasiaindonesia.com/wp-content/uploads/2018/01/Sledge-Hammers.jpg">
-																	</td>
-																	<td>Rifal</td>
-																	<td>
-																		<button class="btn btn-success btn_selesai">
-																			Selesai
-																		</button>
-																	</td>
-																</tr>
-																<tr>
-																	<td>3</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	<td>
-																		<img class="gambar_inventory" src="http://3.bp.blogspot.com/-kVUpOGrIOTY/Tcq8E3U3ZMI/AAAAAAAAAQM/SHca5UdzM-k/s1600/JET-CLEANER.JPG">
-																	</td>
-																	<td>Fascal</td>
-																	<td>
-																		<button class="btn btn-success btn_selesai">
-																			Selesai
-																		</button>
-																	</td>
-																</tr>
-																<tr>
-																	<td>4</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	<td>
-																		<img class="gambar_inventory" src="http://www.omegaacmobil.com/wp-content/uploads/2013/07/BENGKEL-SERVICE-AC-MOBIL-AVANZA-SURABAYA-0852.5858.6262.jpg">
-																	</td>
-																	<td>Rifal</td>
-																	<td>
-																		<button class="btn btn-success btn_selesai">
-																			Selesai
-																		</button>
-																	</td>
-																</tr>
-																<tr>
-																	<td>5</td>
-																	<td>#14253617</td>
-																	<td>Item A</td>
-																	<td>1309D4211</td>
-																	<td>
-																		<img class="gambar_inventory" src="https://www.tokootomotif.com/wp-content/uploads/2018/07/3-in-1-Tube-Bender-Pembengkok-Pipa-14-516-38-07-707-SELLERY5-300x366.jpg">
-																	</td>
-																	<td>Fascal</td>
-																	<td>
-																		<button class="btn btn-success btn_selesai">
-																			Selesai
-																		</button>
-																	</td>
-																</tr>
+																<?php 
+									if(!isset($data['inventory']['dipinjam'])) { ?>
+										<tr>
+											<td colspan="6" class="text-center">Tidak ada Material yang Dipinjam</td>
+										</tr>
+									<?php } else {
+										$no = 1;
+
+									$no = 1;
+									for ($i=0; $i < count($data['inventory']['dipinjam']); $i++) { ?>
+											<tr>
+												<td><?= $no; ?></td>
+												<td><?= $data['inventory']['dipinjam'][$i]['id']; ?></td>
+												<td><?= $data['inventory']['dipinjam'][$i]['nama']; ?></td>
+												<td><?= $data['inventory']['dipinjam'][$i]['no_seri']; ?></td>
+												<td>
+													<img style="width:100px !important" src="<?= base_url() ?>assets/img/<?= $data['inventory']['dipinjam'][$i]['gambar']; ?>" alt="<?= $data['inventory']['dipinjam'][$i]['gambar']; ?>">
+															
+												</td>
+												<td>
+												<?php 
+													foreach ($data['teknisi'] as $value) {
+														if($value['id'] == $data['inventory']['dipinjam'][$i]['teknisi_id']) { ?>
+															<td><?= $value['name'] ?></td>
+													<?php break; } 
+													}
+												?>
+												</td>
+												<td>
+													<button class="btn btn-success btn_selesai" data-id="<?= $data['inventory']['dipinjam'][$i]['id'] ?>" data-nama="<?= $data['inventory']['dipinjam'][$i]['nama'] ?>">
+														Selesai
+													</button>
+												</td>
+												</tr>
+												<?php $no++; } } ?>
 															</tbody>
+
 														</table>
 														<!--end: Datatable -->
 													</div>

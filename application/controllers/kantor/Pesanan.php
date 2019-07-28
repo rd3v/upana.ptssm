@@ -18,7 +18,7 @@ class Pesanan extends MY_Controller {
                 "name" => $this->session->userdata('name'),
                 "email" => $this->session->userdata('email'),
                 "accesstype" => $this->session->userdata('accesstype')
-            ]            
+            ]
         ];
     }
 
@@ -28,7 +28,7 @@ class Pesanan extends MY_Controller {
         ];
 
         $this->load->view('header_menu',$this->header);
-        $this->load->view('kantor/pesanan_spk_pemasangan');
+        $this->load->view('kantor/pesanan_spk_pemasangan', ['new_id' => acak_id('data_spk_pemasangan', 'id')]);
         $this->load->view('footer',$footer);
     }
 
@@ -37,7 +37,7 @@ class Pesanan extends MY_Controller {
         $response = $this->SpkPemasanganModel->getalldata();
         $this->sendResponse($response);
     }
-    
+
     public function spk_pemasangan_tambah() {
 
         $this->load->model('kantor/CustomerModel');
@@ -47,6 +47,7 @@ class Pesanan extends MY_Controller {
         $stock = $this->MasterStockModel->getdata();
 
         $content['data'] = [
+            'id' => $this->input->get('id', TRUE),
             "customer" => $customer,
             "stock" => $stock
         ];
@@ -57,7 +58,7 @@ class Pesanan extends MY_Controller {
 
         $this->load->view('header_menu',$this->header);
         $this->load->view('kantor/pesanan_spk_pemasangan_tambah',$content);
-        $this->load->view('footer',$footer);
+        $this->load->view('footer2',$footer);
     }
 
     public function spk_pemasangan_edit($no_spk) {
@@ -71,7 +72,7 @@ class Pesanan extends MY_Controller {
         $stock = $this->MasterStockModel->getdata();
         $SpkPemasangan = $this->SpkPemasanganModel->getdata($no_spk);
         $SpkPemasanganItem = $this->SpkPemasanganModel->getdataitem($no_spk);
-        
+
         $content['data'] = [
             "customer" => $customer,
             "stock" => $stock,
@@ -105,7 +106,7 @@ class Pesanan extends MY_Controller {
         $id = $this->input->post("id");
         $this->load->model('kantor/customerModel');
         $result = $this->customerModel->getcustomer($id);
-        $this->sendResponse($result);        
+        $this->sendResponse($result);
     }
 
     public function spk_service_index() {

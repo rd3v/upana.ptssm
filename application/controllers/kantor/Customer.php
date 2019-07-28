@@ -98,7 +98,7 @@ class Customer extends MY_Controller {
             "id"    => $result->id
         ];
 
-        $this->load->view('header_menu',$this->header);
+        $this->load->view('header_menu2',$this->header);
         $this->load->view('kantor/customer_rincian',$content);
         $this->load->view('footer2',$footer);
     }
