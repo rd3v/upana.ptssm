@@ -4,7 +4,7 @@
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
 								<h3 class="m-subheader__title m-subheader__title--separator">
-									SPK Pemasangan
+									SPK Service
 								</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
@@ -26,9 +26,9 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= base_url() ?>kantor/order/spk-pemasangan" class="m-nav__link">
+										<a href="<?= base_url() ?>kantor/spk-service" class="m-nav__link">
 											<span class="m-nav__link-text">
-												SPK Pemasangan
+												SPK Service
 											</span>
 										</a>
 									</li>
@@ -50,9 +50,9 @@
 														<div class="col-md-4">
 															<div class="m-portlet__head-title">
 																<h3 class="m-portlet__head-text">
-																	List SPK Pemasangan
+																	List SPK Service
 																</h3>
-																<button onclick="window.location.href = '<?= site_url() ?>kantor/order/spk-pemasangan/tambah';" type="button" class="btn btn-success btn_tambah_spk"> + Tambah SPK</button>
+																<button onclick="window.location.href = '<?= site_url() ?>kantor/spk-service/tambah?id=<?=$new_id['id']?>';" type="button" class="btn btn-success btn_tambah_spk"> + Tambah SPK</button>
 															</div>
 														</div>
 														<div class="col-md-4 offset-md-4">
@@ -72,7 +72,7 @@
 										<!--end: Search Form -->
 										<!--begin: Datatable -->
 										<!-- <div class="m_datatable" id="local_data"></div> -->
-										<table class="table" id="tbl_spk_pemasangan">
+										<table class="table" id="datatable">
 											<thead>
 												<tr>
 													<th>No</th>
@@ -95,3 +95,90 @@
 				</div>
 			</div>
 			<!-- end:: Body -->
+
+			<script>
+				var datatable = $('#datatable').mDatatable({
+					data: {
+						saveState: {cookie: false},
+						type: 'remote',
+				        source: {
+				          read: {
+				            method: 'POST',
+				            url: '<?=site_url()?>kantor/spk-service/getdata',
+				            map: function(raw) {
+				              // sample data mapping
+				              var dataSet = raw;
+				              if (typeof raw.data !== 'undefined') {
+				                dataSet = raw.data;
+				              }
+				              return dataSet;
+				            },
+				          },
+				        },
+				        pageSize: 10,
+				        serverPaging: true,
+				        serverFiltering: true,
+				        serverSorting: true,
+				    },
+					// layout definition
+					layout: {
+						theme: 'default', // datatable theme
+						class: '', // custom wrapper class
+						scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+						// height: 450, // datatable's body's fixed height
+						footer: false // display/hide footer
+					},
+
+					// column sorting
+					sortable: false,
+					search: {
+						input: $('#generalSearch'),
+					},
+					columns: [
+
+					{
+						field: 'no',
+						textAlign: 'center',
+						template: function(data, type, row, meta) {
+							return data.getIndex() + 1;
+						}
+					},
+					{
+						field: 'tanggal',
+						textAlign: 'center',
+						type:'date',
+						template: function(data, type, row, meta) {
+							var tanggal = data.tanggal.split("-");
+							return tanggal[2] + "-" + tanggal[1] + "-" + tanggal[0];
+						}
+					},
+					{
+						field: 'no_spk',
+						textAlign: 'center',
+
+					},
+					{
+						field: 'nama',
+						textAlign: 'center',
+					},
+					{
+						field: 'telepon',
+						textAlign: 'center',
+					},
+					{
+						field: 'status',
+						textAlign: 'center',
+					},
+					{
+						field: 'aksi',
+						textAlign: 'center',
+						template: function(data) {
+							var btnedit = "<a href='<?= site_url() ?>kantor/spk-service/edit/"+data.id+"' class='btn btn-sm btn-info' style='color:white; width:70px;'>Edit</a>";
+							var btnrincian = "<a href='<?= site_url() ?>kantor/spk-service/rincian/"+data.id+"' class='btn btn-sm btn-primary' style='color:white; width:70px;'>Rincian</a>";
+							return btnrincian + " " + btnedit;
+						}
+					}
+
+					],
+				});
+			</script>

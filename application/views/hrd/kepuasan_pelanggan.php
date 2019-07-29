@@ -66,49 +66,35 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<td>1</td>
-															<td>20/19/2018</td>
-															<td>1923102301</td>
-															<td>Pemasangan</td>
-															<td>Bpk. Hendy</td>
-															<td>Pak Tarno</td>
-															<td>Selesai</td>
-															<td>Puas <i class="fa fa-smile-o"></i> </td>
-														</tr>
-														<tr>
-															<td>1</td>
-															<td>20/19/2018</td>
-															<td>1923102301</td>
-															<td>Pemasangan</td>
-															<td>Bpk. Hendy</td>
-															<td>Pak Tarno</td>
-															<td>Selesai</td>
-															<td> Tidak Puas <i class="fa fa-frown-o"></i> </td>
-														</tr>
-														<tr>
-															<td>1</td>
-															<td>20/19/2018</td>
-															<td>1923102301</td>
-															<td>Pemasangan</td>
-															<td>Bpk. Hendy</td>
-															<td>Pak Tarno</td>
-															<td>Selesai</td>
-															<td>Biasa Saja <i class="fa fa-meh-o"></i> </td>
-														</tr>
-														<tr>
-															<td>1</td>
-															<td>20/19/2018</td>
-															<td>1923102301</td>
-															<td>Pemasangan</td>
-															<td>Bpk. Hendy</td>
-															<td>Pak Tarno</td>
-															<td>Pengerjaan</td>
-															<td> Belum Ada Data </i> </td>
-														</tr>
+<?php
+$status = ['Aktif', 'Progress', 'Selesai', 'Batal'];
+$i = 1;
+foreach ($data['data'] as $row) {
+	$teknisi = [];
+	$id_teknisi = explode(',', $row->id_teknisi);
+	for ($j = 0; $j < sizeof($id_teknisi); $j++) {
+		array_push($teknisi, $this->crud->gda('users', ['id' => $id_teknisi[$j]])['name']);
+	}
 
-
-													
+	if ($row->kepuasan == 0) {
+		$kepuasan = 'Tidak Puas <i class="fa fa-frown-o"></i>';
+	} elseif ($row->kepuasan == 1) {
+		$kepuasan = 'Biasa Saja <i class="fa fa-meh-o"></i>';
+	} else {
+		$kepuasan = 'Puas <i class="fa fa-smile-o"></i>';
+	}
+?>
+														<tr>
+															<td><?=$i?></td>
+															<td><?=tgl_indo($row->tanggal)?></td>
+															<td><?=$row->no_spk?></td>
+															<td><?=$row->tipe_spk?></td>
+															<td><?=$row->nama?></td>
+															<td><?=($row->id_teknisi ? implode(', ', $teknisi) : '-')?></td>
+															<td><?=$status[$row->status]?></td>
+															<td><?=($row->status == 2 ? $kepuasan : 'Belum Ada Data')?></td>
+														</tr>
+<?php $i++; } ?>
 													</tbody>
 												</table>
 												<!--end: Datatable -->
