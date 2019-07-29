@@ -2692,10 +2692,12 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				],
 			});
 
-				<?php } if($data['route'] == "gudang/barang/masuk/proses/(:num)") { ?>
+				<?php } if($data['route'] == "gudang/barang/masuk/proses/(:any)") { ?>
 					$("li#barang").addClass("m-menu__item--active");
 					var serial = [];
+					
 					$('#btn_simpan').click(function(e) {
+
 						for(var i = 1;i < no;i++) {
 							serial.push({
 								kode_list_barang:kode,
@@ -3463,7 +3465,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									textAlign: 'center'
 								},
 								{
-									field: 'daya_listrik',
+									field: 'stock',
 									textAlign: 'center'
 								},
 								{
