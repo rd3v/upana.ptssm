@@ -35,7 +35,7 @@
 							</ul>
 						</div>
 						<div>
-							
+
 					</div>
 				</div>
 			</div>
@@ -92,6 +92,17 @@
 										</div>
 
 									</div>
+									<div class="form-group m-form__group row">
+										<div class="col-12">
+                                            <fieldset class="gllpLatlonPicker">
+                                                <br/><div>Geser marker untuk menentukan lokasi di peta:</div>
+                                                <div class="gllpMap" style="width: 100%; height: 500px;">Google Maps</div><br/>
+                                                <input type="hidden" class="gllpLatitude" id="lat" value="<?= $data->lat ? $data->lat : '-5.152367300387836' ?>" />
+                                                <input type="hidden" class="gllpLongitude" id="lon" value="<?= $data->lon ? $data->lon : '119.44765090942383' ?>" />
+                                                <input type="hidden" class="gllpZoom" value="13" />
+                                            </fieldset>
+										</div>
+									</div>
 									<div style="margin-top: 20px" align="center">
 										<button id="btn_edit_data_pelanggan" type="button" class="btn btn-primary">
 											Edit Data Pelanggan
@@ -135,14 +146,14 @@
 									AC Split 1/2 PK Malaysia
 								</option>
 								<option value="2">
-									AC Daikin 1 PK 
+									AC Daikin 1 PK
 								</option>
 								<option value="3">
 									AC Split 1 PK Thailand
 								</option>
 							</select>
 						</div>
-					</div> 
+					</div>
 					<div class="form-group m-form__group row">
 						<label for="example-text-input" class="col-2 col-form-label">
 							Jumlah
@@ -179,3 +190,7 @@
 		</div>
 	</div>
 	<!-- End::Modals -->
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGWlOWmWq1SyVuPJvCZBWoXgvcPR__QKk" type="text/javascript"></script>
+    <link rel="stylesheet" href="<?=base_url()?>assets/vendors/custom/jquery-latitude-longitude-picker-gmaps/css/jquery-gmaps-latlon-picker.css" rel="stylesheet" />
+    <script src="<?=base_url()?>assets/vendors/custom/jquery-latitude-longitude-picker-gmaps/js/jquery-gmaps-latlon-picker.js"></script>

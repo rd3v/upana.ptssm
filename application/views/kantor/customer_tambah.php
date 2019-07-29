@@ -89,7 +89,17 @@
 												</div>
 
 											</div>
-
+											<div class="form-group m-form__group row">
+												<div class="col-12">
+                                                    <fieldset class="gllpLatlonPicker">
+                                                        <br/><div>Geser marker untuk menentukan lokasi di peta:</div>
+	                                                    <div class="gllpMap" style="width: 100%; height: 500px;">Google Maps</div><br/>
+	                                                    <input type="hidden" class="gllpLatitude" id="lat" value="-5.152367300387836" />
+	                                                    <input type="hidden" class="gllpLongitude" id="lon" value="119.44765090942383" />
+	                                                    <input type="hidden" class="gllpZoom" value="13" />
+	                                                </fieldset>
+												</div>
+											</div>
 
 											<div class="form-group m-form__group row">
 												<label  class="col-2 col-form-label">
@@ -125,4 +135,7 @@
 			</div>
 		</div>
 		<!-- end:: Body -->
-		
+
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGWlOWmWq1SyVuPJvCZBWoXgvcPR__QKk" type="text/javascript"></script>
+        <link rel="stylesheet" href="<?=base_url()?>assets/vendors/custom/jquery-latitude-longitude-picker-gmaps/css/jquery-gmaps-latlon-picker.css" rel="stylesheet" />
+        <script src="<?=base_url()?>assets/vendors/custom/jquery-latitude-longitude-picker-gmaps/js/jquery-gmaps-latlon-picker.js"></script>

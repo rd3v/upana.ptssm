@@ -6,6 +6,7 @@ class CustomerModel extends CI_Model {
    public function getdata() {
        $this->db->select("*");
        $this->db->from("data_customer");
+       $this->db->order_by("iat DESC");
        $result = $this->db->get()->result_array();
        return $result;
    }
@@ -28,7 +29,9 @@ class CustomerModel extends CI_Model {
        $data = [
            "nama" => $request['nama'],
            "telepon" => $request['telepon'],
-           "alamat" => $request['alamat']
+           "alamat" => $request['alamat'],
+           "lat" => $request['lat'],
+           "lon" => $request['lon']
         ];
        $this->db->where("id",$request['id']);
        $result = $this->db->update("data_customer",$data);
@@ -36,7 +39,7 @@ class CustomerModel extends CI_Model {
    }
 
    public function getcustomer($id) {
-       $this->db->select("id,nama,telepon,alamat,tipe,email");
+       $this->db->select("id,nama,telepon,alamat,lat,lon,tipe,email");
        $this->db->from("data_customer");
        $this->db->where("id",$id);
        $result = $this->db->get();

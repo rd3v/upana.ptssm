@@ -56,9 +56,9 @@ class Customer extends MY_Controller {
             "route" => $this->getRoute()
         ];
 
-        $this->load->view('header_menu',$this->header);
+        $this->load->view('header_menu2',$this->header);
         $this->load->view('kantor/customer_tambah',$content);
-        $this->load->view('footer',$footer);
+        $this->load->view('footer2',$footer);
     }
 
     public function edit($id) {
@@ -77,9 +77,9 @@ class Customer extends MY_Controller {
             "route" => $this->getRoute()
         ];
 
-        $this->load->view('header_menu',$this->header);
+        $this->load->view('header_menu2',$this->header);
         $this->load->view('kantor/customer_edit',$content);
-        $this->load->view('footer',$footer);
+        $this->load->view('footer2',$footer);
     }
 
     public function rincian($id) {
@@ -240,6 +240,8 @@ class Customer extends MY_Controller {
         $nama = $this->input->post('nama');
         $telepon = $this->input->post('telepon');
         $alamat = $this->input->post('alamat');
+        $lat = $this->input->post('lat');
+        $lon = $this->input->post('lon');
         $tipe = $this->input->post('tipe');
 
         $request = [
@@ -247,6 +249,8 @@ class Customer extends MY_Controller {
             "nama" => $nama,
             "telepon" => $telepon,
             "alamat" => $alamat,
+            "lat" => $lat,
+            "lon" => $lon,
             "tipe" => $tipe
         ];
 
@@ -274,12 +278,16 @@ class Customer extends MY_Controller {
         $nama = $this->input->post('nama');
         $telepon = $this->input->post('telepon');
         $alamat = $this->input->post('alamat');
+        $lat = $this->input->post('lat');
+        $lon = $this->input->post('lon');
 
         $request = [
             "id" => $id,
             "nama" => $nama,
             "telepon" => $telepon,
-            "alamat" => $alamat
+            "alamat" => $alamat,
+            "lat" => $lat,
+            "lon" => $lon
         ];
 
         $result = $this->customerModel->update($request);

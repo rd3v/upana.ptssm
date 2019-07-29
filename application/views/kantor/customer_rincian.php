@@ -158,12 +158,7 @@
 						</label>
 						<div class="col-9">
 							<div class="input-group">
-								<!-- <input type="text" class="form-control m-input" id="tipe" /> -->
-								<select class="form-control m-input" id="tipe">
-									<option value=""></option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-								</select>
+								<input type="text" class="form-control m-input" id="tipe" />
 								<div class="input-group-append">
 								</div>
 							</div>
