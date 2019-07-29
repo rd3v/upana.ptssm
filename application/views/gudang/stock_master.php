@@ -117,10 +117,10 @@
 													<select style="width: 100%" class="form-control " name="tipe_gudang">
 														<option value=""></option>
 														<option value="1">
-															Toko (Pajak)
+															Kantor (Pajak)
 														</option>
 														<option value="2">
-															Kantor (Non Pajak)
+															Toko (Non Pajak)
 														</option>
 														
 													</select>
