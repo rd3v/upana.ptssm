@@ -119,7 +119,7 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     $route['finance/invoice/masuk/getdata']['post'] = 'finance/InvoiceMasuk/getdata';
     $route['finance/invoice/masuk/tambah']['get'] = 'finance/InvoiceMasuk/tambah';
     $route['finance/invoice/masuk/tambahsubmit']['post'] = 'finance/InvoiceMasuk/store';
-    $route['finance/invoice/masuk/rincian/(:num)']['get'] = 'finance/InvoiceMasuk/rincian/$1';
+    $route['finance/invoice/masuk/rincian/(:any)']['get'] = 'finance/InvoiceMasuk/rincian/$1';
     $route['finance/invoice/masuk/hapus']['post'] = 'finance/InvoiceMasuk/hapus';
 
     $route['finance/invoice/masuk/getsatuan']['post'] = 'finance/Stock/getsatuan';
