@@ -305,14 +305,14 @@
 												</span>
 											</a>
 										</li>
-										<!-- Master Stock -->
+										<!-- Manajemen Stock -->
 										<li id="stock" class="m-menu__item" aria-haspopup="true" >
 											<a  href="<?= base_url() ?>kantor/stock" class="m-menu__link ">
 												<i class="m-menu__link-icon flaticon-list-1"></i>
 												<span class="m-menu__link-title">
 													<span class="m-menu__link-wrap">
 														<span class="m-menu__link-text">
-															Master Stock
+															Manajemen Stock
 														</span>
 													</span>
 												</span>

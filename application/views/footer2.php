@@ -158,6 +158,8 @@
 											nama:$("#nama_pelanggan").val(),
 											telepon:$("#telepon_pelanggan").val(),
 											alamat:$("#alamat_pelanggan").val(),
+											lat:$("#lat").val(),
+											lon:$("#lon").val(),
 											tipe:tipe_pelanggan
 										},
 										dataType:"json"
@@ -222,7 +224,9 @@
 											id:$("#id_pelanggan").val(),
 											nama:$("#nama_pelanggan").val(),
 											telepon:$("#telepon_pelanggan").val(),
-											alamat:$("#alamat_pelanggan").val()
+											alamat:$("#alamat_pelanggan").val(),
+											lat:$("#lat").val(),
+											lon:$("#lon").val()
 										},
 										dataType:"json"
 									}).done(function(res) {
