@@ -78,7 +78,7 @@ class Stock extends MY_Controller {
         
         if($_FILES["image_source_edit"]["error"] == 0) {
             
-                $target_dir = $_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/";
+                $target_dir = "./assets/img/";
                 $randomstr = $this->getRandomString(5);
                 $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source_edit"]["name"]);
                 $uploadOk = 1;
@@ -272,7 +272,7 @@ class Stock extends MY_Controller {
         
         if($_FILES["image_source"]["error"] == 0) {
 
-                $target_dir = $_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/";
+                $target_dir = "./assets/img/";
                 $randomstr = $this->getRandomString(5);
                 $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source"]["name"]);
 
