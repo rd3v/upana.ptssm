@@ -3491,7 +3491,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								{
 									field: 'aksi',
 									template: function(data, type, row, meta) {
-										return "<a href='<?= base_url() ?>gudang/stock/master/edit/"+data.kode + "' class='btn btn-sm btn-primary' style='color:white; width:80px;'>Edit</a><button data-id='"+data.kode+"' class='btn btn-sm btn-secondary btnhapus' style='width:80px;'>Hapus</button>";
+										return "<a href='<?= base_url() ?>gudang/stock/master/edit/"+data.id + "' class='btn btn-sm btn-primary' style='color:white; width:80px;'>Edit</a><button data-id='"+data.id+"' class='btn btn-sm btn-secondary btnhapus' style='width:80px;'>Hapus</button>";
 									},
 									textAlign: 'center',
 								}

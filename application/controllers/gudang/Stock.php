@@ -44,9 +44,9 @@ class Stock extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
-    public function edit($kode) {
+    public function edit($id) {
         $this->load->model('gudang/StockModel');
-        $result = $this->StockModel->getdata($kode);
+        $result = $this->StockModel->getdata($id);
 
         if(!empty($result)) {
             $content['data'] = $result;
