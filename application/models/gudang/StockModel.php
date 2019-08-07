@@ -55,6 +55,15 @@ class StockModel extends CI_Model {
        return $ret;
    }
 
+    public function getdata2($id) {
+       $this->db->select("*");
+       $this->db->from("master_stock");
+       $this->db->where("id",$id);
+       $result = $this->db->get();
+       $ret = $result->row();
+       return $ret;
+   }
+
     public function getdatakantor() {
         $this->db->select("*");
         $this->db->from("master_stock");
