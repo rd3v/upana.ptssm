@@ -159,53 +159,66 @@ class Inventory extends MY_Controller {
         $id_barang = $this->input->post("id_barang");
         $nama_barang = $this->input->post("nama_barang");
         $no_seri = $this->input->post("no_seri");
+        $kondisi = $this->input->post("kondisi");
  
         $this->load->model('gudang/InventoryModel');
         
         if($_FILES["image_source"]["error"] == 0) {
 
-                $target_dir = "./assets/img/";
-                $target_file = $target_dir . basename($_FILES["image_source"]["name"]);
-                
-                if(file_exists($target_file)) {
-                        $this->session->set_flashdata('status', 'warning');
-                        $this->session->set_flashdata('flsh_msg', 'Nama gambar ada yang sama, silahkan ganti nama gambar anda !');
-                        redirect(base_url()."gudang/inventory");
-                }
+                $config['upload_path']          = './assets/img/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10048;
+                $config['is_image']             = 1;
 
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                // Check if image file is a actual image or fake image
+                $this->load->library('upload', $config);
                 
-                $check = getimagesize($_FILES["image_source"]["tmp_name"]);
-                if($check !== false) {
-                    $uploadOk = 1;
-                } else {
-                    $uploadOk = 0;
-                }
+                if ($this->upload->do_upload('image_source')) {
+                    $data = ["upload_data" => $this->upload->data()];
+
+                // $target_dir = $_SERVER["DOCUMENT_ROOT"]."/upana.ptssm"."/assets/img/";
+                // $randomstr = $this->getRandomString(5);
+                // $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source"]["name"]);
                 
-                // Check if file already exists
-                if (file_exists($target_file)) {
-                    $uploadOk = 0;
-                }
+                // if(file_exists($target_file)) {
+                //         $this->session->set_flashdata('status', 'warning');
+                //         $this->session->set_flashdata('flsh_msg', 'Nama gambar ada yang sama, silahkan ganti nama gambar anda !');
+                //         redirect(base_url()."gudang/inventory");
+                // }
 
-                // Allow certain file formats
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    $uploadOk = 0;
-                }
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
+                // $uploadOk = 1;
+                // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                // // Check if image file is a actual image or fake image
+                
+                // $check = getimagesize($_FILES["image_source"]["tmp_name"]);
+                // if($check !== false) {
+                //     $uploadOk = 1;
+                // } else {
+                //     $uploadOk = 0;
+                // }
+                
+                // // Check if file already exists
+                // if (file_exists($target_file)) {
+                //     $uploadOk = 0;
+                // }
 
-                } else {
+                // // Allow certain file formats
+                // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                //     $uploadOk = 0;
+                // }
+                // // Check if $uploadOk is set to 0 by an error
+                // if ($uploadOk == 0) {
+
+                // } else {
                     
-                    if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
+                //     if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
 
                         $request = [
                             "id" => $id_barang,
                             "nama" => $nama_barang,
                             "no_seri" => $no_seri,
-                            "gambar" => $_FILES["image_source"]["name"],
-                            "status" => "tersedia"
+                            "gambar" => $data['upload_data']['file_name'],
+                            "status" => "tersedia",
+                            "kondisi" => $kondisi
                         ];
                     
                         $resultstore = $this->InventoryModel->store($request);
@@ -217,7 +230,7 @@ class Inventory extends MY_Controller {
                     } else {
                        $result = false;
                     }
-                }            
+                // }
 
         } else {
 
@@ -225,7 +238,8 @@ class Inventory extends MY_Controller {
                     "id" => $id_barang,
                     "nama" => $nama_barang,
                     "no_seri" => $no_seri,
-                    "status" => "tersedia"
+                    "status" => "tersedia",
+                    "kondisi" => $kondisi
                 ];
         
             $resultstore = $this->InventoryModel->store($request);
@@ -261,48 +275,59 @@ class Inventory extends MY_Controller {
         $id_barang = $this->input->post("id_barang");
         $nama_barang = $this->input->post("nama_barang");
         $no_seri = $this->input->post("no_seri");
- 
+        $kondisi = $this->input->post("kondisi");
+
         $this->load->model('gudang/InventoryModel');
         
         if($_FILES["image_source"]["error"] == 0) {
 
                 $target_dir = "./assets/img/";
                 $target_file = $target_dir . basename($_FILES["image_source"]["name"]);
+                unlink($target_dir.$_FILES["image_source"]["name"]);
                 
-                unlink("./assets/img/".$_FILES["image_source"]["name"]);
+                $config['upload_path']          = $target_dir;
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10048;
+                $config['is_image']             = 1;
 
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                // Check if image file is a actual image or fake image
+                $this->load->library('upload', $config);
                 
-                $check = getimagesize($_FILES["image_source"]["tmp_name"]);
-                if($check !== false) {
-                    $uploadOk = 1;
-                } else {
-                    $uploadOk = 0;
-                }
-                
-                // Check if file already exists
-                if (file_exists($target_file)) {
-                    $uploadOk = 0;
-                }
-
-                // Allow certain file formats
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    $uploadOk = 0;
-                }
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
-
-                } else {
+                if ($this->upload->do_upload('image_source')) {    
+                    $data = ["upload_data" => $this->upload->data()];           
                     
-                    if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
+                // $uploadOk = 1;
+                // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                // // Check if image file is a actual image or fake image
+                
+                // $check = getimagesize($_FILES["image_source"]["tmp_name"]);
+                // if($check !== false) {
+                //     $uploadOk = 1;
+                // } else {
+                //     $uploadOk = 0;
+                // }
+                
+                // // Check if file already exists
+                // if (file_exists($target_file)) {
+                //     $uploadOk = 0;
+                // }
+
+                // // Allow certain file formats
+                // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                //     $uploadOk = 0;
+                // }
+                // // Check if $uploadOk is set to 0 by an error
+                // if ($uploadOk == 0) {
+
+                // } else {
+                    
+                //     if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
 
                         $request = [
                             "id" => $id_barang,
                             "nama" => $nama_barang,
                             "no_seri" => $no_seri,
-                            "gambar" => $_FILES["image_source"]["name"]
+                            "kondisi" => $kondisi,
+                            "gambar" => $data['upload_data']['file_name']
                         ];
                     
                         $resultstore = $this->InventoryModel->update($request);
@@ -314,7 +339,7 @@ class Inventory extends MY_Controller {
                     } else {
                        $result = false;
                     }
-                }            
+                // }            
 
         } else {
 
@@ -322,6 +347,7 @@ class Inventory extends MY_Controller {
                     "id" => $id_barang,
                     "nama" => $nama_barang,
                     "no_seri" => $no_seri,
+                    "kondisi" => $kondisi
                 ];
         
             $resultstore = $this->InventoryModel->update($request);

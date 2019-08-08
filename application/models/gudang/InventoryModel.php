@@ -46,13 +46,15 @@ class InventoryModel extends CI_Model {
 		if(!isset($request['gambar'])) {
 			$result = $this->db->update("data_inventory",[
 				"nama" => $request['nama'],
-				"no_seri" => $request['no_seri']
+				"no_seri" => $request['no_seri'],
+				"kondisi" => $request['kondisi']
 			]);
 		} else {
 			$result = $this->db->update("data_inventory",[
 				"nama" => $request['nama'],
 				"no_seri" => $request['no_seri'],
-				"gambar" => $request['gambar']
+				"gambar" => $request['gambar'],
+				"kondisi" => $request['kondisi']
 			]);
 		}
 		

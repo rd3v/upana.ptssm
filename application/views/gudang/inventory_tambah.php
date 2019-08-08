@@ -80,6 +80,18 @@
 													<input class="form-control m-input" type="text" value="" id="no_seri" name="no_seri">
 												</div>
 											</div>
+											<div class="form-group m-form__group row">
+												<label  class="col-2 col-form-label">
+													Kondisi
+												</label>
+												<div class="col-10">
+													<select name="kondisi" class="form-control" id="kondisi">
+														<option value="">-- Pilih --</option>
+														<option value="baik">BAIK</option>
+														<option value="rusak">RUSAK</option>
+													</select>
+												</div>
+											</div>
 											
 											<div align="center" style="margin-top: 30px" class="offset-lg-3 col-lg-6">
 												<img style="display: none" id="image-preview" alt="image preview"/>

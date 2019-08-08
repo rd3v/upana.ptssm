@@ -99,6 +99,7 @@
 																	<th>ID Barang</th>
 																	<th>Nama Barang</th>
 																	<th>No Seri</th>
+																	<th>Kondisi</th>
 																	<th>Gambar</th>
 																	<th>Set Peminjam</th>
 																	<th>Aksi</th>
@@ -117,8 +118,9 @@
 											<tr>
 												<td><?= $no; ?></td>
 												<td><?= $data['inventory']['tersedia'][$i]['id']; ?></td>
-												<td><?= $data['inventory']['tersedia'][$i]['nama']; ?></td>
+												<td><?= strtoupper($data['inventory']['tersedia'][$i]['nama']); ?></td>
 												<td><?= $data['inventory']['tersedia'][$i]['no_seri']; ?></td>
+												<td><?= strtoupper($data['inventory']['tersedia'][$i]['kondisi']); ?></td>
 												<td>
 													<img style="width: 150px !important" src="<?= base_url() ?>assets/img/<?= $data['inventory']['tersedia'][$i]['gambar']; ?>" alt="<?= $data['inventory']['tersedia'][$i]['gambar']; ?>">
 															
@@ -203,8 +205,9 @@
 											<tr>
 												<td><?= $no; ?></td>
 												<td><?= $data['inventory']['dipinjam'][$i]['id']; ?></td>
-												<td><?= $data['inventory']['dipinjam'][$i]['nama']; ?></td>
+												<td><?= strtoupper($data['inventory']['dipinjam'][$i]['nama']); ?></td>
 												<td><?= $data['inventory']['dipinjam'][$i]['no_seri']; ?></td>
+												<td><?= strtoupper($data['inventory']['dipinjam'][$i]['kondisi']); ?></td>
 												<td>
 													<img style="width:100px !important" src="<?= base_url() ?>assets/img/<?= $data['inventory']['dipinjam'][$i]['gambar']; ?>" alt="<?= $data['inventory']['dipinjam'][$i]['gambar']; ?>">
 															
@@ -213,7 +216,7 @@
 												<?php 
 													foreach ($data['teknisi'] as $value) {
 														if($value['id'] == $data['inventory']['dipinjam'][$i]['teknisi_id']) { ?>
-															<td><?= $value['name'] ?></td>
+															<td><?= strtoupper($value['name']) ?></td>
 													<?php break; } 
 													}
 												?>

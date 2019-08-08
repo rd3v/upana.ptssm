@@ -2841,7 +2841,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					$("li#inventory").addClass("m-menu__item--active");		
 
 					$("input[name='id_barang']").on("input", function() {
-						if($(this).val() != "" && $("input[name='nama_barang']").val() != "" && $("input[name='no_seri']").val()) {
+						if($(this).val() != "" && $("input[name='nama_barang']").val() != "" && $("input[name='no_seri']").val() && $("select[name=kondisi]").val() != "") {
 							$("button#btn_tambah_item_inventory").removeAttr("disabled");
 						} else {
 							$("button#btn_tambah_item_inventory").attr("disabled", "disabled");
@@ -2849,7 +2849,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					});
 
 					$("input[name='nama_barang']").on("input", function() {
-						if($(this).val() != "" && $("input[name='id_barang']").val() != "" && $("input[name='no_seri']").val()) {
+						if($(this).val() != "" && $("input[name='id_barang']").val() != "" && $("input[name='no_seri']").val() && $("select[name=kondisi]").val() != "") {
 							$("button#btn_tambah_item_inventory").removeAttr("disabled");
 						} else {
 							$("button#btn_tambah_item_inventory").attr("disabled", "disabled");
@@ -2857,7 +2857,15 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					});
 
 					$("input[name='no_seri']").on("input", function() {
-						if($(this).val() != "" && $("input[name='id_barang']").val() != "" && $("input[name='nama_barang']").val()) {
+						if($(this).val() != "" && $("input[name='id_barang']").val() != "" && $("input[name='nama_barang']").val() && $("select[name=kondisi]").val() != "") {
+							$("button#btn_tambah_item_inventory").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_item_inventory").attr("disabled", "disabled");
+						}
+					});
+
+					$("select[name='kondisi']").on("change", function() {
+						if($(this).val() != "" && $("input[name='id_barang']").val() != "" && $("input[name='nama_barang']").val() && $("input[no_seri]").val() != "") {
 							$("button#btn_tambah_item_inventory").removeAttr("disabled");
 						} else {
 							$("button#btn_tambah_item_inventory").attr("disabled", "disabled");

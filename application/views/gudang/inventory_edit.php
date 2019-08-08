@@ -94,6 +94,18 @@
 													<input class="form-control m-input" type="text" value="<?= $data->no_seri ?>" name="no_seri" id="no_seri">
 												</div>
 											</div>
+											<div class="form-group m-form__group row">
+												<label  class="col-2 col-form-label">
+													Kondisi
+												</label>
+												<div class="col-10">
+													<select name="kondisi" id="kondisi" class="form-control">
+														<option value="">-- Pilih --</option>
+														<option value="baik" <?= $data->kondisi=='baik'?'selected':'' ?>>BAIK</option>
+														<option value="rusak" <?= $data->kondisi=='rusak'?'selected':'' ?>>RUSAK</option>
+													</select>
+												</div>
+											</div>
 											<div style="margin-top: 20px" align="center">
 												<button id="btn_edit_item_inventory" type="button" class="btn btn-success btn_pemasangan">Selesai</button>
 											</div>
