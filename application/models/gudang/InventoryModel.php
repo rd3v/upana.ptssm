@@ -110,7 +110,8 @@ class InventoryModel extends CI_Model {
 		if($gambar == "") {
 
 		} else {
-			unlink($_SERVER["DOCUMENT_ROOT"]."/upana.ptssm/assets/img/".$gambar);
+			unlink($_SERVER["DOCUMENT_ROOT"]."/ptssm/assets/img/".$gambar);
+			// unlink($_SERVER["DOCUMENT_ROOT"]."/upana.ptssm/assets/img/".$gambar);
 		}
 
 		$this->db->where("id",$id);
