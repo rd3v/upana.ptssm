@@ -149,8 +149,10 @@
 												</div>
 												<div align="center" style="margin-top: 30px" class="offset-lg-3 col-lg-6">
 													
-													<img src="<?= base_url() ?>assets/img/<?= $data->gambar ?>" id="image-preview-edit" alt="image preview"/>
-													<br/>
+													<img src="<?= base_url() ?>assets/img/<?= $data->gambar ?>" id="image-preview-edit" width="350px" alt="image preview"/>
+													
+													<br/><br/>
+
 													<input type="file" id="image_source_edit" name="image_source_edit" onchange="previewImage();"/>
 												</div>
 												<div class="offset-lg-3 col-lg-6">

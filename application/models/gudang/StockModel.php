@@ -27,20 +27,21 @@ class StockModel extends CI_Model {
        return $result;
    }
 
-   public function hapus($kode) {
+   public function hapus($id) {
        $this->db->select("gambar");
        $this->db->from("master_stock");
-       $this->db->where("kode",$kode);
+       $this->db->where("id",$id);
        $result = $this->db->get()->row();
        if(empty($result)) {
           return false;
        }
 
        if($result->gambar == "" or $result->gambar == null) {
-         $master_stock = $this->db->delete('master_stock', ['kode' => $kode]);
+         $master_stock = $this->db->delete('master_stock', ['id' => $id]);
        } else {
-         unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$result->gambar);
-         $master_stock = $this->db->delete('master_stock', ['kode' => $kode]);
+         // unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$result->gambar);
+         unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/assets/img/".$result->gambar);
+         $master_stock = $this->db->delete('master_stock', ['id' => $id]);
        }
        return $master_stock;
    }   

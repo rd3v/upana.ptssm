@@ -77,36 +77,49 @@ class Stock extends MY_Controller {
         $keterangan_barang = $this->input->post('keterangan_barang');
         
         if($_FILES["image_source_edit"]["error"] == 0) {
+
+                $config['upload_path']          = './assets/img/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10048;
+                $config['is_image']             = 1;
+
+                $this->load->library('upload', $config);
+
+                unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/assets/img/".$_FILES["image_source_edit"]["name"]);
+                // unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$_FILES["image_source_edit"]["name"]);
+                
+                if ($this->upload->do_upload('image_source_edit')) {
+                    $data = ["upload_data" => $this->upload->data()];
             
-                $target_dir = "./assets/img/";
-                $randomstr = $this->getRandomString(5);
-                $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source_edit"]["name"]);
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                // Check if image file is a actual image or fake image
+                // $target_dir = "./assets/img/";
+                // $randomstr = $this->getRandomString(5);
+                // $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source_edit"]["name"]);
+                // $uploadOk = 1;
+                // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                // // Check if image file is a actual image or fake image
                 
-                $check = getimagesize($_FILES["image_source_edit"]["tmp_name"]);
-                if($check !== false) {
-                    $uploadOk = 1;
-                } else {
-                    $uploadOk = 0;
-                }
+                // $check = getimagesize($_FILES["image_source_edit"]["tmp_name"]);
+                // if($check !== false) {
+                //     $uploadOk = 1;
+                // } else {
+                //     $uploadOk = 0;
+                // }
                 
-                // Check if file already exists
-                if (file_exists($target_file)) {
-                    $uploadOk = 0;
-                }
+                // // Check if file already exists
+                // if (file_exists($target_file)) {
+                //     $uploadOk = 0;
+                // }
 
-                // Allow certain file formats
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    $uploadOk = 0;
-                }
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
+                // // Allow certain file formats
+                // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                //     $uploadOk = 0;
+                // }
+                // // Check if $uploadOk is set to 0 by an error
+                // if ($uploadOk == 0) {
 
-                } else {
-                    unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$_FILES["image_source_edit"]["name"]);
-                    if (move_uploaded_file($_FILES["image_source_edit"]["tmp_name"], $target_file)) {
+                // } else {
+
+                    // if (move_uploaded_file($_FILES["image_source_edit"]["tmp_name"], $target_file)) {
 
                         $request = [
                             "kategori" => $kategori_item,
@@ -119,8 +132,7 @@ class Stock extends MY_Controller {
                             "btu" => $btu,
                             "daya_listrik" => $daya,
                             "keterangan" => $keterangan_barang,
-                            "gambar" => $randomstr."_".$_FILES["image_source_edit"]["name"],
-
+                            "gambar" => $data['upload_data']['file_name']
                         ];
 
                         $this->db->where('kode', $input_kode_barang);
@@ -133,7 +145,7 @@ class Stock extends MY_Controller {
                     } else {
                        $result = false;
                     }
-                }            
+                // }            
 
         } else {
 
@@ -169,9 +181,9 @@ class Stock extends MY_Controller {
     }
 
     public function masterhapus() {
-        $kode = $this->input->post('kode');
+        $id = $this->input->post('kode');
         $this->load->model('gudang/StockModel');
-        $result = $this->StockModel->hapus($kode);
+        $result = $this->StockModel->hapus($id);
         if($result) {
             $response = [
                 'title' => 'Berhasil',
@@ -272,36 +284,47 @@ class Stock extends MY_Controller {
         
         if($_FILES["image_source"]["error"] == 0) {
 
-                $target_dir = "./assets/img/";
-                $randomstr = $this->getRandomString(5);
-                $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source"]["name"]);
+                $config['upload_path']          = './assets/img/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10048;
+                $config['is_image']             = 1;
 
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                // Check if image file is a actual image or fake image
+                $this->load->library('upload', $config);
                 
-                $check = getimagesize($_FILES["image_source"]["tmp_name"]);
-                if($check !== false) {
-                    $uploadOk = 1;
-                } else {
-                    $uploadOk = 0;
-                }
+                if ($this->upload->do_upload('image_source')) {
+                    $data = ["upload_data" => $this->upload->data()];
+                // }
+
+                // $target_dir = "./assets/img/";
+                // $randomstr = $this->getRandomString(5);
+                // $target_file = $target_dir . basename($randomstr."_".$_FILES["image_source"]["name"]);
+
+                // $uploadOk = 1;
+                // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                // // Check if image file is a actual image or fake image
                 
-                // Check if file already exists
-                if (file_exists($target_file)) {
-                    $uploadOk = 0;
-                }
+                // $check = getimagesize($_FILES["image_source"]["tmp_name"]);
+                // if($check !== false) {
+                //     $uploadOk = 1;
+                // } else {
+                //     $uploadOk = 0;
+                // }
+                
+                // // Check if file already exists
+                // if (file_exists($target_file)) {
+                //     $uploadOk = 0;
+                // }
 
-                // Allow certain file formats
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    $uploadOk = 0;
-                }
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
+                // // Allow certain file formats
+                // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                //     $uploadOk = 0;
+                // }
+                // // Check if $uploadOk is set to 0 by an error
+                // if ($uploadOk == 0) {
 
-                } else {
+                // } else {
                     
-                    if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
+                //     if (move_uploaded_file($_FILES["image_source"]["tmp_name"], $target_file)) {
 
                         $request = [
                             "kode" => $input_kode_barang,
@@ -315,7 +338,7 @@ class Stock extends MY_Controller {
                             "tipe_gudang" => $tipe_gudang,
                             "daya_listrik" => $daya,
                             "keterangan" => $keterangan_barang,
-                            "gambar" => $randomstr."_".$_FILES["image_source"]["name"],
+                            "gambar" => $data['upload_data']['file_name'],
 
                         ];
                     
@@ -325,10 +348,12 @@ class Stock extends MY_Controller {
                         } else {
                             $result = false;
                         }
+
                     } else {
                        $result = false;
                     }
-                }            
+                
+                // }    
 
         } else {
 
