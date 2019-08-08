@@ -102,6 +102,7 @@
 				</div>
 			</div>
 			<script>
+				var id = '<?= $data['jumlah_barang']->id ?>';
 				var kode = '<?= $data['jumlah_barang']->kode ?>';
 				var no = '<?= $no; ?>';
 			</script>

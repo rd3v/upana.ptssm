@@ -13,10 +13,10 @@ class InvoiceMasukModel extends CI_Model {
        return $result;
   }
 
-  public function getjumlahserial($kode) {
-    $this->db->select("kode,nama,jumlah");
+  public function getjumlahserial($id) {
+    $this->db->select("id,kode,nama,jumlah");
     $this->db->from("data_invoice_masuk_list_barang");
-    $this->db->where("kode",$kode);
+    $this->db->where("id",$id);
     $result = $this->db->get()->row();
     return $result;
   }
@@ -27,9 +27,8 @@ class InvoiceMasukModel extends CI_Model {
        }
        
        if($result) {
-         $this->db->where("kode",$request[0]['kode_list_barang']);
-         $this->db->where("proses",null);
-         $this->db->or_where("proses",0);
+         $this->db->where("id",$request[0]['id_list_barang']);
+         $this->db->where("proses",0);
          $result2 = $this->db->update('data_invoice_masuk_list_barang', ["proses" => 1]);
          return $result2;
        } else {

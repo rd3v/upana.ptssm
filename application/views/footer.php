@@ -2684,7 +2684,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					field: 'aksi',
 					textAlign: 'center',
 					template: function(data) {
-						var html = "<a href='<?= base_url() ?>gudang/barang/masuk/proses/" + (data.kode) + "' class='btn btn-sm btn-success btn_material' style='color:white;width:80px;'>proses</a>";
+						var html = "<a href='<?= base_url() ?>gudang/barang/masuk/proses/" + (data.id) + "' class='btn btn-sm btn-success btn_material' style='color:white;width:80px;'>proses</a>";
 						return html;
 					}
 				}
@@ -2700,6 +2700,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 						for(var i = 1;i < no;i++) {
 							serial.push({
+								id_list_barang:id,
 								kode_list_barang:kode,
 								serial:$("input[name=serial" + i + "]").val()
 							});

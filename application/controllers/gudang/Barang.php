@@ -43,9 +43,9 @@ class Barang extends MY_Controller {
         $this->sendResponse($response);
     }
 
-     public function proses($kode) {
+     public function proses($id) {
         $this->load->model('gudang/InvoiceMasukModel');
-        $jumlah_barang = $this->InvoiceMasukModel->getjumlahserial($kode);
+        $jumlah_barang = $this->InvoiceMasukModel->getjumlahserial($id);
         $content['data'] = [
             "jumlah_barang" => $jumlah_barang
         ];
