@@ -10,7 +10,6 @@ class Stock extends MY_Controller {
 		$this->load->library('session');
         $this->load->helper('form');
         $this->load->helper('url');
-        $this->load->library('Datatables');
 
         if($this->session->userdata('id') == null or $this->session->userdata('accesstype') != "gudang") {
             redirect(base_url()."login",'refresh');
