@@ -10,6 +10,8 @@ class Stock extends MY_Controller {
 		$this->load->library('session');
         $this->load->helper('form');
         $this->load->helper('url');
+        $this->load->library('Datatables');
+
         if($this->session->userdata('id') == null or $this->session->userdata('accesstype') != "gudang") {
             redirect(base_url()."login",'refresh');
         }
@@ -35,13 +37,17 @@ class Stock extends MY_Controller {
 
     public function master() {
 
-        $footer['data'] = [
-            "route" => $this->getRoute()
+        $content['data'] = [
+            "route" => $this->getRoute(),
+            "user" => [
+                "id" => $this->session->userdata('id'),
+                "name" => $this->session->userdata('name'),
+                "email" => $this->session->userdata('email'),
+                "accesstype" => $this->session->userdata('accesstype')
+            ]
         ];
 
-        $this->load->view('header_menu',$this->header);
-        $this->load->view('gudang/stock_master');
-        $this->load->view('footer',$footer);
+        $this->load->view('gudang/stock_master',$content);
     }
 
     public function edit($id) {
@@ -85,8 +91,8 @@ class Stock extends MY_Controller {
 
                 $this->load->library('upload', $config);
 
-                unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/assets/img/".$_FILES["image_source_edit"]["name"]);
-                // unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$_FILES["image_source_edit"]["name"]);
+                // unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/assets/img/".$_FILES["image_source_edit"]["name"]);
+                unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$_FILES["image_source_edit"]["name"]);
                 
                 if ($this->upload->do_upload('image_source_edit')) {
                     $data = ["upload_data" => $this->upload->data()];
@@ -201,10 +207,32 @@ class Stock extends MY_Controller {
     }
 
     public function getdatamaster() {
-        $this->load->model('gudang/StockModel');
-        $response = $this->StockModel->getdatamaster();
 
-        $this->sendResponse($response);
+        $generalSearch = $this->input->post('query[generalSearch]');
+
+        $where = 'master_stock.id != \'0\'';
+        if ($generalSearch) $where .= ' AND ('.cari_query($generalSearch, ['master_stock.kode','master_stock.nama','master_stock.merk','master_stock.kategori','master_stock.satuan','master_stock.tipe','master_stock.keterangan']).')';
+
+        $total = $this->_query($where)->get()->num_rows();
+
+        $page = $this->input->post('pagination[page]') ? (int) $this->input->post('pagination[page]') : 1;
+        $perpage = $this->input->post('pagination[perpage]') ? (int) $this->input->post('pagination[perpage]') : 10;
+        $pages = ceil($total / $perpage);
+        $offset = (($page - 1) * $perpage);
+        
+        $field = $this->input->post('sort[field]') ? $this->input->post('sort[field]') : 'id';
+        
+        $sort = $this->input->post('sort[sort]') ? $this->input->post('sort[sort]') : 'desc';
+
+        $meta = array('page' => $page, 'pages' => $pages, 'perpage' => $perpage, 'total' => $total, 'sort' => $sort, 'field' => $field);
+
+        $participants = $this->_query($where)->order_by($field.' '.$sort)->limit($perpage, $offset)->get()->result();
+
+        $this->sendResponse(['success' => TRUE, 'meta' => $meta, 'data' => $participants]);
+    }
+
+    private function _query($where) {
+        return $this->db->select('master_stock.id, master_stock.kode, master_stock.nama, master_stock.stock, master_stock.merk, master_stock.btu, master_stock.kategori, master_stock.satuan, master_stock.tipe,  master_stock.tipe_gudang, master_stock.daya_listrik, master_stock.keterangan, master_stock.gambar')->from('master_stock')->where($where);
     }
 
     public function getdatakantor() {

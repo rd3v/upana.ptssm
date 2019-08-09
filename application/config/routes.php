@@ -183,7 +183,7 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
 
     $route['gudang/stock/master']['get'] = 'gudang/stock/master';
     $route['gudang/stock/master/tambahsubmit']['post'] = 'gudang/stock/store';
-    $route['gudang/stock/master/getdata']['get'] = 'gudang/stock/getdatamaster';
+    $route['gudang/stock/master/getdata'] = 'gudang/stock/getdatamaster';
     $route['gudang/stock/master/edit/(:num)']['get'] = 'gudang/stock/edit/$1';
     $route['gudang/stock/master/editsubmit']['post'] = 'gudang/stock/editsubmit';
     $route['gudang/stock/master/hapus']['post'] = 'gudang/stock/masterhapus';
