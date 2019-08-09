@@ -52,7 +52,7 @@
 													No Invoice : <span id="no_invoice"><?= $data['invoice']['data_invoice']->no_invoice ?></span>
 												</p>
 												<p>
-													Status : <span id="status_invoice"><?= $data['invoice']['data_invoice']->no_invoice == 0 ? "BELUM LUNAS":"LUNAS" ?></span>
+													Status : <span id="status_invoice"><?= $data['invoice']['data_invoice']->status == 0 ? "BELUM LUNAS":"LUNAS" ?></span>
 												</p>
 												<p id="tanggal_surat">
                                                     <?php
