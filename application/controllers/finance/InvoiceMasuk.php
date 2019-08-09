@@ -142,22 +142,54 @@ class InvoiceMasuk extends MY_Controller {
 
     public function edit($id) {
         
-        $this->load->model('customerModel');
-        $result = $this->customerModel->getcustomer($id);
+        $this->load->model('finance/InvoiceMasukModel');
+        $this->load->model('gudang/StockModel');
+        $result = $this->InvoiceMasukModel->get($id);
+        $master_stock = $this->StockModel->getdatamaster();
 
         if(!empty($result)) {
-            $content['data'] = $result;
+            $content['data'] = [
+                "user" => [
+                    "id" => $this->session->userdata('id'),
+                    "name" => $this->session->userdata('name'),
+                    "email" => $this->session->userdata('email'),
+                    "accesstype" => $this->session->userdata('accesstype')
+                ],
+                "stock" => $master_stock,
+                "result" => $result,
+                "route" => $this->getRoute()
+            ];
         } else {
-            redirect(base_url()."customer");
+            redirect(base_url()."invoice/masuk");
         }
+        $this->load->view('finance/invoice_masuk_edit',$content);
+    }
 
-        $footer['data'] = [
-            "route" => $this->getRoute()
-        ];
+    public function hapusitem() {
+        $id = $this->input->post("id");
+        $this->load->model('finance/InvoiceMasukModel');
+        $response = $this->InvoiceMasukModel->hapusitem($id);
+        $this->sendResponse($response);
+    }
 
-        $this->load->view('header_menu',$this->header);
-        $this->load->view('customer_edit',$content);
-        $this->load->view('footer',$footer);        
+    public function updateitem() {
+        $request = $this->input->post("mydata");
+        $this->load->model('finance/InvoiceMasukModel');
+        $response = $this->InvoiceMasukModel->updateitem($request);
+        $this->sendResponse($response);
+    }
+
+    public function tambahitem() {
+        $request = $this->input->post("mydata");
+        $this->load->model('finance/InvoiceMasukModel');
+        $response = $this->InvoiceMasukModel->tambahitem($request);
+        $this->sendResponse($response);
+    }
+
+    public function updates() {
+        $this->load->model('finance/InvoiceMasukModel');
+        $response = $this->InvoiceMasukModel->updates($_POST);
+        $this->sendResponse($response);
     }
 
     public function getdata() {
