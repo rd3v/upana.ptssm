@@ -2972,7 +2972,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				{
 					field: "no",
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;
+						return ((row.getCurrentPage() - 1) * row.getPageSize()) + type + 1;
 					},
 					textAlign: 'center',
 				},
@@ -3027,7 +3027,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					field: 'aksi',
 					textAlign: 'center',
 					template:function(data) {
-var html = "<a href='<?= base_url() ?>gudang/stock/rincian/"+data.kode+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
+var html = "<a href='<?= base_url() ?>gudang/stock/rincian/"+data.id+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
 						return html;
 					}
 				}
@@ -3080,7 +3080,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 				{
 					field: "no",
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;
+						return ((row.getCurrentPage() - 1) * row.getPageSize()) + type + 1;
 					},
 					textAlign: 'center',
 				},
@@ -3135,7 +3135,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					field: 'aksi',
 					textAlign: 'center',
 					template:function(data) {
-var html = "<a href='<?= base_url() ?>gudang/stock/rincian/"+data.kode+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
+var html = "<a href='<?= base_url() ?>gudang/stock/rincian/"+data.id+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
 						return html;
 					}
 				}
@@ -3144,7 +3144,7 @@ var html = "<a href='<?= base_url() ?>gudang/stock/rincian/"+data.kode+"' class=
 			});
 
 
-				<?php } if($data['route'] == "gudang/stock/rincian/(:num)") { ?>
+				<?php } if($data['route'] == "gudang/stock/rincian/(:any)") { ?>
 						$("li#stock-manajemen").addClass("m-menu__item--active");
 
 var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
@@ -3222,7 +3222,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				],
 			});
 
-				<?php } if($data['route'] == "gudang/stock/rincian_barang/(:num)") { ?>
+				<?php } if($data['route'] == "gudang/stock/rincian_barang/(:any)") { ?>
 						$("li#stock-manajemen").addClass("m-menu__item--active");
 
 var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
@@ -3288,6 +3288,8 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 				<?php } if($data['route'] == "gudang/stock/master") { ?>
 					$("li#stock-master").addClass("m-menu__item--active");
+					
+					var tbl_list_master_stock;
 
 					$('#btn_tambah').click(function() {
 
@@ -3390,52 +3392,34 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						});
 					});
 
-
-						var tbl_list_master_stock = $('#tbl_list_master_stock').mDatatable({
+					$(document).ready(function() {
+						tbl_list_master_stock = $('.m_datatable').mDatatable({
 							data: {
-					saveState: {cookie: false},
-							type: 'remote',
-							source: {
-							  read: {
-								// sample GET method
-								method: 'GET',
-								url: '<?=site_url()?>gudang/stock/master/getdata',
-								// url: 'https://projects.upanastudio.com/ptssm/app/gudang/stock/master/getdata',
-								map: function(raw) {
-								  // sample data mapping
-								  var dataSet = raw;
-								  if (typeof raw.data !== 'undefined') {
-									dataSet = raw.data;
-								  }
-								  return dataSet;
+								type: 'remote',
+								source: {
+									  read: {
+									  	method: 'GET',
+									  	url: '<?=site_url()?>gudang/stock/master/getdata',
+									  	// url: 'https://projects.upanastudio.com/ptssm/app/gudang/stock/master/getdata',
+							  		  },
 								},
-							  },
-							},
-							pageSize: 10,
-							serverPaging: true,
-							serverFiltering: true,
-							serverSorting: true,
-						},
+								serverPaging: true,
+								serverFiltering: true,
+								serverSorting: true,
+								},
 								// layout definition
 								layout: {
-									theme: 'default', // datatable theme
-									class: '', // custom wrapper class
-									scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
-									// height: 450, // datatable's body's fixed height
-									footer: false, // display/hide footer
+									scroll: true,
 								},
-
-								// column sorting
-								sortable: true,
+								sortable:true,
 								search: {
 									input: $('#generalSearch'),
 								},
 								columns: [
-
 								{
 									field: "no",
 									template: function(data, type, row, meta) {
-										return data.getIndex() + 1;
+										return ((row.getCurrentPage() - 1) * row.getPageSize()) + type + 1;
 									},
 									textAlign: "center",
 								},
@@ -3507,6 +3491,8 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 								],
 							});
+
+					});
 
 				<?php } if($data['route'] == "gudang/stock/master/edit/(:num)") { ?>
 					$("li#stock-master").addClass("m-menu__item--active");

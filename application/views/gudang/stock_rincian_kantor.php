@@ -26,7 +26,7 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= base_url() ?>finance/stock/rincian/<?= $data->kode ?>" class="m-nav__link">
+										<a href="<?= base_url() ?>finance/stock/rincian/<?= $data->id ?>" class="m-nav__link">
 											<span class="m-nav__link-text">
 												Rincian
 											</span>
@@ -51,7 +51,7 @@
 														</h3>
 													</div>
 													<div align="right" class="col-sm">
-														<button onclick="window.location.href='<?= base_url() ?>gudang/stock/rincian_barang/<?= $data->kode ?>'" class="btn btn-primary">
+														<button onclick="window.location.href='<?= base_url() ?>gudang/stock/rincian_barang/<?= $data->id ?>'" class="btn btn-primary">
 															Rincian
 														</button>
 													</div>

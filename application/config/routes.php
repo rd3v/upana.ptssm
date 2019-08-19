@@ -137,8 +137,8 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     # Master Stock
     $route['finance/stock']['get'] = 'finance/stock/index';
     $route['finance/stock/getdatatoko']['post'] = 'finance/stock/getdatatoko';
-    $route['finance/stock/rincian/(:num)']['get'] = 'finance/stock/rincian_kantor/$1';
-    $route['finance/stock/rincian_barang/(:num)']['get'] = 'finance/stock/rincian_barang/$1';
+    $route['finance/stock/rincian/(:any)']['get'] = 'finance/stock/rincian_kantor/$1';
+    $route['finance/stock/rincian_barang/(:any)']['get'] = 'finance/stock/rincian_barang/$1';
 
     # Manajemen Harga
     $route['finance/price']['get'] = 'finance/price/index';
@@ -183,8 +183,8 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
 
     # Stock
     $route['gudang/stock/manajemen']['get'] = 'gudang/stock/manajemen';
-    $route['gudang/stock/rincian/(:num)']['get'] = 'gudang/stock/rincian_kantor/$1';
-    $route['gudang/stock/rincian_barang/(:num)']['get'] = 'gudang/stock/rincian_barang/$1';
+    $route['gudang/stock/rincian/(:any)']['get'] = 'gudang/stock/rincian_kantor/$1';
+    $route['gudang/stock/rincian_barang/(:any)']['get'] = 'gudang/stock/rincian_barang/$1';
 
     $route['gudang/stock/master']['get'] = 'gudang/stock/master';
     $route['gudang/stock/master/tambahsubmit']['post'] = 'gudang/stock/store';
