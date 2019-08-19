@@ -2186,6 +2186,229 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				<?php } if($data['route'] == "kantor/stock") { ?>
 					$("li#stock").addClass("m-menu__item--active");
 
+					var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_kantor').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'POST',
+			            url: '<?=site_url()?>finance/stock/getdatakantor',
+			            // url: '<?=site_url()?>finance/stock/getdatatoko',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: true,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: "no",
+					template: function(data, type, row, meta) {
+						return ((row.getCurrentPage() - 1) * row.getPageSize()) + type + 1;
+					},
+					textAlign: 'center',
+				},
+				{
+					field: 'kategori',
+					textAlign: 'center',
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'tipe',
+					textAlign: 'center'
+				},
+				{
+					field: 'merk',
+					textAlign: 'center',
+				},
+				{
+					field: 'stock',
+					textAlign: 'center',
+				},
+				{
+					field: 'satuan',
+					textAlign: 'center',
+				},
+				{
+					field: 'status',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						var html = "";
+						if(data.stock > 7) {
+							html = "Tersedia";
+						}  else if(data.stock <= 7) {
+							html = "Hampir Habis";
+						} else if(data.stock == 0) {
+							html = "Habis";
+						}
+						return html;
+					},
+				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+				},
+				{
+					field: 'aksi',
+					textAlign: 'center',
+					template:function(data) {
+var html = "<a href='<?= base_url() ?>kantor/stock/rincian/"+data.id+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
+						return html;
+					}
+				}
+
+				],
+			});
+
+
+var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'POST',
+			            url: '<?=site_url()?>finance/stock/getdatatoko',
+			            // url: '<?=site_url()?>finance/stock/getdatatoko',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: true,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: "no",
+					template: function(data, type, row, meta) {
+						return ((row.getCurrentPage() - 1) * row.getPageSize()) + type + 1;
+					},
+					textAlign: 'center',
+				},
+				{
+					field: 'kategori',
+					textAlign: 'center',
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'tipe',
+					textAlign: 'center'
+				},
+				{
+					field: 'merk',
+					textAlign: 'center',
+				},
+				{
+					field: 'stock',
+					textAlign: 'center',
+				},
+				{
+					field: 'satuan',
+					textAlign: 'center',
+				},
+				{
+					field: 'status',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						var html = "";
+						if(data.stock > 7) {
+							html = "Tersedia";
+						}  else if(data.stock <= 7) {
+							html = "Hampir Habis";
+						} else if(data.stock == 0) {
+							html = "Habis";
+						}
+						return html;
+					},
+				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+				},
+				{
+					field: 'aksi',
+					textAlign: 'center',
+					template:function(data) {
+var html = "<a href='<?= base_url() ?>kantor/stock/rincian/"+data.id+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
+						return html;
+					}
+				}
+
+				],
+			});
+
+
+				<?php } if($data['route'] == "kantor/stock/rincian/(:any)") { ?>
+					$("li#stock").addClass("m-menu__item--active");
+
+
+				<?php } if($data['route'] == "kantor/stock/rincian_barang/(:any)") { ?>
+					$("li#stock").addClass("m-menu__item--active");
+
 				<?php } if($data['route'] == "kantor/price") { ?>
 					$("li#price").addClass("m-menu__item--active");
 

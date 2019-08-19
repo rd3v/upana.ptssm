@@ -101,6 +101,8 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
 
     #stock
     $route['kantor/stock']['get'] = 'kantor/stock/index';
+    $route['kantor/stock/rincian/(:any)']['get'] = 'kantor/stock/rincian_kantor/$1';
+    $route['kantor/stock/rincian_barang/(:any)']['get'] = 'kantor/stock/rincian_barang/$1';
 
     #price
     $route['kantor/price']['get'] = 'kantor/price/index';
