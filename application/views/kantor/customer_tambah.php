@@ -82,6 +82,14 @@
 											</div>
 											<div class="form-group m-form__group row">
 												<label  class="col-2 col-form-label">
+													E-mail
+												</label>
+												<div class="col-10">
+													<input class="form-control m-input" type="email" name="email_pelanggan" id="email_pelanggan" placeholder="">
+												</div>
+											</div>
+											<div class="form-group m-form__group row">
+												<label  class="col-2 col-form-label">
 													Alamat
 												</label>
 												<div class="col-10">

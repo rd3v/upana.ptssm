@@ -239,6 +239,7 @@ class Customer extends MY_Controller {
         $id = $this->input->post('id');
         $nama = $this->input->post('nama');
         $telepon = $this->input->post('telepon');
+        $email = $this->input->post('email');
         $alamat = $this->input->post('alamat');
         $lat = $this->input->post('lat');
         $lon = $this->input->post('lon');
@@ -248,6 +249,7 @@ class Customer extends MY_Controller {
             "id" => $id,
             "nama" => $nama,
             "telepon" => $telepon,
+            "email" => $email,
             "alamat" => $alamat,
             "lat" => $lat,
             "lon" => $lon,
@@ -277,6 +279,7 @@ class Customer extends MY_Controller {
         $id = $this->input->post('id');
         $nama = $this->input->post('nama');
         $telepon = $this->input->post('telepon');
+        $email = $this->input->post('email');
         $alamat = $this->input->post('alamat');
         $lat = $this->input->post('lat');
         $lon = $this->input->post('lon');
@@ -285,6 +288,7 @@ class Customer extends MY_Controller {
             "id" => $id,
             "nama" => $nama,
             "telepon" => $telepon,
+            "email" => $email,
             "alamat" => $alamat,
             "lat" => $lat,
             "lon" => $lon

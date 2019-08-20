@@ -81,7 +81,7 @@ class Dashboard extends MY_Controller {
             $item = $this->crud->gw('data_spk_pemasangan_item', ['tipe' => '0', 'id_spk' => $id]);
         } elseif ($tipe_spk == 'service') {
             $data = $this->crud->gd('data_spk_service', ['id' => $id]);
-            $item = $this->crud->gw('data_spk_service_item', ['id_spk' => $id]);
+            $item = (Object) array();
         }
 
         if ($data) {

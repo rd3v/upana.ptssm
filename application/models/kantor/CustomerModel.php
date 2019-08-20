@@ -29,6 +29,7 @@ class CustomerModel extends CI_Model {
        $data = [
            "nama" => $request['nama'],
            "telepon" => $request['telepon'],
+           "email" => $request['email'],
            "alamat" => $request['alamat'],
            "lat" => $request['lat'],
            "lon" => $request['lon']

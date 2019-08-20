@@ -510,7 +510,7 @@
 										</li>
 										<!-- Pengeluaran Material -->
 										<li id="material" class="m-menu__item" aria-haspopup="true" >
-											<a  href="<?= base_url() ?>gudang/material/keluar" class="m-menu__link ">
+											<a  href="<?= base_url() ?>gudang/pengeluaran-material" class="m-menu__link ">
 												<i class="m-menu__link-icon la 	la-stack-overflow"></i>
 												<span class="m-menu__link-title">
 													<span class="m-menu__link-wrap">

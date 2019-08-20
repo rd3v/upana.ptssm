@@ -44,7 +44,7 @@ class Spk_pemasangan extends MY_Controller {
         $this->load->model("kantor/MasterStockModel");
 
         $customer = $this->CustomerModel->getdata();
-        $stock = $this->MasterStockModel->getdata();
+        $stock = $this->MasterStockModel->getdata('unit');
 
         $content['data'] = [
             'id' => $this->input->get('id', TRUE),
@@ -70,7 +70,7 @@ class Spk_pemasangan extends MY_Controller {
             $this->load->model("kantor/MasterStockModel");
 
             $customer = $this->CustomerModel->getdata();
-            $stock = $this->MasterStockModel->getdata();
+            $stock = $this->MasterStockModel->getdata('unit');
 
             $content['data'] = [
                 'data' => $data,

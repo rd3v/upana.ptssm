@@ -23,13 +23,9 @@ class Surat_jalan extends MY_Controller {
     }
 
     public function index() {
-        $this->load->model('gudang/SuratJalanModel');
 
         $content['data'] = [
-            'new_id'    => acak_id('data_surat_jalan', 'id'),
-            'antrian'   => $this->SuratJalanModel->getdata('0'),
-            'terbit'    => $this->SuratJalanModel->getsurat('1'),
-            'batal'     => $this->SuratJalanModel->getsurat('3')
+            'new_id'    => acak_id('data_surat_jalan', 'id')
         ];
 
         $footer['data'] = [
@@ -39,6 +35,30 @@ class Surat_jalan extends MY_Controller {
         $this->load->view('header_menu2',$this->header);
         $this->load->view('gudang/surat-jalan/main',$content);
         $this->load->view('footer2',$footer);
+    }
+
+    public function lists($status) {
+        $this->load->model('gudang/SuratJalanModel');
+
+        $generalSearch = $this->input->post('query[generalSearch]');
+
+        $where = '';
+        if ($generalSearch) $where = ' AND ('.cari_query($generalSearch, ['data_surat_jalan.catatan']).')';
+
+        $total = $this->SuratJalanModel->getspk($status, $where)->num_rows();
+
+        $page = $this->input->post('pagination[page]') ? (int) $this->input->post('pagination[page]') : 1;
+        $perpage = $this->input->post('pagination[perpage]') ? (int) $this->input->post('pagination[perpage]') : 10;
+        $pages = ceil($total / $perpage);
+        $offset = (($page - 1) * $perpage);
+        $field = $this->input->post('sort[field]') ? $this->input->post('sort[field]') : 'iat';
+        $sort = $this->input->post('sort[sort]') ? $this->input->post('sort[sort]') : 'desc';
+
+        $meta = array('page' => $page, 'pages' => $pages, 'perpage' => $perpage, 'total' => $total, 'sort' => $sort, 'field' => $field);
+
+        $data = $this->SuratJalanModel->getspk($status, $where, $field.' '.$sort, $perpage, $offset)->result();
+
+        $this->sendResponse(['success' => TRUE, 'meta' => $meta, 'data' => $data]);
     }
 
     public function proses($id) {
@@ -64,7 +84,7 @@ class Surat_jalan extends MY_Controller {
 
         $content['data'] = [
             'customer'  => $this->CustomerModel->getdata(),
-            'stock'     => $this->MasterStockModel->getdata(),
+            'stock'     => $this->MasterStockModel->getdata('unit'),
             'item'      => $this->crud->gw('data_spk_pemasangan_item', ['id_surat' => $this->input->get('id', TRUE)])
         ];
 
@@ -87,7 +107,7 @@ class Surat_jalan extends MY_Controller {
             $content['data'] = [
                 'data'      => $data,
                 'customer'  => $this->CustomerModel->getdata(),
-                'stock'     => $this->MasterStockModel->getdata(),
+                'stock'     => $this->MasterStockModel->getdata('unit'),
                 'item'      => $this->crud->gw('data_spk_pemasangan_item', ($data->id_spk ? ['id_spk' => $data->id_spk] : ['id_surat' => $id]))
             ];
 

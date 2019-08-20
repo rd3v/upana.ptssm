@@ -133,296 +133,166 @@
 													<input readonly class="form-control m-input" type="text" id="alamat" name="alamat_pelanggan">
 												</div>
 											</div>
+                                            <div  class="form-group m-form__group row">
+                                                <label class="col-2 col-form-label">
+                                                    Keterangan
+                                                </label>
+                                                <div class="col-10">
+                                                    <textarea style="resize: none" class="form-control m-input " id="keterangan" name="keterangan" rows="3"></textarea>
+                                                </div>
+                                            </div>
+        									<div class="form-group m-form__group row">
+        										<label class="col-2 col-form-label">
+        											Waktu Pengerjaan
+        										</label>
+        										<div class="col-10">
+        											<input class="form-control m-input" type="datetime-local" id="waktu_pengerjaan">
+        										</div>
+        									</div>
+        									<div  class="form-group m-form__group row">
+        										<label class="col-2 col-form-label">
+        											Catatan
+        										</label>
+        										<div class="col-10">
+        											<textarea style="resize: none" class="form-control m-input " id="catatan" name="catatan" rows="3"></textarea>
+        										</div>
+        									</div>
 
-                                    <div  class="form-group m-form__group row">
-                                        <label class="col-2 col-form-label">
-                                            Keterangan
-                                        </label>
-                                        <div class="col-10">
-                                            <textarea style="resize: none" class="form-control m-input " id="keterangan" name="keterangan" rows="3"></textarea>
+        									<div class="form-group m-form__group row">
+        										<label  class="col-2 col-form-label">
+        											Status
+        										</label>
+        										<div class="col-10">
+        											<select class="form-control m-input m-input--square" id="status" name="status">
+        												<option active value=""></option>
+        												<option value="0">
+        													Aktif
+        												</option>
+        												<option value="1">
+        													Progress
+        												</option>
+        												<option value="2">
+        													Selesai
+        												</option>
+        												<option value="3">
+        													Batal
+        												</option>
+        											</select>
+        										</div>
+        									</div>
+        								</div>
+        							</form>
+                                </div>
+                                <div class="m-portlet m-portlet--tab" id="list-item" style="display: none;">
+                                    <div class="m-portlet__head">
+                                        <div class="m-portlet__head-caption">
+                                            <div class="m-portlet__head-title">
+                                                <span class="m-portlet__head-icon m--hide">
+                                                    <i class="la la-gear"></i>
+                                                </span>
+                                                <h3 class="m-portlet__head-text">
+            										List Item Service
+                                                </h3>
+                                            </div>
                                         </div>
                                     </div>
-									<div class="form-group m-form__group row">
-										<label class="col-2 col-form-label">
-											Waktu Pengerjaan
-										</label>
-										<div class="col-10">
-											<input class="form-control m-input" type="datetime-local" id="waktu_pengerjaan">
-										</div>
-									</div>
-									<div  class="form-group m-form__group row">
-										<label class="col-2 col-form-label">
-											Catatan
-										</label>
-										<div class="col-10">
-											<textarea style="resize: none" class="form-control m-input " id="catatan" name="catatan" rows="3"></textarea>
-										</div>
-									</div>
+        							<div class="m-portlet__body">
+                                        <form id="form-items">
+            								<table class="table">
+            									<thead>
+            										<tr>
+            											<th>No</th>
+            											<th>ID Unit</th>
+            											<th>Nama Barang</th>
+            											<th>Tipe Barang</th>
+            											<th>Merk</th>
+            											<th>Service</th>
+            										</tr>
+            									</thead>
+            									<tbody id="items">
+            									</tbody>
+            								</table>
+                                        </form>
+                                        <div style="margin-top: 20px" align="center">
+                                            <button id="" type="button" class="btn btn-primary btn_pemasangan" onclick="submit_form()">Terbitkan SPK</button>
+                                        </div>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        	<!-- end:: Body -->
 
-									<div class="form-group m-form__group row">
-										<label  class="col-2 col-form-label">
-											Status
-										</label>
-										<div class="col-10">
-											<select class="form-control m-input m-input--square" id="status" name="status">
-												<option active value=""></option>
-												<option value="0">
-													Aktif
-												</option>
-												<option value="1">
-													Progress
-												</option>
-												<option value="2">
-													Selesai
-												</option>
-												<option value="3">
-													Batal
-												</option>
-											</select>
-										</div>
-									</div>
+        	<script>
+                function set_pelanggan(el) {
+                	$('#telepon').val($(el).find(':selected').data('telepon'));
+                	$('#email').val($(el).find(':selected').data('email'));
+                	$('#alamat').val($(el).find(':selected').data('alamat'));
+                    $('#items').empty();
+                    $('#list-item').hide();
 
-                                    <div style="margin-top: 20px" align="center">
-                                        <button id="" type="button" class="btn btn-primary btn_pemasangan" onclick="submit_form()">1. Simpan</button>
-                                    </div>
-
-								</div>
-							</form>
-							<div class="m-portlet__body">
-								<div class="m-portlet__head-title">
-									<h3 align="center" class="m-portlet__head-text">
-										List Item Service
-									</h3><br>
-
-
-								</div>
-								<div style="margin: 20px" align="right">
-									<button data-toggle="modal" data-target="#form-modal" type="button" class="btn btn-success btn_service" onclick="modify_item('')"> + Tambah Item Service</button>
-								</div>
-								<table class="table">
-									<thead>
-										<tr>
-											<th>No</th>
-											<th>Kode Barang</th>
-											<th>Nama Barang</th>
-											<th>Jumlah</th>
-											<th>Keterangan</th>
-											<th>Aksi</th>
-										</tr>
-									</thead>
-									<tbody id="items">
-<?php $i = 1; foreach ($data['item'] as $row) { ?>
-										<tr id="item-<?=$row->id?>">
-											<td><?=$i?></td>
-											<td><?=$row->kode?></td>
-											<td><?=$row->nama?></td>
-											<td><?=$row->jumlah?></td>
-											<td><?=$row->keterangan?></td>
-											<td><button class="btn btn-danger" onclick="delete_item('<?=$row->id?>')">Hapus</button></td>
-										</tr>
-<?php $i++; } ?>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end:: Body -->
-	<!--  Begin::Modals -->
-	<div class="modal fade" id="form-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="form-title">
-						Tambah Service
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">
-							&times;
-						</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="form-group m-form__group row">
-						<label for="example-text-input" class="col-3 col-form-label">
-							Nama / Kode Barang
-						</label>
-						<div class="col-9">
-							<select style="width: 100%" class="form-control m-select2 dropdown_search" id="item_kode">
-								<option value="">-</option>
-								<?php
-								foreach ($data['stock'] as $value) { ?>
-									<option value="<?= $value['kode'] ?>||<?= $value['nama'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
-							<?php } ?>
-							</select>
-						</div>
-					</div>
-					<div class="form-group m-form__group row">
-						<label for="example-text-input" class="col-3 col-form-label">
-							Jumlah
-						</label>
-						<div class="col-9">
-							<div class="input-group">
-								<input id="item_jumlah" type="number" class="form-control m-input" aria-describedby="basic-addon2">
-								<div class="input-group-append">
-									<span class="input-group-text" id="basic-addon2">
-										Unit
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-group m-form__group row">
-						<label for="example-text-input" class="col-3 col-form-label">
-							Keterangan
-						</label>
-						<div class="col-9">
-							<textarea class="form-control m-input m-input--solid" id="item_keterangan" rows="3"></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="hidden" id="id_spk" value="<?=$this->input->get('id', TRUE)?>" />
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">
-						Tutup
-					</button>
-					<button type="button" class="btn btn-primary" onclick="submit_item()">
-						Tambahkan
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End::Modals -->
-
-	<script>
-        function modify_item(id) {
-            $('#item_kode').val('');
-            $('#item_jumlah').val('');
-            $('#item_keterangan').val('');
-
-            if (id == '') {
-                $('#form-title').html('Tambah Service');
-            } else {
-                $('#form-title').html('Edit Service');
-            }
-        }
-
-        function submit_item() {
-            $(this).prop('disabled', true);
-            $('.file-loading').show();
-
-            $.post('<?=site_url('kantor/spk-service/submit-item')?>', {
-                'id': '',
-                'id_spk': $('#id_spk').val(),
-                'kode': $('#item_kode').val(),
-                'jumlah': $('#item_jumlah').val(),
-                'keterangan': $('#item_keterangan').val()
-            }, function(result, status) {
-                if (status == 'success') {
-                    $(this).prop('disabled', false);
-                    $('.file-loading').hide();
-
-                    if (result.success) {
-                        $('#form-modal').modal('hide');
-                        show_toast('Data berhasil '+(result.add ? 'ditambah' : 'diubah')+'.', 'success');
-
-                        if (result.add) {
-	                        $('#items').append(''+
-	                       		'<tr id="item-'+result.data.id+'">'+
-	                       			'<td>'+result.rows+'</td>'+
-	                       			'<td>'+result.data.kode+'</td>'+
-	                       			'<td>'+result.data.nama+'</td>'+
-	                       			'<td>'+result.data.jumlah+'</td>'+
-	                       			'<td>'+result.data.keterangan+'</td>'+
-	                       			'<td><button class="btn btn-danger" onclick="delete_item(\''+result.data.id+'\')">Hapus</buttton></td>'+
-	                       		'</tr>'
-	                        );
-                        }
-                    } else {
-                        $('.btn-error-form').removeClass('btn-primary');
-                        $('.btn-error-form').addClass('btn-danger');
-
-                        if (result.error.kode) $('#item_kode').addClass('is-invalid');
-                        if (result.error.jumlah) $('#item_jumlah').addClass('is-invalid');
-                        if (result.error.keterangan) $('#item_keterangan').addClass('is-invalid');
-                    }
-                } else show_toast('Data gagal dikirim.', 'error');
-            });
-        }
-
-        function delete_item(id) {
-            swadel({
-                preConfirm: function() {
-                    return new Promise(function(resolve) {
-                        $.post('<?=site_url('kantor/spk-service/delete-item')?>', {
-                            'id': id
-                        }, function(result, status) {
-                            if (status == 'success') {
-                                resolve(result);
+                    $.post('<?=site_url('kantor/spk-service/getdataac/')?>' + $(el).val(), {
+                    }, function(result, status) {
+                        if (status == 'success') {
+                            if (result.success) {
+                                $('#list-item').show();
+                                result.data.forEach(function(item, index) {
+                                    $('#items').append(''+
+                                        '<tr>'+
+                                            '<td>'+(index+1)+'</td>'+
+                                            '<td>'+item.id+'</td>'+
+                                            '<td>'+item.nama+'</td>'+
+                                            '<td>'+item.tipe+'</td>'+
+                                            '<td>'+item.merk+'</td>'+
+                                            '<td><label class="m-checkbox"><input type="checkbox" id="item-'+item.id+'" name="'+item.id+'"> <span></span></label></td>'+
+                                        '</tr>');
+                                });
                             }
-                        });
+                        }
                     });
                 }
-            }).then(function(result) {
-                if (result.value) {
-                    if (result.value.success) {
-                        show_toast('Data berhasil dihapus.', 'success');
-                        $('#item-'+id).remove();
-                    } else {
-                        show_toast('Data gagal dihapus.', 'error');
-                    }
+
+                function submit_form() {
+                    $(this).prop('disabled', true);
+                    $('.file-loading').show();
+
+                    $.post('<?=site_url('kantor/spk-service/submit-form')?>', {
+                    	'action': 'add',
+                        'id': '<?=$this->input->get('id', TRUE)?>',
+                        'tipe_pajak': $('#tipe_pajak').val(),
+                        'no_spk': $('#no_spk').val(),
+                        'tanggal': $('#tanggal').val(),
+                        'id_pelanggan': $('#id_pelanggan').val(),
+                        'keterangan': $('#keterangan').val(),
+                        'waktu_pengerjaan': $('#waktu_pengerjaan').val(),
+                        'catatan': $('#catatan').val(),
+                        'status': $('#status').val(),
+                        'item': $('#form-items').serialize()
+                    }, function(result, status) {
+                        if (status == 'success') {
+                            $(this).prop('disabled', false);
+                            $('.file-loading').hide();
+
+                            if (result.success) {
+                                show_toast('Data berhasil '+(result.add ? 'ditambah' : 'diubah')+'.', 'success');
+                                Swal.fire('SPK Telah Terbit!', 'SPK yang Anda buat telah diterbitkan.', 'success');
+                                location.href='<?=site_url('kantor/spk-service')?>';
+                            } else {
+                                $('.btn-error-form').removeClass('btn-primary');
+                                $('.btn-error-form').addClass('btn-danger');
+
+                                if (result.error.tipe_pajak) $('#tipe_pajak').addClass('is-invalid');
+                                if (result.error.no_spk) $('#no_spk').addClass('is-invalid');
+                                if (result.error.tanggal) $('#tanggal').addClass('is-invalid');
+                                if (result.error.id_pelanggan) $('#id_pelanggan').addClass('is-invalid');
+                                if (result.error.keterangan) $('#keterangan').addClass('is-invalid');
+                                if (result.error.waktu_pengerjaan) $('#waktu_pengerjaan').addClass('is-invalid');
+                                if (result.error.catatan) $('#catatan').addClass('is-invalid');
+                                if (result.error.status) $('#status').addClass('is-invalid');
+                            }
+                        } else show_toast('Data gagal dikirim.', 'error');
+                    });
                 }
-            });
-        }
-
-        function set_pelanggan(el) {
-        	$('#telepon').val($(el).find(':selected').data('telepon'));
-        	$('#email').val($(el).find(':selected').data('email'));
-        	$('#alamat').val($(el).find(':selected').data('alamat'));
-        }
-
-        function submit_form() {
-            $(this).prop('disabled', true);
-            $('.file-loading').show();
-
-            $.post('<?=site_url('kantor/spk-service/submit-form')?>', {
-            	'action': 'add',
-                'id': '<?=$this->input->get('id', TRUE)?>',
-                'tipe_pajak': $('#tipe_pajak').val(),
-                'no_spk': $('#no_spk').val(),
-                'tanggal': $('#tanggal').val(),
-                'id_pelanggan': $('#id_pelanggan').val(),
-                'keterangan': $('#keterangan').val(),
-                'waktu_pengerjaan': $('#waktu_pengerjaan').val(),
-                'catatan': $('#catatan').val(),
-                'status': $('#status').val()
-            }, function(result, status) {
-                if (status == 'success') {
-                    $(this).prop('disabled', false);
-                    $('.file-loading').hide();
-
-                    if (result.success) {
-                        show_toast('Data berhasil '+(result.add ? 'ditambah' : 'diubah')+'.', 'success');
-                        Swal.fire('SPK Telah Terbit!', 'SPK yang Anda buat telah diterbitkan.', 'success');
-                        location.href='<?=site_url('kantor/spk-service')?>';
-                    } else {
-                        $('.btn-error-form').removeClass('btn-primary');
-                        $('.btn-error-form').addClass('btn-danger');
-
-                        if (result.error.tipe_pajak) $('#tipe_pajak').addClass('is-invalid');
-                        if (result.error.no_spk) $('#no_spk').addClass('is-invalid');
-                        if (result.error.tanggal) $('#tanggal').addClass('is-invalid');
-                        if (result.error.id_pelanggan) $('#id_pelanggan').addClass('is-invalid');
-                        if (result.error.keterangan) $('#keterangan').addClass('is-invalid');
-                        if (result.error.waktu_pengerjaan) $('#waktu_pengerjaan').addClass('is-invalid');
-                        if (result.error.catatan) $('#catatan').addClass('is-invalid');
-                        if (result.error.status) $('#status').addClass('is-invalid');
-                    }
-                } else show_toast('Data gagal dikirim.', 'error');
-            });
-        }
-	</script>
+        	</script>

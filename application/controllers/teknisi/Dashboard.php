@@ -15,8 +15,8 @@ class Dashboard extends MY_Controller {
                 "name" => $this->session->userdata('name'),
                 "email" => $this->session->userdata('email'),
                 "accesstype" => $this->session->userdata('accesstype')
-            ]            
-        ];		
+            ]
+        ];
     }
 
 		public function index() {
@@ -24,7 +24,7 @@ class Dashboard extends MY_Controller {
 			if($this->session->userdata('id') == null) {
 				redirect(base_url()."teknisi/login",'refresh');
 			}
-			
+
 			$content['data'] = [
 
 			];
@@ -42,13 +42,13 @@ class Dashboard extends MY_Controller {
 			if($this->session->userdata('id') != null) {
 				redirect(base_url()."teknisi");
 			}
-			$this->load->view('teknisi/login');
+			$this->load->view('login');
 		}
 
 		public function checklogin() {
 			$request = [
 				"username" => $this->input->get('username'),
-				"password" => $this->input->get('password')	
+				"password" => $this->input->get('password')
 			];
 
 			$this->load->model('user');
@@ -61,7 +61,7 @@ class Dashboard extends MY_Controller {
 					"accesstype" => $check[0]['accesstype']
 				];
 				$this->session->set_userdata($user_session);
-				$status = true;	
+				$status = true;
 			} else {
 				$status = false;
 			}
