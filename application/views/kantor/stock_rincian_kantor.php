@@ -8,7 +8,7 @@
 								</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
-										<a href="<?= base_url() ?>finance/invoice/masuk" class="m-nav__link m-nav__link--icon">
+										<a href="<?= base_url() ?>kantor" class="m-nav__link m-nav__link--icon">
 											<i class="m-nav__link-icon la la-home"></i>
 										</a>
 									</li>
@@ -16,7 +16,7 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= base_url() ?>finance/stock" class="m-nav__link">
+										<a href="<?= base_url() ?>kantor/stock" class="m-nav__link">
 											<span class="m-nav__link-text">
 												Stock
 											</span>
@@ -26,7 +26,7 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= base_url() ?>finance/stock/rincian/<?= $data->id ?>" class="m-nav__link">
+										<a href="<?= base_url() ?>kantor/stock/rincian/<?= $data->id ?>" class="m-nav__link">
 											<span class="m-nav__link-text">
 												Rincian
 											</span>
@@ -51,7 +51,7 @@
 														</h3>
 													</div>
 													<div align="right" class="col-sm">
-														<button onclick="window.location.href='<?= base_url() ?>gudang/stock/rincian_barang/<?= $data->id ?>'" class="btn btn-primary">
+														<button onclick="window.location.href='<?= base_url() ?>kantor/stock/rincian_barang/<?= $data->id ?>'" class="btn btn-primary">
 															Rincian
 														</button>
 													</div>

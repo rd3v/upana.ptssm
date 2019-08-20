@@ -39,8 +39,8 @@ class StockModel extends CI_Model {
        if($result->gambar == "" or $result->gambar == null) {
          $master_stock = $this->db->delete('master_stock', ['id' => $id]);
        } else {
-         // unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$result->gambar);
-         unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/assets/img/".$result->gambar);
+         unlink($_SERVER['DOCUMENT_ROOT']."/upana.ptssm/assets/img/".$result->gambar);
+         // unlink($_SERVER['DOCUMENT_ROOT']."/ptssm/assets/img/".$result->gambar);
          $master_stock = $this->db->delete('master_stock', ['id' => $id]);
        }
        return $master_stock;
@@ -81,10 +81,10 @@ class StockModel extends CI_Model {
         return $result;
     }   
 
-    public function getdatarincian($kode) {
+    public function getdatarincian($id) {
       $this->db->select("*");
       $this->db->from("master_stock");
-      $this->db->where("kode",$kode);
+      $this->db->where("id",$id);
       $result = $this->db->get()->row();
       return $result;
     }    

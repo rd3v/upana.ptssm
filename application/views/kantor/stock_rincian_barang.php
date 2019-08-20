@@ -26,7 +26,7 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= site_url() ?>gudang/stock/rincian/<?= $data->id ?>" class="m-nav__link">
+										<a href="<?= site_url() ?>kantor/stock/rincian/<?= $data->id ?>" class="m-nav__link">
 											<span class="m-nav__link-text">
 												Rincian
 											</span>

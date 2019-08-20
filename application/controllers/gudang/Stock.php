@@ -247,10 +247,10 @@ class Stock extends MY_Controller {
     }
 
 
-    public function rincian_kantor($kode) {
+    public function rincian_kantor($id) {
         $this->load->model('gudang/StockModel');
-        $result = $this->StockModel->getdatarincian($kode);
-
+        $result = $this->StockModel->getdatarincian($id);
+        
         $content['data'] = $result;
 
         $footer['data'] = [
@@ -263,9 +263,9 @@ class Stock extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
-    public function rincian_barang($kode) {
+    public function rincian_barang($id) {
         $this->load->model('gudang/StockModel');
-        $result = $this->StockModel->getdatarincian($kode);
+        $result = $this->StockModel->getdatarincian($id);
 
         $content['data'] = $result;
 

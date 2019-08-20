@@ -33,6 +33,38 @@ class Stock extends MY_Controller {
         $this->load->view('footer',$footer);
     }
 
+    public function rincian_kantor($id) {
+        $this->load->model('gudang/StockModel');
+        $result = $this->StockModel->getdatarincian($id);
+        
+        $content['data'] = $result;
+
+        $footer['data'] = [
+            "route" => $this->getRoute(),
+            "kode" => $result->kode
+        ];        
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('kantor/stock_rincian_kantor',$content);
+        $this->load->view('footer',$footer);
+    }
+
+    public function rincian_barang($id) {
+        $this->load->model('gudang/StockModel');
+        $result = $this->StockModel->getdatarincian($id);
+
+        $content['data'] = $result;
+
+        $footer['data'] = [
+            "route" => $this->getRoute(),
+            "kode" => $result->kode
+        ];        
+
+        $this->load->view('header_menu',$this->header);
+        $this->load->view('kantor/stock_rincian_barang',$content);
+        $this->load->view('footer',$footer);
+    }
+
     public function getRoute() {
         $routes = array_reverse($this->router->routes); // All routes as specified in config/routes.php, reserved because Codeigniter matched route from last element in array to first.
         foreach ($routes as $key => $val) {
