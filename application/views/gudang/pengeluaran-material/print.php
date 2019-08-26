@@ -197,7 +197,7 @@
                                                     <br>
                                                     <br>
                                                     <div class="container-ttd" >
-                                                        <p name="cs_menangani" align="Center">[Nama Teknisi]</p>
+                                                        <p name="cs_menangani" align="Center"></p>
                                                     </div>
                                                 </div>
                                                 <div align="center" class="col-sm">
@@ -242,7 +242,8 @@
             var delayInMilliseconds = 1000; //1 second
 
             setTimeout(function() {
-                // print();
+                print();
+                close();
             }, delayInMilliseconds);
         </script>
         </html>

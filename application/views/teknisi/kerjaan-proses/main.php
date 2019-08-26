@@ -23,7 +23,7 @@
 <?php foreach ($data['data'] as $row) { ?>
                     <div  align="left" class="m-portlet m-portlet--mobile list-kerjaan" id="item-<?=strtolower($row->tipe_spk).'-'.$row->id?>" style="width: 97vw;">
                         <div class="row">
-                            <div class="col-8" onclick="location.href='<?=site_url('teknisi/rincian-spk/'.strtolower($row->tipe_spk).'/'.$row->id)?>'">
+                            <div class="col-8">
                                 <p id="nama_pelanggan[0]" class="nama-pelanggan"><?=$row->nama?></p>
                                 <p id="tipe_kerjaan[0]" class="tipe-kerjaan"><?=$row->tipe_spk?></p>
                             </div>

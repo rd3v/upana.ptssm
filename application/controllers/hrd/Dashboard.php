@@ -73,12 +73,14 @@ class Dashboard extends MY_Controller {
     }
 
     public function rincian_spk($tipe_spk, $id) {
+        $this->load->model("kantor/MasterStockModel");
+
         if ($tipe_spk == 'pemasangan') {
             $data = $this->crud->gd('data_spk_pemasangan', ['id' => $id]);
-            $item = $this->crud->gw('data_spk_pemasangan_item', ['tipe' => '1', 'id_spk' => $id]);
+            $item = $this->MasterStockModel->getspkitem('1', $id);
         } elseif ($tipe_spk == 'free') {
             $data = $this->crud->gd('data_spk_pemasangan', ['id' => $id]);
-            $item = $this->crud->gw('data_spk_pemasangan_item', ['tipe' => '0', 'id_spk' => $id]);
+            $item = $this->MasterStockModel->getspkitem('0', $id);
         } elseif ($tipe_spk == 'service') {
             $data = $this->crud->gd('data_spk_service', ['id' => $id]);
             $item = (Object) array();

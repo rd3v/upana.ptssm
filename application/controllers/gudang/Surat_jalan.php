@@ -163,7 +163,7 @@ class Surat_jalan extends MY_Controller {
         $valid = $this->form_validation;
         $valid->set_error_delimiters('', '');
         $valid->set_rules('id_surat', 'ID Surat Jalan', 'required|trim');
-        $valid->set_rules('kode', 'Kode/Nama barang', 'required|trim');
+        $valid->set_rules('id_stock', 'ID Stock Barang', 'required|trim');
         $valid->set_rules('jumlah', 'Jumlah Barang', 'required|trim');
 
         if ($valid->run() === FALSE) {
@@ -171,33 +171,33 @@ class Surat_jalan extends MY_Controller {
                 'success'   => FALSE,
                 'error'     => array(
                     'id_surat'  => form_error('id_surat'),
-                    'kode'      => form_error('kode'),
+                    'id_stock'      => form_error('id_stock'),
                     'jumlah'    => form_error('jumlah')
                 )
             ]);
         } else {
             $input = $this->input->post(NULL, TRUE);
-            $kode = explode('||', $input['kode']);
 
             if (!$input['id']) {
                 $insert = array(
                     'tipe'      => '0',
                     'id_surat'  => $input['id_surat'],
-                    'kode'      => $kode[0],
-                    'nama'      => $kode[1],
+                    'id_stock'  => $input['id_stock'],
                     'jumlah'    => $input['jumlah']
                 );
 
                 $this->crud->i('data_spk_pemasangan_item', $insert);
 
                 $insert['id'] = $this->db->insert_id();
+                $stock = $this->crud->gd('master_stock', ['id' => $input['id_stock']]);
+                $insert['kode'] = $stock->kode;
+                $insert['nama'] = $stock->nama;
 
                 return $this->sendResponse([
                     'success'   => TRUE,
                     'add'       => TRUE,
-                    // 'rows'      => $this->db->select_sum('jumlah')->from('data_spk_pemasangan_item')->where(['id_surat' => $input['id_surat']])->get()->row(),
                     'data'      => $insert,
-                    'serial'    => $this->crud->gw('data_invoice_masuk_list_barang_serial', ['kode_list_barang' => $kode[0]])
+                    'serial'    => $this->crud->gw('data_invoice_masuk_list_barang_serial', ['id_stock' => $input['id_stock']])
                 ]);
             } else {
                 $data = $this->crud->gd('data_spk_pemasangan_item', ['id' => $input['id']]);
@@ -205,8 +205,7 @@ class Surat_jalan extends MY_Controller {
                 if ($data) {
                     $update = array(
                         'id_surat'  => $input['id_surat'],
-                        'kode'      => $kode[0],
-                        'nama'      => $kode[1],
+                        'id_stock'  => $input['id_stock'],
                         'jumlah'    => $input['jumlah']
                     );
 
@@ -290,7 +289,7 @@ class Surat_jalan extends MY_Controller {
 
                 $this->crud->i('data_surat_jalan', $insert);
 
-                if ($input['id_spk']) $this->crud->u('data_spk_pemasangan', ['catatan' => $input['catatan'], 'status' => $input['status']], ['id' => $input['id_spk']]);
+                if ($input['id_spk']) $this->crud->u('data_spk_pemasangan', ['id_surat_jalan' => $insert['id']], ['id' => $input['id_spk']]);
 
                 return $this->sendResponse([
                     'success'   => TRUE,
@@ -315,7 +314,7 @@ class Surat_jalan extends MY_Controller {
 
                     $this->crud->u('data_surat_jalan', $update, ['id' => $input['id']]);
 
-                    if ($input['id_spk']) $this->crud->u('data_spk_pemasangan', ['catatan' => $input['catatan'], 'status' => $input['status']], ['id' => $input['id_spk']]);
+                    if ($input['id_spk']) $this->crud->u('data_spk_pemasangan', ['id_surat_jalan' => $input['id']], ['id' => $input['id_spk']]);
 
                     return $this->sendResponse([
                         'success'   => TRUE,

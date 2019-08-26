@@ -50,7 +50,7 @@ class Spk_pemasangan extends MY_Controller {
             'id' => $this->input->get('id', TRUE),
             "customer" => $customer,
             "stock" => $stock,
-            'item'  => $this->crud->gw('data_spk_pemasangan_item', ['tipe' => '1', 'id_spk' => $this->input->get('id', TRUE)])
+            'item'  => $this->MasterStockModel->getspkitem('1', $this->input->get('id', TRUE))
         ];
 
         $footer['data'] = [
@@ -76,7 +76,7 @@ class Spk_pemasangan extends MY_Controller {
                 'data' => $data,
                 "customer" => $customer,
                 "stock" => $stock,
-                'item'  => $this->crud->gw('data_spk_pemasangan_item', ['tipe' => '1', 'id_spk' => $id])
+                'item'  => $this->MasterStockModel->getspkitem('1', $id)
             ];
 
             $footer['data'] = [
@@ -93,10 +93,11 @@ class Spk_pemasangan extends MY_Controller {
         $data = $this->crud->gd('data_spk_pemasangan', ['id' => $id]);
 
         if ($data) {
+            $this->load->model("kantor/MasterStockModel");
             $content['data'] = [
                 'data' => $data,
                 "customer" => $this->crud->gd('data_customer', ['id' => $data->id_pelanggan]),
-                'item'  => $this->crud->gw('data_spk_pemasangan_item', ['tipe' => '1', 'id_spk' => $id])
+                'item'  => $this->MasterStockModel->getspkitem('1', $id)
             ];
 
             $footer['data'] = [
@@ -113,10 +114,11 @@ class Spk_pemasangan extends MY_Controller {
         $data = $this->crud->gd('data_spk_pemasangan', ['id' => $id]);
 
         if ($data) {
+            $this->load->model("kantor/MasterStockModel");
             $content['data'] = [
                 'data' => $data,
                 "customer" => $this->crud->gd('data_customer', ['id' => $data->id_pelanggan]),
-                'item'  => $this->crud->gw('data_spk_pemasangan_item', ['tipe' => '1', 'id_spk' => $id])
+                'item'  => $this->MasterStockModel->getspkitem('1', $id)
             ];
 
             $this->load->view('kantor/spk-pemasangan/print',$content);
@@ -127,7 +129,7 @@ class Spk_pemasangan extends MY_Controller {
         $valid = $this->form_validation;
         $valid->set_error_delimiters('', '');
         $valid->set_rules('id_spk', 'ID SPK Pemasangan', 'required|trim');
-        $valid->set_rules('kode', 'Kode/Nama barang', 'required|trim');
+        $valid->set_rules('id_stock', 'ID Stock Barang', 'required|trim');
         $valid->set_rules('jumlah', 'Jumlah Barang', 'required|trim');
         $valid->set_rules('keterangan', 'Keterangan', 'trim');
 
@@ -136,21 +138,19 @@ class Spk_pemasangan extends MY_Controller {
                 'success'   => FALSE,
                 'error'     => array(
                     'id_spk'        => form_error('id_spk'),
-                    'kode'          => form_error('kode'),
+                    'id_stock'      => form_error('id_stock'),
                     'jumlah'        => form_error('jumlah'),
                     'keterangan'    => form_error('keterangan')
                 )
             ]);
         } else {
             $input = $this->input->post(NULL, TRUE);
-            $kode = explode('||', $input['kode']);
 
             if (!$input['id']) {
                 $insert = array(
                     'tipe'          => '1',
                     'id_spk'        => $input['id_spk'],
-                    'kode'          => $kode[0],
-                    'nama'          => $kode[1],
+                    'id_stock'      => $input['id_stock'],
                     'jumlah'        => $input['jumlah'],
                     'keterangan'    => $input['keterangan']
                 );
@@ -158,6 +158,9 @@ class Spk_pemasangan extends MY_Controller {
                 $this->crud->i('data_spk_pemasangan_item', $insert);
 
                 $insert['id'] = $this->db->insert_id();
+                $stock = $this->crud->gd('master_stock', ['id' => $input['id_stock']]);
+                $insert['kode'] = $stock->kode;
+                $insert['nama'] = $stock->nama;
 
                 return $this->sendResponse([
                     'success'   => TRUE,
@@ -171,8 +174,7 @@ class Spk_pemasangan extends MY_Controller {
                 if ($data) {
                     $update = array(
                         'id_spk'        => $input['id_spk'],
-                        'kode'          => $kode[0],
-                        'nama'          => $kode[1],
+                        'id_stock'      => $input['id_stock'],
                         'jumlah'        => $input['jumlah'],
                         'keterangan'    => $input['keterangan']
                     );

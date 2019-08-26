@@ -166,11 +166,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php foreach ($data['item'] as $row) { ?>
+<?php foreach ($data['item'] as $row) { $stock = $this->crud->gd('master_stock', ['id' => $row->id_stock]);
+ ?>
                                     <tr>
                                         <td><?=$row->jumlah?></td>
                                         <td>Unit</td>
-                                        <td><?=$row->nama?></td>
+                                        <td><?=$stock->nama?></td>
                                     </tr>
 <?php } ?>
                                 </tbody>
