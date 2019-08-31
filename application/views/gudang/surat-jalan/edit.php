@@ -208,13 +208,14 @@
 $i = 0;
 $id_serial = explode(',', trim($data['data']->id_serial, ','));
 foreach ($data['item'] as $row) {
-    $serial = $this->crud->gw('data_invoice_masuk_list_barang_serial', ['kode_list_barang' => $row->kode]);
+    $stock = $this->crud->gd('master_stock', ['id' => $row->id_stock]);
+    $serial = $this->crud->gw('data_invoice_masuk_list_barang_serial', ['id_stock' => $row->id_stock]);
     for ($j = 1; $j <= $row->jumlah; $j++) {
 ?>
                                         <tr class="item-<?=$row->id?>">
                                             <!-- <td><?=$i?></td> -->
-                                            <td><?=$row->nama?></td>
-                                            <td><?=$row->kode?></td>
+                                            <td><?=$stock->nama?></td>
+                                            <td><?=$stock->kode?></td>
                                             <td>
                                                 <select class="stock-item">
                                                     <option value="0">--------</option>
@@ -270,7 +271,7 @@ foreach ($data['item'] as $row) {
                                 <option value="">-</option>
                                 <?php
                                 foreach ($data['stock'] as $value) { ?>
-                                    <option value="<?= $value['kode'] ?>||<?= $value['nama'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
+                                    <option value="<?= $value['id'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
                             <?php } ?>
                             </select>
                         </div>
@@ -328,7 +329,7 @@ foreach ($data['item'] as $row) {
             $.post('<?=site_url('gudang/surat-jalan/submit-item')?>', {
                 'id': '',
                 'id_surat': $('#id_surat').val(),
-                'kode': $('#item_kode').val(),
+                'id_stock': $('#item_kode').val(),
                 'jumlah': $('#item_jumlah').val()
             }, function(result, status) {
                 if (status == 'success') {
@@ -369,7 +370,7 @@ foreach ($data['item'] as $row) {
                         $('.btn-error-form').removeClass('btn-primary');
                         $('.btn-error-form').addClass('btn-danger');
 
-                        if (result.error.kode) $('#item_kode').addClass('is-invalid');
+                        if (result.error.id_stock) $('#item_kode').addClass('is-invalid');
                         if (result.error.jumlah) $('#item_jumlah').addClass('is-invalid');
                     }
                 } else show_toast('Data gagal dikirim.', 'error');

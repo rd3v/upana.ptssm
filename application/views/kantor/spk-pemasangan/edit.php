@@ -247,7 +247,7 @@
 								<option value="">-</option>
 								<?php
 								foreach ($data['stock'] as $value) { ?>
-									<option value="<?= $value['kode'] ?>||<?= $value['nama'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
+									<option value="<?= $value['id'] ?> "><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
 							<?php } ?>
 							</select>
 						</div>
@@ -314,7 +314,7 @@
             $.post('<?=site_url('kantor/spk-pemasangan/submit-item')?>', {
                 'id': '',
                 'id_spk': $('#id_spk').val(),
-                'kode': $('#item_kode').val(),
+                'id_stock': $('#item_kode').val(),
                 'jumlah': $('#item_jumlah').val(),
                 'keterangan': $('#item_keterangan').val()
             }, function(result, status) {
@@ -342,7 +342,7 @@
                         $('.btn-error-form').removeClass('btn-primary');
                         $('.btn-error-form').addClass('btn-danger');
 
-                        if (result.error.kode) $('#item_kode').addClass('is-invalid');
+                        if (result.error.id_stock) $('#item_kode').addClass('is-invalid');
                         if (result.error.jumlah) $('#item_jumlah').addClass('is-invalid');
                         if (result.error.keterangan) $('#item_keterangan').addClass('is-invalid');
                     }

@@ -78,30 +78,7 @@
 										<div class="tab-content">
 											<div class="tab-pane active" id="m_tabs_1_1" role="tabpanel">
 												<!-- <div class="m_datatable" id="local_data"></div> -->
-												<table class="table " id="">
-													<thead>
-														<tr>
-															<th>No</th>
-															<th>Tanggal</th>
-															<th>No SPK</th>
-															<th>Gudang</th>
-															<th>Nama Pelanggan</th>
-															<th>Aksi</th>
-														</tr>
-													</thead>
-													<tbody>
-<?php $i = 1; foreach ($data['antrian'] as $row) { ?>
-														<tr>
-															<td><?=$i?></td>
-															<td><?=tgl_indo($row->tanggal)?></td>
-															<td><?=$row->no_spk?></td>
-															<td><?=($row->tipe_pajak == 1 ? 'Toko (Pajak)' : 'Kantor (Non-Pajak)')?></td>
-															<td><?=$row->nama?></td>
-															<td><a href="<?=site_url('gudang/surat-jalan/proses/'.$row->id)?>" class="btn btn-sm btn-info" style="color:white; width:80px;">Proses >> </a></td>
-														</tr>
-<?php $i++; } ?>
-													</tbody>
-												</table>
+												<table class="table " id="tbl_antrian"></table>
 												<!--end: Datatable -->
 
 											</div>
@@ -109,75 +86,13 @@
 											<div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
 
 												<!-- <div class="m_datatable" id="local_data"></div> -->
-												<table class="table " id="tbl_list_surat_jalan_terbit">
-													<thead>
-														<tr>
-															<th>No</th>
-															<th>Tanggal</th>
-															<th>No Surat</th>
-															<th>No SPK</th>
-															<th>Gudang</th>
-															<th>Nama Pelanggan</th>
-															<th>Aksi</th>
-														</tr>
-													</thead>
-													<tbody>
-<?php $i = 1; foreach ($data['terbit'] as $row) { ?>
-														<tr>
-															<td><?=$i?></td>
-															<td><?=tgl_indo($row->tanggal)?></td>
-															<td><?=$row->no_surat?></td>
-															<td><?=$row->no_spk?></td>
-															<td><?=($row->tipe_pajak == 1 ? 'Toko (Pajak)' : 'Kantor (Non-Pajak)')?></td>
-															<td><?=$row->nama?></td>
-															<td>
-																<a href="<?=site_url('gudang/surat-jalan/edit/'.$row->id)?>" class="btn btn-sm btn-primary" style="color:white;">Edit</a>
-
-																<a href="<?=site_url('gudang/surat-jalan/rincian/'.$row->id)?>" class="btn btn-sm btn-primary" style="color:white;">Rincian</a>
-															</td>
-														</tr>
-<?php $i++; } ?>
-													</tbody>
-												</table>
+												<table class="table " id="tbl_telah_terbit"></table>
 												<!--end: Datatable -->
-
-
-
-
 
 											</div>
 											<div class="tab-pane" id="m_tabs_1_3" role="tabpanel">
 												<!-- <div class="m_datatable" id="local_data"></div> -->
-												<table class="table " id="tbl_list_surat_jalan_batal">
-													<thead>
-														<tr>
-															<th>No</th>
-															<th>Tanggal</th>
-															<th>No Surat</th>
-															<th>No SPK</th>
-															<th>Gudang</th>
-															<th>Nama Pelanggan</th>
-															<th>Aksi</th>
-														</tr>
-													</thead>
-													<tbody>
-<?php $i = 1; foreach ($data['batal'] as $row) { ?>
-														<tr>
-															<td><?=$i?></td>
-															<td><?=tgl_indo($row->tanggal)?></td>
-															<td><?=$row->no_surat?></td>
-															<td><?=$row->no_spk?></td>
-															<td><?=($row->tipe_pajak == 1 ? 'Toko (Pajak)' : 'Kantor (Non-Pajak)')?></td>
-															<td><?=$row->nama?></td>
-															<td>
-																<a href="<?=site_url('gudang/surat-jalan/edit/'.$row->id)?>" class="btn btn-sm btn-primary" style="color:white;">Edit</a>
-
-																<a href="<?=site_url('gudang/surat-jalan/rincian/'.$row->id)?>" class="btn btn-sm btn-primary" style="color:white;">Rincian</a>
-															</td>
-														</tr>
-<?php $i++; } ?>
-													</tbody>
-												</table>
+												<table class="table " id="tbl_batal"></table>
 												<!--end: Datatable -->
 											</div>
 										</div>
@@ -194,3 +109,198 @@
 				</div>
 			</div>
 			<!-- end:: Body -->
+
+			<script>
+				var tbl_antrian = $('#tbl_antrian').mDatatable({
+					data: {
+						saveState: {cookie: false},
+						type: 'remote',
+				        source: {
+				          read: {
+				            method: 'POST',
+				            url: '<?=site_url('gudang/surat-jalan/lists/0')?>'
+				          },
+				        },
+				        pageSize: 10,
+				        serverPaging: true,
+				        serverFiltering: true,
+				        serverSorting: true,
+				    },
+					sortable: false,
+					search: {
+						input: $('#generalSearch'),
+					},
+					columns: [
+						{
+							field: '#',
+							title: 'No.',
+							textAlign: 'center',
+							template: function(data, type, row, meta) {
+	                            return ((row.getCurrentPage() - 1) * row.getPageSize()) + data.getIndex() + 1;
+							}
+						}, {
+							field: 'tanggal',
+							title: 'Tanggal',
+							textAlign: 'center',
+							template: function(data) {
+								return tgl_indo(data.tanggal);
+							}
+						}, {
+							field: 'no_spk',
+							title: 'No. SPK',
+							textAlign: 'center',
+
+						}, {
+							field: 'tipe_pajak',
+							title: 'Gudang',
+							textAlign: 'center',
+							template: function(data) {
+								return (data.tipe_pajak == '1' ? 'Toko (Pajak)' : 'Kantor (Non-Pajak)');
+							}
+						}, {
+							field: 'nama',
+							title: 'Nama Pelanggan',
+							textAlign: 'center',
+						}, {
+							field: 'aksi',
+							title: 'Aksi',
+							textAlign: 'center',
+							template: function(data) {
+								return '<a href="<?=site_url('gudang/surat-jalan/proses/')?>'+data.id+'" class="btn btn-sm btn-info" style="color:white; width:80px;">Proses >> </a>';
+							}
+						}
+					]
+				});
+
+				var tbl_telah_terbit = $('#tbl_telah_terbit').mDatatable({
+					data: {
+						saveState: {cookie: false},
+						type: 'remote',
+				        source: {
+				          read: {
+				            method: 'POST',
+				            url: '<?=site_url('gudang/surat-jalan/lists/1')?>'
+				          },
+				        },
+				        pageSize: 10,
+				        serverPaging: true,
+				        serverFiltering: true,
+				        serverSorting: true,
+				    },
+					sortable: false,
+					search: {
+						input: $('#generalSearch'),
+					},
+					columns: [
+						{
+							field: '#',
+							title: 'No.',
+							textAlign: 'center',
+							template: function(data, type, row, meta) {
+	                            return ((row.getCurrentPage() - 1) * row.getPageSize()) + data.getIndex() + 1;
+							}
+						}, {
+							field: 'tanggal',
+							title: 'Tanggal',
+							textAlign: 'center',
+							template: function(data) {
+								return tgl_indo(data.tanggal);
+							}
+						}, {
+							field: 'no_surat',
+							title: 'No. Surat',
+							textAlign: 'center',
+						}, {
+							field: 'no_spk',
+							title: 'No. SPK',
+							textAlign: 'center',
+						}, {
+							field: 'tipe_pajak',
+							title: 'Gudang',
+							textAlign: 'center',
+							template: function(data) {
+								return (data.tipe_pajak == '1' ? 'Toko (Pajak)' : 'Kantor (Non-Pajak)');
+							}
+						}, {
+							field: 'nama',
+							title: 'Nama Pelanggan',
+							textAlign: 'center',
+						}, {
+							field: 'aksi',
+							title: 'Aksi',
+							textAlign: 'center',
+							width: 180,
+							template: function(data) {
+								return '<a href="<?=site_url('gudang/surat-jalan/edit/')?>'+data.id_surat_jalan+'" class="btn btn-sm btn-primary" style="color:white;">Edit</a> '+
+									'<a href="<?=site_url('gudang/surat-jalan/rincian/')?>'+data.id_surat_jalan+'" class="btn btn-sm btn-primary" style="color:white;">Rincian</a>';
+							}
+						}
+					]
+				});
+
+				var tbl_batal = $('#tbl_batal').mDatatable({
+					data: {
+						saveState: {cookie: false},
+						type: 'remote',
+				        source: {
+				          read: {
+				            method: 'POST',
+				            url: '<?=site_url('gudang/surat-jalan/lists/2')?>'
+				          },
+				        },
+				        pageSize: 10,
+				        serverPaging: true,
+				        serverFiltering: true,
+				        serverSorting: true,
+				    },
+					sortable: false,
+					search: {
+						input: $('#generalSearch'),
+					},
+					columns: [
+						{
+							field: '#',
+							title: 'No.',
+							textAlign: 'center',
+							template: function(data, type, row, meta) {
+	                            return ((row.getCurrentPage() - 1) * row.getPageSize()) + data.getIndex() + 1;
+							}
+						}, {
+							field: 'tanggal',
+							title: 'Tanggal',
+							textAlign: 'center',
+							template: function(data) {
+								return tgl_indo(data.tanggal);
+							}
+						}, {
+							field: 'no_surat',
+							title: 'No. Surat',
+							textAlign: 'center',
+						}, {
+							field: 'no_spk',
+							title: 'No. SPK',
+							textAlign: 'center',
+						}, {
+							field: 'tipe_pajak',
+							title: 'Gudang',
+							textAlign: 'center',
+							template: function(data) {
+								return (data.tipe_pajak == '1' ? 'Toko (Pajak)' : 'Kantor (Non-Pajak)');
+							}
+						}, {
+							field: 'nama',
+							title: 'Nama Pelanggan',
+							textAlign: 'center',
+						}, {
+							field: 'aksi',
+							title: 'Aksi',
+							textAlign: 'center',
+							width: 180,
+							template: function(data) {
+								return '<a href="<?=site_url('gudang/surat-jalan/edit/')?>'+data.id_surat_jalan+'" class="btn btn-sm btn-primary" style="color:white;">Edit</a> '+
+									'<a href="<?=site_url('gudang/surat-jalan/rincian/')?>'+data.id_surat_jalan+'" class="btn btn-sm btn-primary" style="color:white;">Rincian</a>';
+							}
+						}
+					]
+				});
+			</script>

@@ -157,6 +157,7 @@
 											id:$("#id_pelanggan").val(),
 											nama:$("#nama_pelanggan").val(),
 											telepon:$("#telepon_pelanggan").val(),
+											email:$("#email_pelanggan").val(),
 											alamat:$("#alamat_pelanggan").val(),
 											lat:$("#lat").val(),
 											lon:$("#lon").val(),
@@ -224,6 +225,7 @@
 											id:$("#id_pelanggan").val(),
 											nama:$("#nama_pelanggan").val(),
 											telepon:$("#telepon_pelanggan").val(),
+											email:$("#email_pelanggan").val(),
 											alamat:$("#alamat_pelanggan").val(),
 											lat:$("#lat").val(),
 											lon:$("#lon").val()

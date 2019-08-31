@@ -1,6 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+if ( ! function_exists('upload_path')) {
+    function upload_path($path = NULL) {
+        $link = ($path)? $path.'/' : '';
+        return './uploads/'.$link;
+    }
+}
+
+if ( ! function_exists('upload_url')) {
+    function upload_url($url = NULL) {
+        $link = ($url)? $url.'/' : '';
+        return base_url('uploads').'/'.$link;
+    }
+}
+
 if (!function_exists('upload_image')) {
     function upload_image($files, $method, $folder, $image_name, $error_data, $required = FALSE, $pagepath = ADMINPAGE.'/_layout/wrapper') {
         $CI =& get_instance();
@@ -50,7 +64,7 @@ if (!function_exists('upload_image')) {
                     $CI->load->library('image_lib', $config, 'crop');
 
                     if (!$CI->crop->crop()) {
-                        unlink(upload_path($folder).$gambar);
+                        if ($gambar != '') unlink(upload_path($folder).$gambar);
                         $error_data['error_upload'] = $CI->crop->display_errors('<i style="color: red;">', '</i>');
                         $CI->load->view($pagepath, $error_data);
                         return FALSE;
@@ -63,7 +77,7 @@ if (!function_exists('upload_image')) {
                     $CI->load->library('image_lib', $config, 'cresize');
 
                     if (!$CI->cresize->resize()) {
-                        unlink(upload_path($folder).$image_name);
+                        if ($image_name != '') unlink(upload_path($folder).$image_name);
                         $error_data['error_upload'] = $CI->cresize->display_errors('<i style="color: red;">', '</i>');
                         $CI->load->view($pagepath, $error_data);
                         return FALSE;
@@ -80,7 +94,7 @@ if (!function_exists('upload_image')) {
                 $CI->load->library('image_lib', $config, 'resize');
 
                 if (!$CI->resize->resize()) {
-                    unlink(upload_path($folder).$image_name);
+                    if ($image_name != '') unlink(upload_path($folder).$image_name);
                     $error_data['error_upload'] = $CI->resize->display_errors('<i style="color: red;">', '</i>');
                     $CI->load->view($pagepath, $error_data);
                     return FALSE;

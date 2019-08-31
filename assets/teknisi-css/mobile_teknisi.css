@@ -17,37 +17,37 @@ body.m-content--skin-light2 {
 }
 
 .body_menu_1 {
-	/* background-image: url("http://localhost/ptssm/app/teknisi/assets/img/menu_1.png"); */
+	background-image: url("assets/img/menu_1.png");
 	height: 180px !important;
 	padding-top: 40px !important;
 	border-radius: 10px;
 }
 .body_menu_1a {
-	/* background-image: url("../img/menu_1.png"); */
+	background-image: url("assets/img/menu_1.png");
 	height: 90px !important;
 	/*padding-top: 40px !important;*/
 	border-radius: 10px;
 }
 .body_menu_2 {
-	/* background-image: url("../img/menu_2.png"); */
+	background-image: url("assets/img/menu_2.png");
 	height: 180px !important;
 	padding-top: 40px !important;
 	border-radius: 10px;
 }
 .body_menu_2a {
-	/* background-image: url("../img/menu_2.png"); */
+	background-image: url("assets/img/menu_2.png");
 	height: 90px !important;
 	/*padding-top: 40px !important;*/
 	border-radius: 10px;
 }
 .body_menu_3 {
-	/* background-image: url("../img/menu_3.png"); */
+	background-image: url("assets/img/menu_3.png");
 	height: 180px !important;
 	padding-top: 40px !important;
 	border-radius: 10px;
 }
 .body_menu_3a {
-	/* background-image: url("../img/menu_3.png"); */
+	background-image: url("assets/img/menu_3.png");
 	height: 90px !important;
 	/*padding-top: 40px !important;*/
 	border-radius: 10px;

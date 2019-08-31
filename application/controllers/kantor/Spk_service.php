@@ -41,16 +41,12 @@ class Spk_service extends MY_Controller {
     public function tambah() {
 
         $this->load->model('kantor/CustomerModel');
-        $this->load->model("kantor/MasterStockModel");
 
         $customer = $this->CustomerModel->getdata();
-        $stock = $this->MasterStockModel->getdata();
 
         $content['data'] = [
             'id' => $this->input->get('id', TRUE),
-            "customer" => $customer,
-            "stock" => $stock,
-            'item'  => $this->crud->gw('data_spk_service_item', ['tipe' => '1', 'id_spk' => $this->input->get('id', TRUE)])
+            "customer" => $customer
         ];
 
         $footer['data'] = [
@@ -67,16 +63,12 @@ class Spk_service extends MY_Controller {
 
         if ($data) {
             $this->load->model('kantor/CustomerModel');
-            $this->load->model("kantor/MasterStockModel");
 
             $customer = $this->CustomerModel->getdata();
-            $stock = $this->MasterStockModel->getdata();
 
             $content['data'] = [
                 'data' => $data,
-                "customer" => $customer,
-                "stock" => $stock,
-                'item'  => $this->crud->gw('data_spk_service_item', ['tipe' => '1', 'id_spk' => $id])
+                "customer" => $customer
             ];
 
             $footer['data'] = [
@@ -96,7 +88,7 @@ class Spk_service extends MY_Controller {
             $content['data'] = [
                 'data' => $data,
                 "customer" => $this->crud->gd('data_customer', ['id' => $data->id_pelanggan]),
-                'item'  => $this->crud->gw('data_spk_service_item', ['tipe' => '1', 'id_spk' => $id])
+                'item'  => $this->crud->gw('data_spk_service_item', ['id_spk' => $data->id])
             ];
 
             $footer['data'] = [
@@ -116,96 +108,11 @@ class Spk_service extends MY_Controller {
             $content['data'] = [
                 'data' => $data,
                 "customer" => $this->crud->gd('data_customer', ['id' => $data->id_pelanggan]),
-                'item'  => $this->crud->gw('data_spk_service_item', ['tipe' => '1', 'id_spk' => $id])
+                'item'  => $this->crud->gw('data_spk_service_item', ['id_spk' => $data->id])
             ];
 
             $this->load->view('kantor/spk-service/print',$content);
         }
-    }
-
-    public function submit_item() {
-        $valid = $this->form_validation;
-        $valid->set_error_delimiters('', '');
-        $valid->set_rules('id_spk', 'ID SPK Service', 'required|trim');
-        $valid->set_rules('kode', 'Kode/Nama barang', 'required|trim');
-        $valid->set_rules('jumlah', 'Jumlah Barang', 'required|trim');
-        $valid->set_rules('keterangan', 'Keterangan', 'trim');
-
-        if ($valid->run() === FALSE) {
-            return $this->sendResponse([
-                'success'   => FALSE,
-                'error'     => array(
-                    'id_spk'        => form_error('id_spk'),
-                    'kode'          => form_error('kode'),
-                    'jumlah'        => form_error('jumlah'),
-                    'keterangan'    => form_error('keterangan')
-                )
-            ]);
-        } else {
-            $input = $this->input->post(NULL, TRUE);
-            $kode = explode('||', $input['kode']);
-
-            if (!$input['id']) {
-                $insert = array(
-                    'tipe'          => '1',
-                    'id_spk'        => $input['id_spk'],
-                    'kode'          => $kode[0],
-                    'nama'          => $kode[1],
-                    'jumlah'        => $input['jumlah'],
-                    'keterangan'    => $input['keterangan']
-                );
-
-                $this->crud->i('data_spk_service_item', $insert);
-
-                $insert['id'] = $this->db->insert_id();
-
-                return $this->sendResponse([
-                    'success'   => TRUE,
-                    'add'       => TRUE,
-                    'rows'      => $this->crud->cw('data_spk_service_item', ['tipe' => '1', 'id_spk' => $input['id_spk']]),
-                    'data'      => $insert
-                ]);
-            } else {
-                $data = $this->crud->gd('data_spk_service_item', ['tipe' => '1', 'id' => $input['id']]);
-
-                if ($data) {
-                    $update = array(
-                        'id_spk'        => $input['id_spk'],
-                        'kode'          => $kode[0],
-                        'nama'          => $kode[1],
-                        'jumlah'        => $input['jumlah'],
-                        'keterangan'    => $input['keterangan']
-                    );
-
-                    $this->crud->u('data_spk_service_item', $update, ['tipe' => '1', 'id' => $input['id']]);
-
-                    $update['id'] = $input['id'];
-
-                    return $this->sendResponse([
-                        'success'   => TRUE,
-                        'add'       => FALSE
-                    ]);
-                } else {
-                    return $this->sendResponse([
-                        'success'   => FALSE
-                    ]);
-                }
-            }
-        }
-    }
-
-    public function delete_item() {
-        $input = $this->input->post(NULL, TRUE);
-        $where = array('tipe' => '1', 'id' => $input['id']);
-        $data = $this->crud->gd('data_spk_service_item', $where);
-
-        if ($data) {
-            $this->crud->d('data_spk_service_item', $where);
-
-            return $this->sendResponse(['success' => TRUE]);
-        }
-
-        return $this->sendResponse(['success' => FALSE]);
     }
 
     public function submit_form() {
@@ -237,6 +144,16 @@ class Spk_service extends MY_Controller {
             ]);
         } else {
             $input = $this->input->post(NULL, TRUE);
+            $items = explode('&', str_replace('=on', '', $input['item']));
+            $batch = [];
+
+            foreach ($items as $row) {
+                array_push($batch, [
+                    'id_spk'    => $input['id'],
+                    'id_ac'     => $row,
+                    'iat'       => date('Y-m-d H:i:s')
+                ]);
+            }
 
             if ($input['action'] == 'add') {
                 $insert = array(
@@ -245,6 +162,7 @@ class Spk_service extends MY_Controller {
                     'no_spk'            => $input['no_spk'],
                     'tanggal'           => $input['tanggal'],
                     'id_pelanggan'      => $input['id_pelanggan'],
+                    'item'              => str_replace('=on', '', str_replace('&', ',', $input['item'])),
                     'keterangan'        => $input['keterangan'],
                     'waktu_pengerjaan'  => str_replace('T', ' ', $input['waktu_pengerjaan']),
                     'catatan'           => $input['catatan'],
@@ -253,6 +171,7 @@ class Spk_service extends MY_Controller {
                 );
 
                 $this->crud->i('data_spk_service', $insert);
+                $this->db->insert_batch('data_spk_service_item', $batch);
 
                 return $this->sendResponse([
                     'success'   => TRUE,
@@ -267,6 +186,7 @@ class Spk_service extends MY_Controller {
                         'no_spk'            => $input['no_spk'],
                         'tanggal'           => $input['tanggal'],
                         'id_pelanggan'      => $input['id_pelanggan'],
+                        'item'              => str_replace('=on', '', str_replace('&', ',', $input['item'])),
                         'keterangan'        => $input['keterangan'],
                         'waktu_pengerjaan'  => str_replace('T', ' ', $input['waktu_pengerjaan']),
                         'catatan'           => $input['catatan'],
@@ -274,6 +194,8 @@ class Spk_service extends MY_Controller {
                     );
 
                     $this->crud->u('data_spk_service', $update, ['id' => $input['id']]);
+                    $this->crud->d('data_spk_service_item', ['id_spk' => $input['id']]);
+                    $this->db->insert_batch('data_spk_service_item', $batch);
 
                     return $this->sendResponse([
                         'success'   => TRUE,
@@ -305,5 +227,11 @@ class Spk_service extends MY_Controller {
         $this->load->model('kantor/customerModel');
         $result = $this->customerModel->getcustomer($id);
         $this->sendResponse($result);
+    }
+
+    public function getdataac($customer_id) {
+        $this->load->model('kantor/acModel');
+        $response = $this->acModel->getdata($customer_id);
+        $this->sendResponse(['success' => TRUE, 'data' => $response]);
     }
 }

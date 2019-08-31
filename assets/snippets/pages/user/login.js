@@ -101,19 +101,18 @@ var SnippetLogin = function() {
                                 switch (response.level) {
                                     case "finance":
                                         document.location = base_url+"finance/invoice/masuk";
-                                        // document.location = "https://projects.upanastudio.com/ptssm/app/finance/invoice/masuk";
                                         break;
                                     case "kantor":
                                         document.location = base_url+"kantor";
-                                        // document.location = "https://projects.upanastudio.com/ptssm/app/kantor";
                                         break;
                                     case "gudang":
                                         document.location = base_url+"gudang";
-                                        // document.location = "https://projects.upanastudio.com/ptssm/app/gudang";
                                         break;
                                     case "hrd":
                                         document.location = base_url+"hrd";
-                                        // document.location = "https://projects.upanastudio.com/ptssm/app/hrd";
+                                        break;
+                                    case "teknisi":
+                                        document.location = base_url+"teknisi";
                                         break;
                                 }
 
