@@ -85,9 +85,32 @@ class Penawaran extends MY_Controller {
     }
 
     public function getalldata() {
-        $this->load->model("kantor/PenawaranModel");
-        $response = $this->PenawaranModel->getalldata();
-        $this->sendResponse($response);   
+
+        $generalSearch = $this->input->post('query[generalSearch]');
+
+        $where = 'data_manajemen_penawaran.id != \'0\'';
+        if ($generalSearch) $where .= ' AND ('.cari_query($generalSearch, ['data_manajemen_penawaran.id','data_manajemen_penawaran.tipe_pajak','data_manajemen_penawaran.reff','data_manajemen_penawaran.tanggal','data_manajemen_penawaran.penerima','data_manajemen_penawaran.perihal']).')';
+
+        $total = $this->_query($where)->get()->num_rows();
+
+        $page = $this->input->post('pagination[page]') ? (int) $this->input->post('pagination[page]') : 1;
+        $perpage = $this->input->post('pagination[perpage]') ? (int) $this->input->post('pagination[perpage]') : 10;
+        $pages = ceil($total / $perpage);
+        $offset = (($page - 1) * $perpage);
+        
+        $field = $this->input->post('sort[field]') ? $this->input->post('sort[field]') : 'id';
+        
+        $sort = $this->input->post('sort[sort]') ? $this->input->post('sort[sort]') : 'desc';
+
+        $meta = array('page' => $page, 'pages' => $pages, 'perpage' => $perpage, 'total' => $total, 'sort' => $sort, 'field' => $field);
+
+        $participants = $this->_query($where)->order_by($field.' '.$sort)->limit($perpage, $offset)->get()->result();
+
+        $this->sendResponse(['success' => TRUE, 'meta' => $meta, 'data' => $participants]);
+    }
+
+    private function _query($where) {
+        return $this->db->select('data_manajemen_penawaran.id, data_manajemen_penawaran.tipe_pajak, data_manajemen_penawaran.reff, data_manajemen_penawaran.tanggal, data_manajemen_penawaran.penerima, data_manajemen_penawaran.perihal')->from('data_manajemen_penawaran')->where($where);
     }
 
     public function getmodel() {
@@ -96,5 +119,6 @@ class Penawaran extends MY_Controller {
         $response = $this->PenawaranModel->getmodel($master_stock_id);
         $this->sendResponse($response);
     }
+
 
 }
