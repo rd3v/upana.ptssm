@@ -680,7 +680,7 @@
 				{
 					field: "no",
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;
+						return ((row.getCurrentPage() - 1) * row.getPageSize()) + type + 1;
 					},
 					textAlign: 'center',
 				},
