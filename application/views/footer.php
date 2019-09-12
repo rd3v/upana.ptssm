@@ -680,7 +680,7 @@
 				{
 					field: "no",
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;
+						return ((row.getCurrentPage() - 1) * row.getPageSize()) + type + 1;
 					},
 					textAlign: 'center',
 				},
@@ -1738,10 +1738,10 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 				{
 					field: 'no',
-					textAlign: 'center',
 					template: function(data, type, row, meta) {
-						return data.getIndex() + 1;
-					}
+						return ((row.getCurrentPage() - 1) * row.getPageSize()) + type + 1;
+					},
+					textAlign: 'center',
 				},
 				{
 					field: 'tanggal',
