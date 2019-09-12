@@ -171,7 +171,7 @@ class Surat_jalan extends MY_Controller {
                 'success'   => FALSE,
                 'error'     => array(
                     'id_surat'  => form_error('id_surat'),
-                    'id_stock'      => form_error('id_stock'),
+                    'id_stock'  => form_error('id_stock'),
                     'jumlah'    => form_error('jumlah')
                 )
             ]);
@@ -273,7 +273,7 @@ class Surat_jalan extends MY_Controller {
 
             if ($input['action'] == 'add') {
                 $insert = array(
-                    'id'            => acak_id('data_surat_jalan', 'id')['id'],
+                    'id'            => $input['id'],
                     'no_surat'      => $input['no_surat'],
                     'id_spk'        => $input['id_spk'],
                     'tipe_pajak'    => $input['tipe_pajak'],

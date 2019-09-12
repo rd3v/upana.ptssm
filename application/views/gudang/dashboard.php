@@ -38,7 +38,7 @@
 										</div>
 										<!--begin::Widget 7-->
 										<div style="display:inline-block" align="right"  class=" m-widget7 m-widget7--skin-dark">
-											<span  id="total_surat_jalan" class="item-font">92</span> Surat
+											<span  id="total_surat_jalan" class="item-font"><?=$data['total_surat_jalan']?></span> Surat
 										</div>
 									</div>
 								</div>
@@ -61,15 +61,14 @@
 											</span>
 										</div>
 										<div style="display:inline-block" align="right"  class=" m-widget7 m-widget7--skin-dark">
-											<span  id="total_bukti_pengeluaran_material" class="item-font">70</span> Surat
+											<span  id="total_bukti_pengeluaran_material" class="item-font"><?=$data['total_pengeluaran_material']?></span> Surat
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-xl-12">
+							<!-- <div class="col-xl-12">
 								<div class="m-portlet m-portlet--mobile">
 									<div class="m-portlet__body">
-										<!--begin: Search Form -->
 										<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
 											<div class="row align-items-center">
 												<div class="col-md-12">
@@ -95,9 +94,6 @@
 												</div>
 											</div>
 										</div>
-										<!--end: Search Form -->
-										<!--begin: Datatable -->
-										<!-- <div class="m_datatable" id="local_data"></div> -->
 										<table  class="table" id="tbl_list_item_masuk">
 											 <thead >
 												<tr>
@@ -138,48 +134,11 @@
 													<td>unit</td>
 													<td>-</td>
 												</tr>
-												<tr>
-													<td>3</td>
-													<td>20/19/2018</td>
-													<td>#14253617</td>
-													<td>1105791</td>
-													<td>Thermistor RKD25GVM</td>
-													<td>Thermistor</td>
-													<td>Daikin</td>
-													<td>Material</td>
-													<td>unit</td>
-													<td>-</td>
-												</tr>
-												<tr>
-													<td>4</td>
-													<td>20/19/2018</td>
-													<td>#14253617</td>
-													<td>1105791</td>
-													<td>Thermistor RKD25GVM</td>
-													<td>Thermistor</td>
-													<td>Daikin</td>
-													<td>Material</td>
-													<td>unit</td>
-													<td>-</td>
-												</tr>
-												<tr>
-													<td>5</td>
-													<td>20/19/2018</td>
-													<td>#14253617</td>
-													<td>1105791</td>
-													<td>Thermistor RKD25GVM</td>
-													<td>Thermistor</td>
-													<td>Daikin</td>
-													<td>Unit</td>
-													<td>unit</td>
-													<td>-</td>
-												</tr>
-											</tbody> 
+											</tbody>
 										</table>
-										<!--end: Datatable -->
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>

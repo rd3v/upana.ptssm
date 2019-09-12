@@ -157,7 +157,7 @@
                                                 <div class="col-10">
                                                     <select class="col-8 form-control m-input" id="status">
                                                     <option value="1">Aktif</option>
-                                                    <option value="3">Tidak Aktif (Batal)</option>
+                                                    <option value="0">Tidak Aktif (Batal)</option>
 
                                                 </select>
                                                 </div>
