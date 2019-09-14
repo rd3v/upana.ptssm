@@ -106,7 +106,7 @@ class Kerjaan_proses extends MY_Controller {
 
             $this->crud->u('data_pengerjaan_teknisi', $update, ['tipe_spk' => $input['tipe_spk'], 'id_spk' => $input['id_spk']]);
             $this->crud->u('data_spk_'.$input['tipe_spk'], ['status' => '2', 'kepuasan' => $input['kepuasan']], ['id' => $input['id_spk']]);
-            $this->crud->u('data_surat_jalan', ['status' => '2'], ['id_spk' => $input['id_spk']]);
+            // $this->crud->u('data_surat_jalan', ['status' => '2'], ['id_spk' => $input['id_spk']]);
 
             return $this->sendResponse([
                 'success'   => TRUE,

@@ -15,17 +15,18 @@ class Dashboard extends MY_Controller {
                 "name" => $this->session->userdata('name'),
                 "email" => $this->session->userdata('email'),
                 "accesstype" => $this->session->userdata('accesstype')
-            ]            
-        ];		
+            ]
+        ];
     }
 
 		public function index() {
 			if($this->session->userdata('id') == null) {
 				redirect(base_url()."login",'refresh');
 			}
-			
-			$content['data'] = [
 
+			$content['data'] = [
+                'total_surat_jalan' => $this->crud->ca('data_surat_jalan'),
+                'total_pengeluaran_material' => $this->crud->ca('data_pengeluaran_material')
 			];
 
 			$footer['data'] = [
