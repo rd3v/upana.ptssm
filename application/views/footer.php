@@ -3370,7 +3370,7 @@ var html = "<a href='<?= base_url() ?>gudang/stock/rincian/"+data.id+"' class=\"
 				<?php } if($data['route'] == "gudang/stock/rincian/(:any)") { ?>
 						$("li#stock-manajemen").addClass("m-menu__item--active");
 
-var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
+var tbl_rincian_stock_masuk = $('#tbl_rincian_stock_masuk').mDatatable({
 				data: {
 					saveState: {cookie: false},
 					/*type: 'remote',
@@ -3411,34 +3411,84 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				columns: [
 
 				{
-					field: 'No',
+					field: 'tanggal',
 					textAlign: 'center',
-					width: 50
+					type:'date',
+					format: 'DD/MM/YYYY'
 				},
 				{
-					field: 'Tanggal',
+					field: 'no_invoice',
+					textAlign: 'center'
+				},
+				{
+					field: 'nama',
+					textAlign: 'center'
+				},
+				{
+					field: 'jumlah',
+					textAlign: 'center'
+				}
+
+				],
+			});
+
+
+var tbl_rincian_stock_keluar = $('#tbl_rincian_stock_keluar').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					/*type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'GET',
+			            url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,*/
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'tanggal',
 					textAlign: 'center',
 					type:'date',
 					format: 'DD/MM/YYYY',
 				},
 				{
-					field: 'No Surat Jalan',
+					field: 'no_surat',
 					textAlign: 'center',
 				},
 				{
-					field: 'Pemesan',
+					field: 'nama',
 					textAlign: 'center',
 				},
 				{
-					field: 'Masuk',
-					textAlign: 'center',
-				},
-				{
-					field: 'Keluar',
-					textAlign: 'center',
-				},
-				{
-					field: 'Sisa',
+					field: 'jumlah',
 					textAlign: 'center',
 				}
 

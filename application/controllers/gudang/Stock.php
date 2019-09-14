@@ -250,13 +250,128 @@ class Stock extends MY_Controller {
     public function rincian_kantor($id) {
         $this->load->model('gudang/StockModel');
         $result = $this->StockModel->getdatarincian($id);
-        
-        $content['data'] = $result;
+
+# item masuk
+
+        $item_masuk = $this->db->query("
+            SELECT 
+            `data_invoice_masuk`.`tanggal`,
+            `data_invoice_masuk`.`no_invoice`,
+            `data_invoice_masuk`.`nama_supplier`,
+            `data_invoice_masuk_list_barang`.`jumlah`
+            FROM 
+            data_invoice_masuk, data_invoice_masuk_list_barang, data_invoice_masuk_list_barang_serial
+            WHERE 
+            `data_invoice_masuk_list_barang_serial`.`id_stock`=$id AND 
+            `data_invoice_masuk_list_barang_serial`.`id_list_barang`=`data_invoice_masuk_list_barang`.`id` AND 
+            `data_invoice_masuk_list_barang`.`no_invoice_data_invoice_masuk`=`data_invoice_masuk`.`no_invoice` 
+        ")->result();
+
+        $new_item_masuk = [];
+        $item_masuk_temp=0;
+        for ($i=0;$i < count($item_masuk);$i++) {
+
+            if($i==0) {
+                $new_item_masuk[] = [
+                    "tanggal" => $item_masuk[$i]->tanggal,
+                    "no_invoice" => $item_masuk[$i]->no_invoice,
+                    "nama" => $item_masuk[$i]->nama_supplier,
+                    "jumlah" => $item_masuk[$i]->jumlah
+                ];
+                $item_masuk_temp=$i;
+                continue;
+            }
+
+            if($new_item_masuk[$item_masuk_temp]['no_invoice']==$item_masuk[$i]->no_invoice) {
+                continue;
+            } else {
+                $new_item_masuk[] = [
+                    "tanggal" => $item_masuk[$i]->tanggal,
+                    "no_invoice" => $item_masuk[$i]->no_invoice,
+                    "nama" => $item_masuk[$i]->nama_supplier,
+                    "jumlah" => $item_masuk[$i]->jumlah,
+                ];
+                $item_masuk_temp=$i;
+            }
+
+        }
+
+
+# item keluar
+# jika unit ambil di surat jalan, jika material ambil di pengeluaran material
+
+        if($result->kategori=="unit") {
+
+            $item_keluar = $this->db->query("
+                SELECT 
+                `data_surat_jalan`.`tanggal`,
+                `data_surat_jalan`.`no_surat`,
+                `data_spk_pemasangan_item`.`nama`,
+                `data_spk_pemasangan_item`.`jumlah` as jumlah
+                FROM 
+                data_surat_jalan, data_spk_pemasangan_item 
+                WHERE 
+                `data_spk_pemasangan_item`.`id_stock`=$id AND 
+                `data_surat_jalan`.`id_spk`=`data_spk_pemasangan_item`.`id_spk` 
+            ")->result();
+
+        } else if($result->kategori=="material") {
+
+            $item_keluar = $this->db->query("
+                SELECT 
+                `data_surat_jalan`.`tanggal`,
+                `data_surat_jalan`.`no_surat`,
+                `data_customer`.`nama`,
+                `data_customer`.`nama` as jumlah
+                FROM 
+                data_surat_jalan, data_customer, data_pengeluaran_material 
+                WHERE 
+                `data_surat_jalan`.`id_spk`=`data_pengeluaran_material`.`id_spk`
+            ")->result();
+
+        }
+                      
+        $new_item_keluar = [];
+        $item_keluar_temp=0;
+        for ($i=0;$i < count($item_keluar);$i++) {
+
+            if($i==0) {
+                $new_item_keluar[] = [
+                    "tanggal" => $item_keluar[$i]->tanggal,
+                    "no_surat" => $item_keluar[$i]->no_surat,
+                    "nama" => $item_keluar[$i]->nama,
+                    "jumlah" => $item_keluar[$i]->jumlah
+                ];
+                $item_keluar_temp=$i;
+                continue;
+            }
+
+            if($new_item_keluar[$item_keluar_temp]['no_surat']==$item_keluar[$i]->no_surat) {
+                $new_item_keluar[$item_keluar_temp]['jumlah'] += $item_keluar[$i]->jumlah;
+                continue;
+            } else {
+                $new_item_keluar[] = [
+                    "tanggal" => $item_keluar[$i]->tanggal,
+                    "no_surat" => $item_keluar[$i]->no_surat,
+                    "nama" => $item_keluar[$i]->nama,
+                    "jumlah" => $item_keluar[$i]->jumlah,
+                ];
+                $item_keluar_temp=$i;
+            }
+
+        }   
+
+        $content = (object) [
+            "item_masuk" => $new_item_masuk,
+            "item_keluar" => $new_item_keluar,
+            "sisa" => $result->stock,
+            "data" => $result
+        ];
 
         $footer['data'] = [
             "route" => $this->getRoute(),
             "kode" => $result->kode
-        ];        
+        ];
 
         $this->load->view('header_menu',$this->header);
         $this->load->view('gudang/stock_rincian_kantor',$content);
