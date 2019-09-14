@@ -319,25 +319,33 @@ class Stock extends MY_Controller {
 
             $item_keluar = $this->db->query("
                 SELECT 
-                `data_surat_jalan`.`tanggal`,
-                `data_surat_jalan`.`no_surat`,
+                `data_pengeluaran_material_item`.`iat` as tanggal,
+                `data_pengeluaran_material_item`.`id_pengeluaran_material` as no_surat,
                 `data_customer`.`nama`,
-                `data_customer`.`nama` as jumlah
+                `data_pengeluaran_material_item`.`pengeluaran` as jumlah
                 FROM 
-                data_surat_jalan, data_customer, data_pengeluaran_material 
+                data_customer, data_pengeluaran_material_item 
                 WHERE 
-                `data_surat_jalan`.`id_spk`=`data_pengeluaran_material`.`id_spk`
+                `data_pengeluaran_material_item`.`id_stock`=$result->id AND 
+                `data_pengeluaran_material_item`.`id_pelanggan`=`data_customer`.`id` 
             ")->result();
 
         }
-                      
+
+
         $new_item_keluar = [];
         $item_keluar_temp=0;
         for ($i=0;$i < count($item_keluar);$i++) {
 
+            if(strlen($item_keluar[$i]->tanggal) > 10) {
+                $tanggal = date("Y-m-d",strtotime($item_keluar[$i]->tanggal));
+            } else {
+                $tanggal = $item_keluar[$i]->tanggal;
+            }
+
             if($i==0) {
                 $new_item_keluar[] = [
-                    "tanggal" => $item_keluar[$i]->tanggal,
+                    "tanggal" =>  $tanggal,
                     "no_surat" => $item_keluar[$i]->no_surat,
                     "nama" => $item_keluar[$i]->nama,
                     "jumlah" => $item_keluar[$i]->jumlah
