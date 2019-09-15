@@ -50,11 +50,11 @@
 															Kartu Stock Barang
 														</h3>
 													</div>
-													<div align="right" class="col-sm">
+<!-- 													<div align="right" class="col-sm">
 														<button onclick="window.location.href='<?= base_url() ?>kantor/stock/rincian_barang/<?= $data->id ?>'" class="btn btn-primary">
 															Rincian
 														</button>
-													</div>
+													</div> -->
 												</div>
 											</div>
 										</div>
@@ -101,28 +101,76 @@
 												<input disabled="" class="form-control m-input" type="text" value="<?= $tempat ?>" id="no_kartu">
 											</div>
 										</div>
-										<table class="table" id="tbl_rincian_stock">
+										
+										<br>
+										<hr>
+										<br>
+
+										<div class="row">
+											<div class="col-md-6 text-center">
+												<h4 style="font-weight: bold">MASUK</h4>
+												
+										<table class="table" id="tbl_rincian_stock_masuk">
+											<thead>
+												<tr>
+													<th>Tanggal</th>
+													<th>Invoice Masuk</th>
+													<th>Pemesan</th>
+													<th>Jumlah</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php 
+												foreach ($item_masuk as $value) {
+													$tanggal = explode("-",$value['tanggal']);
+												 ?>
+												<tr>
+													<td><?= $tanggal[2]."/".$tanggal[1]."/".$tanggal[0] ?></td>
+													<td><?= $value['no_invoice'] ?></td>
+													<td><?= $value['nama'] ?></td>
+													<td><?= $value['jumlah'] ?></td>
+												</tr>
+												<?php 
+												}
+												 ?>
+											</tbody>
+										</table>
+
+											</div>
+											<div class="col-md-6 text-center">
+												<h4 style="font-weight: bold">KELUAR</h4>
+
+										<table class="table" id="tbl_rincian_stock_keluar">
 											<thead>
 												<tr>
 													<th>Tanggal</th>
 													<th>No Surat Jalan</th>
 													<th>Pemesan</th>
-													<th>Masuk</th>
-													<th>Keluar</th>
-													<th>Sisa</th>
+													<th>Jumlah</th>
 												</tr>
 											</thead>
 											<tbody>
+												<?php 
+												foreach ($item_keluar as $value) {
+													$tanggal = explode("-",$value['tanggal']);
+												 ?>
 												<tr>
-													<td>08/12/2012</td>
-													<td>-</td>
-													<td>PT. Mss Jakarta</td>
-													<td>100 unit</td>
-													<td>-</td>
-													<td>100 unit</td>
+													<td><?= $tanggal[2]."/".$tanggal[1]."/".$tanggal[0] ?></td>
+													<td><?= $value['no_surat'] ?></td>
+													<td><?= $value['nama'] ?></td>
+													<td><?= ($value['jumlah']) ?></td>
 												</tr>
+												<?php 
+												}
+												 ?>
 											</tbody>
 										</table>
+
+											</div>
+										</div>
+
+
+
 									</div>
 								</div>
 							</div>
