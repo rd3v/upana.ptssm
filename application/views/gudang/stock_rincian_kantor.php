@@ -50,11 +50,11 @@
 															Kartu Stock Barang
 														</h3>
 													</div>
-<!-- 													<div align="right" class="col-sm">
+													<div align="right" class="col-sm">
 														<button onclick="window.location.href='<?= base_url() ?>gudang/stock/rincian_barang/<?= $data->id ?>'" class="btn btn-primary">
 															Rincian
 														</button>
-													</div> -->
+													</div>
 												</div>
 											</div>
 										</div>
