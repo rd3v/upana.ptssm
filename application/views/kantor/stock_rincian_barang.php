@@ -26,7 +26,7 @@
 										-
 									</li>
 									<li class="m-nav__item">
-										<a href="<?= site_url() ?>kantor/stock/rincian/<?= $data->id ?>" class="m-nav__link">
+										<a href="<?= site_url() ?>gudang/stock/rincian/<?= $data->id ?>" class="m-nav__link">
 											<span class="m-nav__link-text">
 												Rincian
 											</span>
@@ -61,7 +61,7 @@
 												Jenis Barang
 											</label>
 											<div class="col-md-5">
-												<input disabled="" class="form-control m-input" type="text" value="<?= $data->nama ?>" id="jenis_barang">
+												<input disabled="" class="form-control m-input" type="text" value="<?= $data->result->nama ?>" id="jenis_barang">
 											</div>
 											<div class="offset-md-1 col-md-4">
 												<div class="m-input-icon m-input-icon--left">
@@ -84,11 +84,19 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>123123123</td>
-													<td>20/11/19</td>
-													<td>25/11/19</td>
-												</tr>
+												<?php 
+
+													foreach ($data->list_barang as $value) { ?>
+
+													<tr>
+														<td><?= $value->serial ?></td>
+														<td><?= date("d/m/Y",strtotime($value->tanggal_masuk)) ?></td>
+														<td><?= date("d/m/Y",strtotime($value->tanggal_keluar)) ?></td>
+													</tr>
+
+												<?php }
+
+												 ?>
 											</tbody>
 										</table>
 									</div>
