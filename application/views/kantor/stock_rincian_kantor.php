@@ -50,57 +50,73 @@
 															Kartu Stock Barang
 														</h3>
 													</div>
-<!-- 													<div align="right" class="col-sm">
+													<div align="right" class="col-sm">
 														<button onclick="window.location.href='<?= base_url() ?>kantor/stock/rincian_barang/<?= $data->id ?>'" class="btn btn-primary">
 															Rincian
 														</button>
-													</div> -->
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="m-portlet__body jenis_barang">
-										<div class="form-group m-form__group row">
-											<label  class="col-2 col-form-label">
-												Jenis Barang
-											</label>
-											<div class="col-10">
-												<input disabled="" class="form-control m-input" type="text" value="<?= $data->nama ?>" id="jenis_barang">
+										
+																				<div class="row">
+											
+										<div class="col-8">
+											
+											<div class="form-group m-form__group row">
+												<label  class="col-2 col-form-label">
+													Jenis Barang
+												</label>
+												<div class="col-10">
+													<input disabled="" class="form-control m-input" type="text" value="<?= $data->nama ?>" id="jenis_barang">
+												</div>
 											</div>
-										</div>
-										<div class="form-group m-form__group row">
-											<label  class="col-2 col-form-label">
-												Satuan
-											</label>
-											<div class="col-10">
-												<input disabled="" class="form-control m-input" type="text" value="<?= $data->satuan ?>" id="satuan_barang">
+											<div class="form-group m-form__group row">
+												<label  class="col-2 col-form-label">
+													Satuan
+												</label>
+												<div class="col-10">
+													<input disabled="" class="form-control m-input" type="text" value="<?= strtoupper($data->satuan) ?>" id="satuan_barang">
+												</div>
 											</div>
-										</div>
-										<div class="form-group m-form__group row">
-											<label  class="col-2 col-form-label">
-												Kode 
-											</label>
-											<div class="col-10">
-												<input disabled="" class="form-control m-input" type="text" value="<?= $data->kode ?>" id="no_kartu">
+											<div class="form-group m-form__group row">
+												<label  class="col-2 col-form-label">
+													Kode 
+												</label>
+												<div class="col-10">
+													<input disabled="" class="form-control m-input" type="text" value="<?= $data->kode ?>" id="no_kartu">
+												</div>
 											</div>
-										</div>
-										<div class="form-group m-form__group row">
-											<label  class="col-2 col-form-label">
-												Gudang 
-											</label>
-											<div class="col-10">
-												<?php 
+											<div class="form-group m-form__group row">
+												<label  class="col-2 col-form-label">
+													Gudang 
+												</label>
+												<div class="col-10">
+													<?php 
 
-													if($data->tipe_gudang == 1) {
-														$tempat = "Toko";
-													} else if($data->tipe_gudang == 2) {
-														$tempat = "Kantor";
-													}
+														if($data->tipe_gudang == 1) {
+															$tempat = "TOKO";
+														} else if($data->tipe_gudang == 2) {
+															$tempat = "KANTOR";
+														}
 
-												 ?>
-												<input disabled="" class="form-control m-input" type="text" value="<?= $tempat ?>" id="no_kartu">
+													 ?>
+													<input disabled="" class="form-control m-input" type="text" value="<?= $tempat ?>" id="no_kartu">
+												</div>
+											</div>
+
+										</div>
+
+										<div class="col-4 text-center">
+											<div style="padding: 0.5em;border-radius: 0.5em;background-color: #f4f4fb; color: #000">
+												<p style="font-size: 2.5em;font-weight: bold;font-family: arial;margin-bottom: 0">Sisa stock</p>
+												<p style="font-size:5.5em;font-weight: bold; margin: 0"><?= $sisa ?></p>
 											</div>
 										</div>
+
+									</div>
 										
 										<br>
 										<hr>
@@ -168,7 +184,6 @@
 
 											</div>
 										</div>
-
 
 
 									</div>

@@ -2405,6 +2405,130 @@ var html = "<a href='<?= base_url() ?>kantor/stock/rincian/"+data.id+"' class=\"
 				<?php } if($data['route'] == "kantor/stock/rincian/(:any)") { ?>
 					$("li#stock").addClass("m-menu__item--active");
 
+var tbl_rincian_stock_masuk = $('#tbl_rincian_stock_masuk').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					/*type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'GET',
+			            url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,*/
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'tanggal',
+					textAlign: 'center',
+					type:'date',
+					format: 'DD/MM/YYYY'
+				},
+				{
+					field: 'no_invoice',
+					textAlign: 'center'
+				},
+				{
+					field: 'nama',
+					textAlign: 'center'
+				},
+				{
+					field: 'jumlah',
+					textAlign: 'center'
+				}
+
+				],
+			});
+
+
+var tbl_rincian_stock_keluar = $('#tbl_rincian_stock_keluar').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					/*type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'GET',
+			            url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,*/
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'tanggal',
+					textAlign: 'center',
+					type:'date',
+					format: 'DD/MM/YYYY',
+				},
+				{
+					field: 'no_surat',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'jumlah',
+					textAlign: 'center',
+				}
+
+				],
+			});
 
 				<?php } if($data['route'] == "kantor/stock/rincian_barang/(:any)") { ?>
 					$("li#stock").addClass("m-menu__item--active");
