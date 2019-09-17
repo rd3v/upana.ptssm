@@ -390,7 +390,27 @@ class Stock extends MY_Controller {
         $this->load->model('gudang/StockModel');
         $result = $this->StockModel->getdatarincian($id);
 
-        $content['data'] = $result;
+       $list_barang = $this->db->query("
+                SELECT 
+                `data_invoice_masuk_list_barang_serial`.`id_list_barang`,
+                `data_invoice_masuk_list_barang_serial`.`id_stock`,
+                `data_invoice_masuk_list_barang_serial`.`kode_list_barang`,
+                `data_invoice_masuk_list_barang_serial`.`serial`,
+                `data_invoice_masuk_list_barang_serial`.`iat` as tanggal_masuk,
+                `data_surat_jalan`.`tanggal` as tanggal_keluar
+                FROM 
+                data_invoice_masuk_list_barang_serial, data_surat_jalan  
+                WHERE 
+                `data_invoice_masuk_list_barang_serial`.`id_stock`=$result->id AND 
+                `data_invoice_masuk_list_barang_serial`.`id`=`data_surat_jalan`.`id_serial` GROUP BY `data_invoice_masuk_list_barang_serial`.`serial`
+            ")->result();
+
+
+        $content['data'] = (object) [
+            "result"  =>  $result,
+            "list_barang"  =>  $list_barang
+        ];
+
 
         $footer['data'] = [
             "route" => $this->getRoute(),
