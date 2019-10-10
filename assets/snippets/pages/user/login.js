@@ -99,6 +99,9 @@ var SnippetLogin = function() {
                             setTimeout(function() {
 
                                 switch (response.level) {
+                                    case "master":
+                                        document.location = base_url+"admin/dashboard";
+                                        break;
                                     case "finance":
                                         document.location = base_url+"finance/invoice/masuk";
                                         break;

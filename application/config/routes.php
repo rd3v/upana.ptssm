@@ -62,6 +62,126 @@ $route['teknisi/login']['get'] = 'teknisi/Dashboard/login';
 $route['teknisi/checklogin']['get'] = 'teknisi/Dashboard/checklogin';
 $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
 
+# SUPER ADMIN
+
+    $route['admin/dashboard']['get'] = 'master/dashboard/index';
+
+    # *KANTOR*
+
+        # Customer
+        $route['admin/kantor/customer']['get'] = 'master/kantor/Customer/index';
+        $route['admin/kantor/customer/getdata']['get'] = 'master/kantor/Customer/getdata';
+        $route['admin/kantor/customer/getdataac/(:num)']['get'] = 'master/kantor/Customer/getdataac/$1';
+        $route['admin/kantor/customer/tambah']['get'] = 'master/kantor/Customer/tambahdata';
+        $route['admin/kantor/customer/tambahsubmit']['post'] = 'master/kantor/Customer/store';
+        $route['admin/kantor/customer/edit/(:num)']['get'] = 'master/kantor/Customer/edit/$1';
+        $route['admin/kantor/customer/editsubmit']['post'] = 'master/kantor/Customer/update';
+        $route['admin/kantor/customer/rincian/(:num)']['get'] = 'master/kantor/Customer/rincian/$1';
+        $route['admin/kantor/customer/riwayat/(:num)']['get'] = 'master/kantor/Customer/riwayat/$1';
+
+        # Penawaran
+        $route['admin/kantor/penawaran']['get'] = 'master/kantor/Penawaran/index';
+        $route['admin/kantor/penawaran/create']['get'] = 'master/kantor/Penawaran/create';
+        $route['admin/kantor/penawaran/rincian/(:any)']['get'] = 'master/kantor/Penawaran/rincian/$1';
+        $route['admin/kantor/penawaran/print/(:any)']['get'] = 'master/kantor/Penawaran/print/$1';
+        $route['admin/kantor/penawaran/simpan']['post'] = 'master/kantor/Penawaran/store';
+
+        #stock
+        $route['admin/kantor/stock']['get'] = 'master/kantor/stock/index';
+        $route['admin/kantor/stock/rincian/(:any)']['get'] = 'master/kantor/stock/rincian_kantor/$1';
+        $route['admin/kantor/stock/rincian_barang/(:any)']['get'] = 'master/kantor/stock/rincian_barang/$1';
+
+        #price
+        $route['admin/kantor/price']['get'] = 'master/kantor/price/index';
+        $route['getpriceitem']['post'] = 'kantor/price/getpriceitem';
+        $route['getpricejasa']['post'] = 'kantor/price/getpricejasa';
+
+        $route['admin/kantor/price/submit_barang']['get'] = 'master/kantor/price/submit_barang';
+        $route['admin/kantor/price/submit_jasa']['get'] = 'master/kantor/price/submit_jasa';
+
+        $route['admin/kantor/getmodel']['post'] = 'master/kantor/penawaran/getmodel';
+
+    # *FINANCE*
+
+        # Invoice Masuk
+        $route['admin/finance/invoice/masuk']['get'] = 'master/finance/InvoiceMasuk/index'; # Dashboard
+        $route['admin/finance/invoice/masuk/getdata']['post'] = 'master/finance/InvoiceMasuk/getdata';
+        $route['admin/finance/invoice/masuk/tambah']['get'] = 'master/finance/InvoiceMasuk/tambah';
+        $route['admin/finance/invoice/masuk/tambahsubmit']['post'] = 'master/finance/InvoiceMasuk/store';
+        $route['admin/finance/invoice/masuk/updatessubmit']['post'] = 'master/finance/InvoiceMasuk/updates';
+        $route['admin/finance/invoice/masuk/rincian/(:any)']['get'] = 'master/finance/InvoiceMasuk/rincian/$1';
+        $route['admin/finance/invoice/masuk/edit/(:any)']['get'] = 'master/finance/InvoiceMasuk/edit/$1';
+        $route['admin/finance/invoice/masuk/hapus']['post'] = 'master/finance/InvoiceMasuk/hapus';
+        $route['admin/finance/invoice/masuk/hapusitem']['post'] = 'master/finance/InvoiceMasuk/hapusitem';
+        $route['admin/finance/invoice/masuk/tambahitem']['post'] = 'master/finance/InvoiceMasuk/tambahitem';
+        $route['admin/finance/invoice/masuk/updateitem']['post'] = 'master/finance/InvoiceMasuk/updateitem';
+
+        $route['admin/finance/invoice/masuk/getsatuan']['post'] = 'master/finance/Stock/getsatuan';
+
+
+        # Invoice Keluar
+        $route['admin/finance/invoice/keluar/barang']['get'] = 'master/finance/InvoiceKeluar/barang_index';
+        $route['admin/finance/invoice/keluar/material']['get'] = 'master/finance/InvoiceKeluar/material_index';
+
+        # Master Stock
+        $route['admin/finance/stock']['get'] = 'master/finance/stock/index';
+        $route['admin/finance/stock/getdatatoko']['post'] = 'master/finance/stock/getdatatoko';
+        $route['admin/finance/stock/rincian/(:any)']['get'] = 'master/finance/stock/rincian_kantor/$1';
+        $route['admin/finance/stock/rincian_barang/(:any)']['get'] = 'master/finance/stock/rincian_barang/$1';
+
+        # Manajemen Harga
+        $route['admin/finance/price']['get'] = 'master/finance/price/index';
+
+
+    # *HRD*
+
+        $route['master/hrd'] = 'master/hrd/Dashboard/index';
+
+        # Manajemen
+        $route['master/hrd/manajemen/penugasan']['get'] = 'master/hrd/manajemen/penugasan'; // penugasan
+        $route['master/hrd/manajemen/user']['get'] = 'master/hrd/manajemen/user'; // user
+
+        # Pelanggan
+        $route['master/hrd/customer/kepuasan']['get'] = 'master/hrd/customer/kepuasan'; // kepuasan
+
+    # *GUDANG*
+
+        $route['gudang'] = 'gudang/Dashboard/index';
+
+        # Barang
+        $route['admin/gudang/barang/masuk']['get'] = 'master/gudang/Barang/masuk'; # masuk
+        $route['admin/gudang/barang/masuk/getdata']['post'] = 'master/gudang/Barang/getdata'; # masuk
+        $route['admin/gudang/barang/masuk/proses/(:any)']['get'] = 'master/gudang/Barang/proses/$1'; # masuk
+        $route['admin/gudang/barang/masuk/proses/simpan']['post'] = 'master/gudang/Barang/simpan'; # masuk
+
+        # Material
+        $route['admin/gudang/material/keluar']['get'] = 'master/gudang/material/keluar'; # pengeluaran
+
+        # Inventory
+        $route['admin/gudang/inventory']['get'] = 'master/gudang/inventory/index'; # list
+        $route['admin/gudang/inventory/tambah']['get'] = 'master/gudang/inventory/tambah';
+        $route['admin/gudang/inventory/barcode/(:any)']['post'] = 'master/gudang/inventory/barcode/$1';
+        $route['admin/gudang/inventory/edit/(:any)']['get'] = 'master/gudang/inventory/edit/$1';
+        $route['admin/gudang/inventory/update']['post'] = 'master/gudang/inventory/update';
+        $route['admin/gudang/inventory/hapus']['post'] = 'master/gudang/inventory/hapus';
+        $route['admin/gudang/inventory/pinjam']['post'] = 'master/gudang/inventory/pinjam';
+        $route['admin/gudang/inventory/submit']['post'] = 'master/gudang/inventory/submit';
+        $route['admin/gudang/inventory/kembalikan_pinjam']['post'] = 'master/gudang/inventory/kembalikan_pinjam';
+
+        # Stock
+        $route['admin/gudang/stock/manajemen']['get'] = 'master/gudang/stock/manajemen';
+        $route['admin/gudang/stock/rincian/(:any)']['get'] = 'master/gudang/stock/rincian_kantor/$1';
+        $route['admin/gudang/stock/rincian_barang/(:any)']['get'] = 'master/gudang/stock/rincian_barang/$1';
+
+        $route['admin/gudang/stock/master']['get'] = 'master/gudang/stock/master';
+        $route['admin/gudang/stock/master/tambahsubmit']['post'] = 'master/gudang/stock/store';
+        $route['admin/gudang/stock/master/getdata'] = 'master/gudang/stock/getdatamaster';
+        $route['admin/gudang/stock/master/edit/(:num)']['get'] = 'master/gudang/stock/edit/$1';
+        $route['admin/gudang/stock/master/editsubmit']['post'] = 'master/gudang/stock/editsubmit';
+        $route['admin/gudang/stock/master/hapus']['post'] = 'master/gudang/stock/masterhapus';
+
+
+
 # KANTOR
     $route['kantor']['get'] = 'kantor/Dashboard/index';
 
