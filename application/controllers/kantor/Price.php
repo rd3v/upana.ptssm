@@ -56,9 +56,21 @@ class Price extends MY_Controller {
         $this->sendResponse($result);
     }
 
+    public function update_submit_barang() {
+        $this->load->model('kantor/ManajemenHargaModel');
+        $result = $this->ManajemenHargaModel->update_submit_barang($_POST);
+        $this->sendResponse($result);
+    }
+
     public function submit_jasa() {
         $this->load->model('kantor/ManajemenHargaModel');
         $result = $this->ManajemenHargaModel->submit_jasa($_POST);
+        $this->sendResponse($result);
+    }
+
+    public function update_submit_jasa() {
+        $this->load->model('kantor/ManajemenHargaModel');
+        $result = $this->ManajemenHargaModel->update_submit_jasa($_POST);
         $this->sendResponse($result);
     }
 
