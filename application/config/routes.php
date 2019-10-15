@@ -256,6 +256,10 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     $route['finance/invoice/keluar/barang']['get'] = 'finance/InvoiceKeluar/barang_index';
     $route['finance/invoice/keluar/material']['get'] = 'finance/InvoiceKeluar/material_index';
 
+    # Invoice Keluar New
+    $route['finance/invoice/keluar2/pembuatan']['get'] = 'finance/InvoiceKeluar2/pembuatan';
+    $route['finance/invoice/keluar2/monitoring']['get'] = 'finance/InvoiceKeluar2/monitoring';
+
     # Master Stock
     $route['finance/stock']['get'] = 'finance/stock/index';
     $route['finance/stock/getdatatoko']['post'] = 'finance/stock/getdatatoko';
