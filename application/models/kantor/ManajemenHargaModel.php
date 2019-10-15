@@ -47,6 +47,26 @@ class ManajemenHargaModel extends CI_Model {
 		}
 	}
 
+	public function update_submit_barang(array $request) {
+		$this->db->where("master_stock_id",$request['master_stock_id']);
+		$result = $this->db->update("data_harga",$request);
+		if($result) {
+			return [
+				"state" => true,
+				"title" => "Berhasil!",
+				"text" => "data harga item telah di update",
+				"status" => "success"
+			];
+		} else {
+			return [
+				"state" => false,
+				"title" => "Gagal!",
+				"text" => "data harga item gagal di update",
+				"status" => "warning"
+			];
+		}
+	}
+
 	public function submit_jasa(array $request) {
 		$result = $this->db->insert("data_harga",$request);
 		if($result) {
@@ -61,6 +81,27 @@ class ManajemenHargaModel extends CI_Model {
 				"state" => false,
 				"title" => "Gagal!",
 				"text" => "data harga jasa gagal ditambahkan",
+				"status" => "warning"
+			];
+		}
+	}
+
+
+	public function update_submit_jasa(array $request) {
+		$this->db->where("master_stock_id",$request['master_stock_id']);
+		$result = $this->db->update("data_harga",$request);
+		if($result) {
+			return [
+				"state" => true,
+				"title" => "Berhasil!",
+				"text" => "data harga jasa telah di update",
+				"status" => "success"
+			];
+		} else {
+			return [
+				"state" => false,
+				"title" => "Gagal!",
+				"text" => "data harga jasa gagal di update",
 				"status" => "warning"
 			];
 		}

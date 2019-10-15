@@ -97,7 +97,9 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
         $route['getpricejasa']['post'] = 'kantor/price/getpricejasa';
 
         $route['admin/kantor/price/submit_barang']['get'] = 'master/kantor/price/submit_barang';
+        $route['admin/kantor/price/update_submit_barang']['get'] = 'master/kantor/price/update_submit_barang';
         $route['admin/kantor/price/submit_jasa']['get'] = 'master/kantor/price/submit_jasa';
+        $route['admin/kantor/price/update_submit_jasa']['get'] = 'master/kantor/price/update_submit_jasa';
 
         $route['admin/kantor/getmodel']['post'] = 'master/kantor/penawaran/getmodel';
 
@@ -230,7 +232,9 @@ $route['teknisi/logout']['get'] = 'teknisi/Dashboard/logout';
     $route['getpricejasa']['post'] = 'kantor/price/getpricejasa';
 
     $route['kantor/price/submit_barang']['get'] = 'kantor/price/submit_barang';
+    $route['kantor/price/update_submit_barang']['get'] = 'kantor/price/update_submit_barang';
     $route['kantor/price/submit_jasa']['get'] = 'kantor/price/submit_jasa';
+    $route['kantor/price/update_submit_jasa']['get'] = 'kantor/price/update_submit_jasa';
 
     $route['kantor/getmodel']['post'] = 'kantor/penawaran/getmodel';
 

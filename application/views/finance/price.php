@@ -88,78 +88,7 @@
 																<th>Aksi</th>
 															</tr>
 														</thead>
-														<tbody>
-															<tr>
-																<td>1</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td>
-															</tr>
-															<tr>
-																<td>2</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td>
-															</tr>
-															<tr>
-																<td>3</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td>
-															</tr>
-															<tr>
-																<td>4</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td>
-															</tr>
-															<tr>
-																<td>5</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga">Edit</a>
-																</td>
-															</tr>
-														</tbody>
+														<tbody></tbody>
 													</table>
 												</div>
 											</div>
@@ -206,78 +135,7 @@
 																<th>Aksi</th> 
 															</tr>
 														</thead>
-														<tbody>
-															<tr>
-																<td>1</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td>
-															</tr>
-															<tr>
-																<td>2</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td>
-															</tr>
-															<tr>
-																<td>3</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td>
-															</tr>
-															<tr>
-																<td>4</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td>
-															</tr>
-															<tr>
-																<td>5</td>
-																<td>#14253617</td>
-																<td>Thermistor RKD25GVM</td>
-																<td>Thermistor</td>
-																<td>Daikin</td>
-																<td>Rp3,200,00</td>
-																<td>Rp3,100,00</td>
-																<td>Rp2,900,00</td>
-																<td>-</td>
-																<td>
-																	<a class="btn btn-sm btn-primary" style="color:white; width:80px;" data-toggle="modal" data-target="#m_edit_data_harga_jasa">Edit</a>
-																</td>
-															</tr>
-														</tbody>
+														<tbody></tbody>
 													</table>
 												</div>
 											</div>
@@ -370,7 +228,7 @@
 				</div>
 			</div>
 			<!-- Modal : EDIT DATA HARGA -->
-			<div class="modal fade" id="m_edit_data_harga"   role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="m_edit_data_harga" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -389,16 +247,8 @@
 									Kode Item
 								</label>
 								<div class="col-9">
-									<select disabled="" style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											12345678
-										</option>
-										<option value="2">
-											21345635
-										</option>
-										<option value="3">
-											15357352
-										</option>
+									<select disabled class="form-control" name="edit_barang"> 
+										<option active value="barang">Barang</option>
 									</select>
 								</div>
 							</div>
@@ -407,7 +257,7 @@
 									Kode / Nama item
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
+									<select disabled style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible edit_kode_item" name="edit_kode_item" tabindex="-1" aria-hidden="true">
 										<?php 
 											foreach ($data as $value) { 
 												if($value['kategori'] == "unit") { ?>
@@ -424,7 +274,7 @@
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="number" value="" id="harga_modal">
+									<input class="form-control m-input" type="number" value="" id="edit_harga_modal">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -432,7 +282,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="number" value="" id="harga_partai">
+									<input class="form-control m-input" type="number" value="" id="edit_harga_partai">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -440,7 +290,7 @@
 									Harga Toko
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="number" value="" id="harga_toko">
+									<input class="form-control m-input" type="number" value="" id="edit_harga_toko">
 								</div>
 							</div>
 						</div>
@@ -475,16 +325,8 @@
 									Kode Item
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											12345678
-										</option>
-										<option value="2">
-											21345635
-										</option>
-										<option value="3">
-											15357352
-										</option>
+									<select disabled class="form-control" name="jasa"> 
+										<option active value="jasa">Jasa</option>
 									</select>
 								</div>
 							</div>
@@ -493,7 +335,7 @@
 									Kode / Nama item
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item_jasa" tabindex="-1" aria-hidden="true">
+									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="edit_kode_item_jasa" tabindex="-1" aria-hidden="true">
 										<?php 
 											foreach ($data as $value) { 
 												if($value['kategori'] == "jasa") { ?>
@@ -542,7 +384,7 @@
 				</div>
 			</div>
 			<!-- Modal : EDIT DATA HARGA Jasa -->
-			<div class="modal fade" id="m_edit_data_harga_jasa"   role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="m_edit_data_harga_jasa" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -561,34 +403,8 @@
 									Kode Item
 								</label>
 								<div class="col-9">
-									<select disabled="" style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											12345678
-										</option>
-										<option value="2">
-											21345635
-										</option>
-										<option value="3">
-											15357352
-										</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group m-form__group row">
-								<label  class="col-3 col-form-label">
-									No. Seri
-								</label>
-								<div class="col-9">
-									<select disabled="" style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="no_seri_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											abcdefg
-										</option>
-										<option value="2">
-											bvcdffh
-										</option>
-										<option value="3">
-											ywdhfgs
-										</option>
+									<select disabled class="form-control" name="edit_jasa"> 
+										<option active value="jasa">Jasa</option>
 									</select>
 								</div>
 							</div>
@@ -597,7 +413,7 @@
 									Kode / Nama item
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item_jasa" tabindex="-1" aria-hidden="true">
+									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="edit_kode_item_jasa" tabindex="-1" aria-hidden="true">
 										<?php 
 											foreach ($data as $value) { 
 												if($value['kategori'] == "jasa") { ?>
@@ -610,11 +426,11 @@
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
-								<label  class="col-3 col-form-label">
+								<label class="col-3 col-form-label">
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="" id="harga_modal">
+									<input class="form-control m-input" type="number" value="" id="edit_harga_modal_jasa">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -622,7 +438,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="" id="harga_partai">
+									<input class="form-control m-input" type="number" value="" id="edit_harga_partai_jasa">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -630,7 +446,7 @@
 									Harga Toko
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="" id="harga_toko">
+									<input class="form-control m-input" type="number" value="" id="edit_harga_toko_jasa">
 								</div>
 							</div>
 						</div>

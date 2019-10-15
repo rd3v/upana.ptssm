@@ -1130,13 +1130,42 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									text: res.message,
 									type: res.status
 								}).then(function(result) {
-									document.location = "<?= base_url() ?>kantor/price";
+									document.location = "<?= base_url() ?>finance/price";
 								});
 
 						}).fail(function(res) {
 							console.log(res);
 						});
 				});
+
+				// Edit Harga
+
+				$('#btn_selesai_edit').click(function(e) {
+					$.ajax({
+							url:"<?= site_url() ?>kantor/price/update_submit_barang",
+							type:"post",
+							data:{
+								master_stock_id:$("select[name=edit_kode_item]").val(),
+								modal:$("input#edit_harga_modal").val(),
+								partai:$("input#edit_harga_partai").val(),
+								kantor:$("input#edit_harga_toko").val(),
+							},
+							cache:false
+						}).done(function(res) {
+
+								swal({
+									title: res.title,
+									text: res.message,
+									type: res.status
+								}).then(function(result) {
+									document.location = "<?= base_url() ?>finance/price";
+								});
+
+						}).fail(function(res) {
+							console.log(res);
+						});
+				});
+
 				$('#btn_tambah_harga_jasa').click(function(e) {
 					$.ajax({
 							url:"<?= site_url() ?>kantor/price/submit_jasa",
@@ -1156,19 +1185,42 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									text: res.message,
 									type: res.status
 								}).then(function(result) {
-									document.location = "<?= base_url() ?>kantor/price";
+									document.location = "<?= base_url() ?>finance/price";
 								});
 
 						}).fail(function(res) {
 							console.log(res);
 						});
 				});
-				$('#btn_selesai_edit').click(function(e) {
-					swal("Berhasil!", "data harga item telah berhasil diedit","success");
-				});
+
+
+
 				$('#btn_selesai_edit_harga_jasa').click(function(e) {
-					swal("Berhasil!", "data harga item telah berhasil diedit","success");
+					$.ajax({
+							url:"<?= site_url() ?>kantor/price/update_submit_jasa",
+							type:"post",
+							data:{
+								master_stock_id:$("select[name=edit_kode_item_jasa]").val(),
+								modal:$("input#edit_harga_modal_jasa").val(),
+								partai:$("input#edit_harga_partai_jasa").val(),
+								kantor:$("input#edit_harga_toko_jasa").val(),
+							},
+							cache:false
+						}).done(function(res) {
+
+								swal({
+									title: res.title,
+									text: res.message,
+									type: res.status
+								}).then(function(result) {
+									document.location = "<?= base_url() ?>finance/price";
+								});
+
+						}).fail(function(res) {
+							console.log(res);
+						});
 				});
+
 			};
 
 			return {
@@ -1276,11 +1328,17 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						return "-";
 					}
 				},
+				{
+					field: 'aksi',
+					textAlign: 'center',
+					template: function(data) {
+						var html = "<a class='btn btn-sm btn-primary edit_harga_item' style='color:white; width:80px;' data-toggle='modal' data-id = '"+data.id+"' data-partai='"+data.partai+"' data-kantor='"+data.kantor+"' data-modal='"+data.modal+"' data-target='#m_edit_data_harga'>Edit</a>";
+						return html;
+					}
+				},
 
 				],
 			});
-
-
 
 				var tbl_list_harga_jasa = $('#tbl_list_harga_jasa').mDatatable({
 				data: {
@@ -1379,9 +1437,41 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				{
 					field: 'aksi',
 					textAlign: 'center',
-				}
+					template: function(data) {
+						var html = "<a class='btn btn-sm btn-primary edit_harga_jasa' style='color:white; width:80px;' data-toggle='modal' data-id = '"+data.id+"' data-partai='"+data.partai+"' data-kantor='"+data.kantor+"' data-modal='"+data.modal+"' data-target='#m_edit_data_harga_jasa'>Edit</a>";
+						return html;
+					}
+				},
 
 				],
+			});
+
+			$(document).on("click",".edit_harga_item",function() {
+				
+				var id = $(this).data("id");
+				var harga_modal = $(this).data("modal");
+				var harga_partai = $(this).data("partai");
+				var harga_toko = $(this).data("kantor");
+				
+				$("select[name=edit_kode_item]").val(id).change();
+				$("input#edit_harga_modal").val(harga_modal);
+				$("input#edit_harga_partai").val(harga_partai);
+				$("input#edit_harga_toko").val(harga_toko);
+			
+			});
+
+			$(document).on("click",".edit_harga_jasa",function() {
+				
+				var id = $(this).data("id");
+				var harga_modal = $(this).data("modal");
+				var harga_partai = $(this).data("partai");
+				var harga_toko = $(this).data("kantor");
+				
+				$("select[name=edit_kode_item_jasa]").val(id).change();
+				$("input#edit_harga_modal_jasa").val(harga_modal);
+				$("input#edit_harga_partai_jasa").val(harga_partai);
+				$("input#edit_harga_toko_jasa").val(harga_toko);
+			
 			});
 
 
