@@ -628,6 +628,17 @@
 
 				<?php }
 
+				if($data['route'] == "finance/invoice/keluar2/barang") { ?>
+					$("li#invoice_keluar").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#invoice_keluar_barang").addClass("m-menu__item--active");
+				<?php }
+
+				if($data['route'] == "finance/invoice/keluar2/material") { ?>
+					$("li#invoice_keluar").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#invoice_keluar_material").addClass("m-menu__item--active");
+
+				<?php }
+
 				if($data['route'] == "finance/penawaran") { ?>
 					$("li#offer").addClass("m-menu__item--active");
 
@@ -996,6 +1007,383 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				<?php } if($data['route'] == "finance/price") { ?>
 
 					$("li#price").addClass("m-menu__item--active");
+
+
+					var harga_barang = {};
+					var harga_jasa = {};
+
+					$("select[name='kode_item']").on("change", function() {
+						if($(this).val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val() != "" && $("input#harga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_modal").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_partai").val() != "" && $("input#harga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_partai").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_modal").val() != "" && $("input#harga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_kantor").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					// JASA
+
+					$("select[name='kode_item_jasa']").on("change", function() {
+						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_modal_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_partai_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_kantor_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+				var Select2 = function() {
+				var demos = function(){
+				 // basic
+				 $('.dropdown_search, .dropdown_search_validate').select2({
+				 	placeholder: "Select a state"
+				 });
+				}
+				var modalDemos = function(){
+					$('#m_select2_modal').on('shown.bs.modal', function () {
+				// basic
+				$('.dropdown_search_modal').select2({
+					placeholder: "Select a state"
+				});
+			});
+				}
+				return {
+					init: function() {
+						demos();
+						modalDemos();
+					}
+				};
+			}();
+			//== Initialization
+			jQuery(document).ready(function() {
+				Select2.init();
+			});
+
+
+			var SweetAlert2Demo = function() {
+
+			//== Demos
+			var initDemos = function() {
+
+				$('#btn_tambah').click(function(e) {
+					$.ajax({
+							url:"<?= site_url() ?>kantor/price/submit_barang",
+							type:"post",
+							data:{
+								master_stock_id:$("select[name=kode_item]").val(),
+								tipe:$("select[name=barang]").val(),
+								modal:$("input#harga_modal").val(),
+								partai:$("input#harga_partai").val(),
+								kantor:$("input#harga_kantor").val(),
+							},
+							cache:false
+						}).done(function(res) {
+
+								swal({
+									title: res.title,
+									text: res.message,
+									type: res.status
+								}).then(function(result) {
+									document.location = "<?= base_url() ?>kantor/price";
+								});
+
+						}).fail(function(res) {
+							console.log(res);
+						});
+				});
+				$('#btn_tambah_harga_jasa').click(function(e) {
+					$.ajax({
+							url:"<?= site_url() ?>kantor/price/submit_jasa",
+							type:"post",
+							data:{
+								master_stock_id:$("select[name=kode_item_jasa]").val(),
+								tipe:$("select[name=jasa]").val(),
+								modal:$("input#harga_modal_jasa").val(),
+								partai:$("input#harga_partai_jasa").val(),
+								kantor:$("input#harga_kantor_jasa").val(),
+							},
+							cache:false
+						}).done(function(res) {
+
+								swal({
+									title: res.title,
+									text: res.message,
+									type: res.status
+								}).then(function(result) {
+									document.location = "<?= base_url() ?>kantor/price";
+								});
+
+						}).fail(function(res) {
+							console.log(res);
+						});
+				});
+				$('#btn_selesai_edit').click(function(e) {
+					swal("Berhasil!", "data harga item telah berhasil diedit","success");
+				});
+				$('#btn_selesai_edit_harga_jasa').click(function(e) {
+					swal("Berhasil!", "data harga item telah berhasil diedit","success");
+				});
+			};
+
+			return {
+					//== Init
+					init: function() {
+						initDemos();
+					},
+				};
+			}();
+
+			//== Class Initialization
+			jQuery(document).ready(function() {
+				SweetAlert2Demo.init();
+			});
+
+
+			var tbl_list_harga = $('#tbl_list_harga').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'POST',
+			            url: '<?= site_url() ?>getpriceitem',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'no',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						return data.getIndex() + 1;
+					}
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'tipe',
+					textAlign: 'center',
+				},
+				{
+					field: 'merk',
+					textAlign: 'center',
+				},
+				{
+					field: 'partai',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.partai).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'kantor',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.kantor).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'modal',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.modal).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+					template: function(data) {
+						return "-";
+					}
+				},
+
+				],
+			});
+
+
+
+				var tbl_list_harga_jasa = $('#tbl_list_harga_jasa').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            method: 'POST',
+			            url: '<?= site_url() ?>getpricejasa',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'no',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						return data.getIndex() + 1;
+					}
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'No Seri',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'tipe',
+					textAlign: 'center',
+				},
+				{
+					field: 'merk',
+					textAlign: 'center',
+				},
+				{
+					field: 'partai',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.partai).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'kantor',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.kantor).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'modal',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.modal).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+					template: function(data) {
+						return "-";
+					}
+				},
+				{
+					field: 'aksi',
+					textAlign: 'center',
+				}
+
+				],
+			});
+
 
 				<?php }
 
@@ -2584,13 +2972,10 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					type:'date',
 					format: 'DD/MM/YYYY',
 				},
-					{
+				{
 					field: 'No Seri',
 					textAlign: 'center',
-				}
-
-
-				],
+				}],
 			});
 
 				<?php } if($data['route'] == "kantor/price") { ?>
@@ -2600,7 +2985,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					var harga_jasa = {};
 
 					$("select[name='kode_item']").on("change", function() {
-						if($(this).val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val() != "" && $("inputharga_kantor").val()) {
+						if($(this).val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val() != "" && $("input#harga_kantor").val()) {
 							$("button#btn_tambah").removeAttr("disabled");
 						} else {
 							$("button#btn_tambah").attr("disabled", "disabled");
@@ -2634,7 +3019,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					// JASA
 
 					$("select[name='kode_item_jasa']").on("change", function() {
-						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("inputharga_kantor_jasa").val()) {
+						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
 							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
 						} else {
 							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
