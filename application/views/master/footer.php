@@ -43,7 +43,7 @@
 				          read: {
 				            // sample GET method
 				            method: 'POST',
-				            url: '<?= base_url() ?>admin/finance/invoice/masuk/getdata',
+				            url: '<?= base_url() ?>finance/invoice/masuk/getdata',
 				            map: function(raw) {
 				              // sample data mapping
 				              var dataSet = raw;
@@ -125,7 +125,7 @@
 						var no_invoice = $(this).data('no_invoice');
 						if(!confirm('Hapus Data Nomor Invoice : ' + no_invoice)) return false;
 						$.ajax({
-							url:"<?= base_url() ?>admin/finance/invoice/masuk/hapus",
+							url:"<?= base_url() ?>finance/invoice/masuk/hapus",
 							type:"post",
 							data:{
 								no_invoice:no_invoice
@@ -140,7 +140,7 @@
 								confirmButtonText: 'Ok'
 								}).then(function(result) {
 									if (result.value) {
-										document.location = '<?= base_url() ?>admin/finance/invoice/masuk';
+										document.location = '<?= base_url() ?>finance/invoice/masuk';
 									}
 								});
 						}).fail(function(res) {
@@ -215,7 +215,7 @@
 							tagihan.total = total;
 
 							$.ajax({
-								url:"<?= base_url() ?>admin/finance/invoice/masuk/tambahsubmit",
+								url:"<?= base_url() ?>finance/invoice/masuk/tambahsubmit",
 								type:"post",
 								data:{
 									// Invoice Masuk
@@ -260,7 +260,7 @@
 					// modal form tambah validation
 					$("select[name='nama_item']").on("change", function() {
 						$.ajax({
-							url:"<?= base_url() ?>admin/finance/invoice/masuk/getsatuan",
+							url:"<?= base_url() ?>finance/invoice/masuk/getsatuan",
 							type:"post",
 							data:{
 								kode:$(this).val(),
@@ -310,7 +310,7 @@
 
 					$("select[name='edit_nama_item']").on("change", function() {
 						$.ajax({
-							url:"<?= base_url() ?>admin/finance/invoice/masuk/getsatuan",
+							url:"<?= base_url() ?>finance/invoice/masuk/getsatuan",
 							type:"post",
 							data:{
 								kode:$(this).val(),
@@ -628,6 +628,17 @@
 
 				<?php }
 
+				if($data['route'] == "admin/finance/invoice/keluar2/barang") { ?>
+					$("li#invoice_keluar").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#invoice_keluar_barang").addClass("m-menu__item--active");
+				<?php }
+
+				if($data['route'] == "admin/finance/invoice/keluar2/material") { ?>
+					$("li#invoice_keluar").addClass("m-menu__item--submenu m-menu__item--open m-menu__item--expanded");
+					$("li#invoice_keluar_material").addClass("m-menu__item--active");
+
+				<?php }
+
 				if($data['route'] == "admin/finance/penawaran") { ?>
 					$("li#offer").addClass("m-menu__item--active");
 
@@ -644,7 +655,7 @@
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: '<?=site_url()?>admin/finance/stock/getdatakantor',
+			            url: '<?=site_url()?>finance/stock/getdatakantor',
 			            // url: '<?=site_url()?>finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
@@ -753,7 +764,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 			          read: {
 			            // sample GET method
 			            method: 'POST',
-			            url: '<?=site_url()?>admin/finance/stock/getdatatoko',
+			            url: '<?=site_url()?>finance/stock/getdatatoko',
 			            // url: '<?=site_url()?>finance/stock/getdatatoko',
 			            map: function(raw) {
 			              // sample data mapping
@@ -997,18 +1008,395 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 					$("li#price").addClass("m-menu__item--active");
 
+
+					var harga_barang = {};
+					var harga_jasa = {};
+
+					$("select[name='kode_item']").on("change", function() {
+						if($(this).val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val() != "" && $("input#harga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_modal").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_partai").val() != "" && $("input#harga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_partai").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_modal").val() != "" && $("input#harga_kantor").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_kantor").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item]").val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val()) {
+							$("button#btn_tambah").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah").attr("disabled", "disabled");
+						}
+					});
+
+					// JASA
+
+					$("select[name='kode_item_jasa']").on("change", function() {
+						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_modal_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_partai_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+					$("input#harga_kantor_jasa").on("input", function() {
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val()) {
+							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
+						} else {
+							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+						}
+					});
+
+				var Select2 = function() {
+				var demos = function(){
+				 // basic
+				 $('.dropdown_search, .dropdown_search_validate').select2({
+				 	placeholder: "Select a state"
+				 });
+				}
+				var modalDemos = function(){
+					$('#m_select2_modal').on('shown.bs.modal', function () {
+				// basic
+				$('.dropdown_search_modal').select2({
+					placeholder: "Select a state"
+				});
+			});
+				}
+				return {
+					init: function() {
+						demos();
+						modalDemos();
+					}
+				};
+			}();
+			//== Initialization
+			jQuery(document).ready(function() {
+				Select2.init();
+			});
+
+
+			var SweetAlert2Demo = function() {
+
+			//== Demos
+			var initDemos = function() {
+
+				$('#btn_tambah').click(function(e) {
+					$.ajax({
+							url:"<?= site_url() ?>kantor/price/submit_barang",
+							type:"post",
+							data:{
+								master_stock_id:$("select[name=kode_item]").val(),
+								tipe:$("select[name=barang]").val(),
+								modal:$("input#harga_modal").val(),
+								partai:$("input#harga_partai").val(),
+								kantor:$("input#harga_kantor").val(),
+							},
+							cache:false
+						}).done(function(res) {
+
+								swal({
+									title: res.title,
+									text: res.message,
+									type: res.status
+								}).then(function(result) {
+									document.location = "<?= base_url() ?>kantor/price";
+								});
+
+						}).fail(function(res) {
+							console.log(res);
+						});
+				});
+				$('#btn_tambah_harga_jasa').click(function(e) {
+					$.ajax({
+							url:"<?= site_url() ?>kantor/price/submit_jasa",
+							type:"post",
+							data:{
+								master_stock_id:$("select[name=kode_item_jasa]").val(),
+								tipe:$("select[name=jasa]").val(),
+								modal:$("input#harga_modal_jasa").val(),
+								partai:$("input#harga_partai_jasa").val(),
+								kantor:$("input#harga_kantor_jasa").val(),
+							},
+							cache:false
+						}).done(function(res) {
+
+								swal({
+									title: res.title,
+									text: res.message,
+									type: res.status
+								}).then(function(result) {
+									document.location = "<?= base_url() ?>admin/kantor/price";
+								});
+
+						}).fail(function(res) {
+							console.log(res);
+						});
+				});
+				$('#btn_selesai_edit').click(function(e) {
+					swal("Berhasil!", "data harga item telah berhasil diedit","success");
+				});
+				$('#btn_selesai_edit_harga_jasa').click(function(e) {
+					swal("Berhasil!", "data harga item telah berhasil diedit","success");
+				});
+			};
+
+			return {
+					//== Init
+					init: function() {
+						initDemos();
+					},
+				};
+			}();
+
+			//== Class Initialization
+			jQuery(document).ready(function() {
+				SweetAlert2Demo.init();
+			});
+
+
+			var tbl_list_harga = $('#tbl_list_harga').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'POST',
+			            url: '<?= site_url() ?>getpriceitem',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'no',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						return data.getIndex() + 1;
+					}
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'tipe',
+					textAlign: 'center',
+				},
+				{
+					field: 'merk',
+					textAlign: 'center',
+				},
+				{
+					field: 'partai',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.partai).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'kantor',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.kantor).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'modal',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.modal).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+					template: function(data) {
+						return "-";
+					}
+				},
+
+				],
+			});
+
+
+
+				var tbl_list_harga_jasa = $('#tbl_list_harga_jasa').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					type: 'remote',
+			        source: {
+			          read: {
+			            method: 'POST',
+			            url: '<?= site_url() ?>getpricejasa',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'no',
+					textAlign: 'center',
+					template: function(data, type, row, meta) {
+						return data.getIndex() + 1;
+					}
+				},
+				{
+					field: 'kode',
+					textAlign: 'center',
+				},
+				{
+					field: 'No Seri',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'tipe',
+					textAlign: 'center',
+				},
+				{
+					field: 'merk',
+					textAlign: 'center',
+				},
+				{
+					field: 'partai',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.partai).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'kantor',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.kantor).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'modal',
+					textAlign: 'center',
+					template: function(data) {
+						return "Rp." + parseInt(data.modal).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+					}
+				},
+				{
+					field: 'keterangan',
+					textAlign: 'center',
+					template: function(data) {
+						return "-";
+					}
+				},
+				{
+					field: 'aksi',
+					textAlign: 'center',
+				}
+
+				],
+			});
+
+
 				<?php }
 
-				# END MASTER FINANCE
+				# END FINANCE
 
-				# MASTER KANTOR
+				# KANTOR
 
-				if($data['route'] == "admin/kantor") { ?>
+				if($data['route'] == "kantor") { ?>
 					$("li#dashboard").addClass("m-menu__item--active");
 
 				<?php }
 
-				if($data['route'] == "admin/kantor/customer") { ?>
+				if($data['route'] == "kantor/customer") { ?>
 					$("li#customer").addClass("m-menu__item--active");
 
 					var tbl_list_pelanggan = $('#tbl_list_pelanggan').mDatatable({
@@ -1079,7 +1467,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						{
 							field: 'aksi',
 							template: function(row) {
-								var html = "<a href='<?= base_url() ?>admin/kantor/customer/rincian/" + row.id + "' class='btn btn-sm btn-primary'  style='color:white;'><i class='fa fa-address-book-o'></i> Rincian</a> <a href='<?= base_url() ?>admin/kantor/customer/edit/" + row.id + "' class='btn btn-sm btn-info ' tyle='color:white;'><i class='fa fa-pencil-square'></i> Edit</a>";
+								var html = "<a href='<?= base_url() ?>admin/kantor/customer/rincian/" + row.id + "' class='btn btn-sm btn-primary'  style='color:white;'><i class='fa fa-address-book-o'></i> Rincian</a> <a href='<?= base_url() ?>kantor/customer/edit/" + row.id + "' class='btn btn-sm btn-info ' tyle='color:white;'><i class='fa fa-pencil-square'></i> Edit</a>";
 								return html;
 							},
 							textAlign: "center"
@@ -2100,7 +2488,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						}).then(function(result) {
 							if (result.value) {
 								$.ajax({
-									url:"<?= site_url() ?>admin/kantor/penawaran/simpan",
+									url:"<?= site_url() ?>kantor/penawaran/simpan",
 									type:"post",
 									data:data,
 									cache:false
@@ -2114,7 +2502,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 											text: res.text,
 											type: res.status
 										}).then(function(result) {
-											document.location = "<?= site_url() ?>admin/kantor/penawaran";
+											document.location = "<?= site_url() ?>kantor/penawaran";
 										});
 
 									} else {
@@ -2597,7 +2985,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					var harga_jasa = {};
 
 					$("select[name='kode_item']").on("change", function() {
-						if($(this).val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val() != "" && $("inputharga_kantor").val()) {
+						if($(this).val() != "" && $("input#harga_modal").val() != "" && $("input#harga_partai").val() != "" && $("input#harga_kantor").val()) {
 							$("button#btn_tambah").removeAttr("disabled");
 						} else {
 							$("button#btn_tambah").attr("disabled", "disabled");
@@ -2631,7 +3019,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					// JASA
 
 					$("select[name='kode_item_jasa']").on("change", function() {
-						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("inputharga_kantor_jasa").val()) {
+						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
 							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
 						} else {
 							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
@@ -2714,7 +3102,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									text: res.message,
 									type: res.status
 								}).then(function(result) {
-									document.location = "<?= base_url() ?>kantor/price";
+									document.location = "<?= base_url() ?>admin/kantor/price";
 								});
 
 						}).fail(function(res) {
@@ -2740,7 +3128,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									text: res.message,
 									type: res.status
 								}).then(function(result) {
-									document.location = "<?= base_url() ?>kantor/price";
+									document.location = "<?= base_url() ?>admin/kantor/price";
 								});
 
 						}).fail(function(res) {
@@ -2978,17 +3366,17 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 				# HRD
 
-			   if($data['route'] == "master/hrd") { ?>
+			   if($data['route'] == "admin/hrd") { ?>
 					$("li#manajemen-penugasan").addClass("m-menu__item--active");
 
 				<?php }
 
-				if($data['route'] == "master/hrd/kepuasan-pelanggan") { ?>
+				if($data['route'] == "admin/hrd/customer/kepuasan") { ?>
 					$("li#kepuasan-pelanggan").addClass("m-menu__item--active");
 
 				<?php }
 
-				if($data['route'] == "master/hrd/manajemen/user") { ?>
+				if($data['route'] == "admin/hrd/manajemen/user") { ?>
 					$("li#manajemen-user").addClass("m-menu__item--active");
 
 				<?php }
@@ -2997,7 +3385,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 				# GUDANG
 
-				if($data['route'] == "gudang") { ?>
+				if($data['route'] == "admin/gudang") { ?>
 					$("li#dashboard").addClass("m-menu__item--active");
 				<?php } ?>
 
@@ -3823,7 +4211,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 						var kode = $(this).data('id');
 						if(!confirm('Hapus Data (Kode: ' + kode + ')')) return false;
 						$.ajax({
-							url:"<?= base_url() ?>admin/gudang/stock/master/hapus",
+							url:"<?= base_url() ?>gudang/stock/master/hapus",
 							type:"post",
 							data:{
 								kode:kode
@@ -3838,7 +4226,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 								confirmButtonText: 'Ok'
 								}).then(function(result) {
 									if (result.value) {
-										document.location = '<?= base_url() ?>admin/gudang/stock/master';
+										document.location = '<?= base_url() ?>gudang/stock/master';
 									}
 								});
 						}).fail(function(res) {

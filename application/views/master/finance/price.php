@@ -1,4 +1,4 @@
-<div class="m-grid__item m-grid__item--fluid m-wrapper">
+		<div class="m-grid__item m-grid__item--fluid m-wrapper">
 					<!-- BEGIN: Subheader -->
 					<div class="m-subheader ">
 						<div class="d-flex align-items-center">
@@ -308,37 +308,28 @@
 						<div class="modal-body">
 							<div class="form-group m-form__group row">
 								<label  class="col-3 col-form-label">
-									Kode Item
+									Kategori
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											12345678
-										</option>
-										<option value="2">
-											21345635
-										</option>
-										<option value="3">
-											15357352
-										</option>
+									<select disabled class="form-control" name="barang"> 
+										<option active value="barang">Barang</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
-								<label  class="col-3 col-form-label">
-									Nama item
+								<label class="col-3 col-form-label">
+									Kode / Nama Item
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="nama_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											AC satu
-										</option>
-										<option value="2">
-											AC dua
-										</option>
-										<option value="3">
-											AC tiga
-										</option>
+									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
+										<?php 
+											foreach ($data as $value) { 
+												if($value['kategori'] == "unit") { ?>
+												<option value="<?= $value['id'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
+										<?php 
+												}
+											}
+										 ?>
 									</select>
 								</div>
 							</div>
@@ -347,7 +338,7 @@
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp2,900,000" id="harga_modal">
+									<input class="form-control m-input" type="number" value="" id="harga_modal">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -355,7 +346,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_partai">
+									<input class="form-control m-input" type="number" value="" id="harga_partai">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -363,7 +354,7 @@
 									Harga Toko
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_toko">
+									<input class="form-control m-input" type="number" value="" id="harga_kantor">
 								</div>
 							</div>
 						</div>
@@ -371,7 +362,7 @@
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">
 								Tutup
 							</button>
-							<button id="btn_tambah" type="button" class="btn btn-primary" data-dismiss="modal">
+							<button disabled id="btn_tambah" type="button" class="btn btn-primary" data-dismiss="modal">
 								Tambah
 							</button>
 						</div>
@@ -413,19 +404,18 @@
 							</div>
 							<div class="form-group m-form__group row">
 								<label  class="col-3 col-form-label">
-									Nama item
+									Kode / Nama item
 								</label>
 								<div class="col-9">
-									<select disabled="" style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="nama_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											AC satu
-										</option>
-										<option value="2">
-											AC dua
-										</option>
-										<option value="3">
-											AC tiga
-										</option>
+									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item" tabindex="-1" aria-hidden="true">
+										<?php 
+											foreach ($data as $value) { 
+												if($value['kategori'] == "unit") { ?>
+												<option value="<?= $value['id'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
+										<?php 
+												}
+											}
+										 ?>
 									</select>
 								</div>
 							</div>
@@ -434,7 +424,7 @@
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp2,900,000" id="harga_modal">
+									<input class="form-control m-input" type="number" value="" id="harga_modal">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -442,7 +432,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_partai">
+									<input class="form-control m-input" type="number" value="" id="harga_partai">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -450,7 +440,7 @@
 									Harga Toko
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_toko">
+									<input class="form-control m-input" type="number" value="" id="harga_toko">
 								</div>
 							</div>
 						</div>
@@ -500,19 +490,18 @@
 							</div>
 							<div class="form-group m-form__group row">
 								<label  class="col-3 col-form-label">
-									Nama item
+									Kode / Nama item
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="nama_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											AC satu
-										</option>
-										<option value="2">
-											AC dua
-										</option>
-										<option value="3">
-											AC tiga
-										</option>
+									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item_jasa" tabindex="-1" aria-hidden="true">
+										<?php 
+											foreach ($data as $value) { 
+												if($value['kategori'] == "jasa") { ?>
+												<option value="<?= $value['id'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
+										<?php 
+												}
+											}
+										 ?>
 									</select>
 								</div>
 							</div>
@@ -521,7 +510,7 @@
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp2,900,000" id="harga_modal">
+									<input class="form-control m-input" type="number" value="" id="harga_modal">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -529,7 +518,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_partai">
+									<input class="form-control m-input" type="number" value="" id="harga_partai">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -537,7 +526,7 @@
 									Harga Toko
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_toko">
+									<input class="form-control m-input" type="number" value="" id="harga_toko_jasa">
 								</div>
 							</div>
 						</div>
@@ -605,19 +594,18 @@
 							</div>
 							<div class="form-group m-form__group row">
 								<label  class="col-3 col-form-label">
-									Nama item
+									Kode / Nama item
 								</label>
 								<div class="col-9">
-									<select disabled="" style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="nama_item" tabindex="-1" aria-hidden="true">
-										<option value="1" >
-											AC satu
-										</option>
-										<option value="2">
-											AC dua
-										</option>
-										<option value="3">
-											AC tiga
-										</option>
+									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item_jasa" tabindex="-1" aria-hidden="true">
+										<?php 
+											foreach ($data as $value) { 
+												if($value['kategori'] == "jasa") { ?>
+												<option value="<?= $value['id'] ?>"><?= $value['kode'] ?> || <?= $value['nama'] ?></option>
+										<?php 
+												}
+											}
+										 ?>
 									</select>
 								</div>
 							</div>
@@ -626,7 +614,7 @@
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp2,900,000" id="harga_modal">
+									<input class="form-control m-input" type="text" value="" id="harga_modal">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -634,7 +622,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_partai">
+									<input class="form-control m-input" type="text" value="" id="harga_partai">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -642,7 +630,7 @@
 									Harga Toko
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="text" value="Rp3,300,000" id="harga_toko">
+									<input class="form-control m-input" type="text" value="" id="harga_toko">
 								</div>
 							</div>
 						</div>
