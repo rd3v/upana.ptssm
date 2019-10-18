@@ -32,10 +32,10 @@ class StockModel extends CI_Model {
         return $result;
     }
 
-    public function getdatarincian($kode) {
+    public function getdatarincian($id) {
       $this->db->select("*");
       $this->db->from("master_stock");
-      $this->db->where("kode",$kode);
+      $this->db->where("id",$id);
       $result = $this->db->get()->row();
       return $result;
     }
