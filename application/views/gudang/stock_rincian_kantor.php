@@ -50,11 +50,11 @@
 															Kartu Stock Barang
 														</h3>
 													</div>
-<!-- 													<div align="right" class="col-sm">
+													<div align="right" class="col-sm">
 														<button onclick="window.location.href='<?= base_url() ?>gudang/stock/rincian_barang/<?= $data->id ?>'" class="btn btn-primary">
 															Rincian
 														</button>
-													</div> -->
+													</div>
 												</div>
 											</div>
 										</div>
@@ -112,7 +112,7 @@
 										<div class="col-4 text-center">
 											<div style="padding: 0.5em;border-radius: 0.5em;background-color: #f4f4fb; color: #000">
 												<p style="font-size: 2.5em;font-weight: bold;font-family: arial;margin-bottom: 0">Sisa stock</p>
-												<p style="font-size:5.5em;font-weight: bold; margin: 0"><?= $sisa ?></p>
+												<p style="font-size:5.5em;font-weight: bold; margin: 0"><?= $sisa->jumlah ?></p>
 											</div>
 										</div>
 
