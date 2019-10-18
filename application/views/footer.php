@@ -756,7 +756,7 @@ var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.id+"' class=\
 
 
 
-var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
+var tbl_list_stock_gudang_toko = $('#tbl_list_stock_gudang_toko').mDatatable({
 				data: {
 					saveState: {cookie: false},
 					type: 'remote',
@@ -855,7 +855,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					field: 'aksi',
 					textAlign: 'center',
 					template:function(data) {
-var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.kode+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
+var html = "<a href='<?= base_url() ?>finance/stock/rincian/"+data.id+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
 						return html;
 					}
 				}

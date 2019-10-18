@@ -36,9 +36,9 @@ class Stock extends MY_Controller {
     public function rincian_kantor($id) {
         $this->load->model('finance/StockModel');
         $result = $this->StockModel->getdatarincian($id);
-
-        $jumlah = $this->db->query("select sum(data_invoice_masuk_list_barang.jumlah) as jumlah from data_invoice_masuk_list_barang where data_invoice_masuk_list_barang.kode=".$result->kode)->row();
-        
+                
+        $jumlah = $this->db->query("select sum(jumlah) as jumlah from data_invoice_masuk_list_barang where kode='".$result->kode."'")->row();
+                
         # item masuk
 
 
@@ -191,11 +191,7 @@ class Stock extends MY_Controller {
     }
 
     private function _query($where) {
-        return $this->db->select('master_stock.id, master_stock.kode, master_stock.nama,  master_stock.merk, master_stock.btu, master_stock.kategori, master_stock.satuan, master_stock.tipe,  master_stock.tipe_gudang, master_stock.daya_listrik, master_stock.keterangan, master_stock.gambar, sum(data_invoice_masuk_list_barang.jumlah) as jumlah')->from('master_stock,data_invoice_masuk_list_barang')->where($where);
-    }
-
-    private function _query2($where) {
-        return $this->db->select('master_stock.id, master_stock.kode, master_stock.nama, master_stock.stock, master_stock.merk, master_stock.btu, master_stock.kategori, master_stock.satuan, master_stock.tipe, master_stock.tipe_gudang, master_stock.daya_listrik, master_stock.keterangan, master_stock.gambar, sum(data_invoice_masuk_list_barang.jumlah) as jumlah')->from('master_stock,data_invoice_masuk_list_barang')->where($where);
+        return $this->db->select('master_stock.id, master_stock.kode, master_stock.nama,  master_stock.merk, master_stock.btu, master_stock.kategori, master_stock.satuan, master_stock.tipe, master_stock.tipe_gudang, sum(data_invoice_masuk_list_barang.jumlah) as jumlah, master_stock.keterangan')->from('master_stock,data_invoice_masuk_list_barang')->where($where);
     }
 
     public function getdatakantor() {
@@ -221,7 +217,7 @@ class Stock extends MY_Controller {
 
         $meta = array('page' => $page, 'pages' => $pages, 'perpage' => $perpage, 'total' => $total, 'sort' => $sort, 'field' => $field);
 
-        $stock = $this->_query($where)->order_by($field.' '.$sort)->limit($perpage, $offset)->get()->result();
+        $stock = $this->_query($where)->order_by($field.' '.$sort)->group_by('master_stock.kode')->limit($perpage, $offset)->get()->result();
 
         $this->sendResponse(['success' => TRUE, 'meta' => $meta, 'data' => $stock]);
 
@@ -237,7 +233,7 @@ class Stock extends MY_Controller {
         if ($generalSearch) $where .= ' AND ('.cari_query($generalSearch, ['master_stock.kode','master_stock.nama','master_stock.merk','master_stock.kategori','master_stock.satuan','master_stock.tipe','master_stock.keterangan']).')';
 
 
-        $total = $this->_query2($where)->get()->num_rows();
+        $total = $this->_query($where)->get()->num_rows();
 
         $page = $this->input->post('pagination[page]') ? (int) $this->input->post('pagination[page]') : 1;
         $perpage = $this->input->post('pagination[perpage]') ? (int) $this->input->post('pagination[perpage]') : 10;
@@ -250,7 +246,7 @@ class Stock extends MY_Controller {
 
         $meta = array('page' => $page, 'pages' => $pages, 'perpage' => $perpage, 'total' => $total, 'sort' => $sort, 'field' => $field);
 
-        $stock = $this->_query($where)->order_by($field.' '.$sort)->limit($perpage, $offset)->get()->result();
+        $stock = $this->_query($where)->order_by($field.' '.$sort)->group_by('master_stock.kode')->limit($perpage, $offset)->get()->result();
 
         $this->sendResponse(['success' => TRUE, 'meta' => $meta, 'data' => $stock]);
     }
