@@ -716,7 +716,7 @@
 					textAlign: 'center',
 				},
 				{
-					field: 'stock',
+					field: 'jumlah',
 					textAlign: 'center',
 				},
 				{
@@ -728,11 +728,11 @@
 					textAlign: 'center',
 					template: function(data, type, row, meta) {
 						var html = "";
-						if(data.stock > 7) {
+						if(data.jumlah > 7) {
 							html = "Tersedia";
-						}  else if(data.stock <= 7) {
+						}  else if(data.jumlah <= 7) {
 							html = "Hampir Habis";
-						} else if(data.stock == 0) {
+						} else if(data.jumlah == 0) {
 							html = "Habis";
 						}
 						return html;
@@ -746,7 +746,7 @@
 					field: 'aksi',
 					textAlign: 'center',
 					template:function(data) {
-var html = "<a href='<?= base_url() ?>admin/finance/stock/rincian/"+data.kode+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
+var html = "<a href='<?= base_url() ?>admin/finance/stock/rincian/"+data.id+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
 						return html;
 					}
 				}
@@ -756,7 +756,7 @@ var html = "<a href='<?= base_url() ?>admin/finance/stock/rincian/"+data.kode+"'
 
 
 
-var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
+var tbl_list_stock_gudang_toko = $('#tbl_list_stock_gudang_toko').mDatatable({
 				data: {
 					saveState: {cookie: false},
 					type: 'remote',
@@ -825,7 +825,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					textAlign: 'center',
 				},
 				{
-					field: 'stock',
+					field: 'jumlah',
 					textAlign: 'center',
 				},
 				{
@@ -837,11 +837,11 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					textAlign: 'center',
 					template: function(data, type, row, meta) {
 						var html = "";
-						if(data.stock > 7) {
+						if(data.jumlah > 7) {
 							html = "Tersedia";
-						}  else if(data.stock <= 7) {
+						}  else if(data.jumlah <= 7) {
 							html = "Hampir Habis";
-						} else if(data.stock == 0) {
+						} else if(data.jumlah == 0) {
 							html = "Habis";
 						}
 						return html;
@@ -855,7 +855,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					field: 'aksi',
 					textAlign: 'center',
 					template:function(data) {
-var html = "<a href='<?= base_url() ?>admin/finance/stock/rincian/"+data.kode+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
+var html = "<a href='<?= base_url() ?>admin/finance/stock/rincian/"+data.id+"' class=\"btn btn-sm btn-primary\" style=\"color:white; width:80px;\">Rincian</a>";
 						return html;
 					}
 				}
@@ -863,10 +863,10 @@ var html = "<a href='<?= base_url() ?>admin/finance/stock/rincian/"+data.kode+"'
 				],
 			});
 
-				<?php } if($data['route'] == "admin/finance/stock/rincian/(:num)") { ?>
+				<?php } if($data['route'] == "admin/finance/stock/rincian/(:any)") { ?>
 						$("li#stock").addClass("m-menu__item--active");
 
-var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
+var tbl_rincian_stock_masuk = $('#tbl_rincian_stock_masuk').mDatatable({
 				data: {
 					saveState: {cookie: false},
 					/*type: 'remote',
@@ -941,6 +941,69 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 				],
 			});
 
+
+var tbl_rincian_stock_keluar = $('#tbl_rincian_stock_keluar').mDatatable({
+				data: {
+					saveState: {cookie: false},
+					/*type: 'remote',
+			        source: {
+			          read: {
+			            // sample GET method
+			            method: 'GET',
+			            url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php',
+			            map: function(raw) {
+			              // sample data mapping
+			              var dataSet = raw;
+			              if (typeof raw.data !== 'undefined') {
+			                dataSet = raw.data;
+			              }
+			              return dataSet;
+			            },
+			          },
+			        },
+			        pageSize: 10,
+			        serverPaging: true,
+			        serverFiltering: true,
+			        serverSorting: true,*/
+			    },
+				// layout definition
+				layout: {
+					theme: 'default', // datatable theme
+					class: '', // custom wrapper class
+					scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+					// height: 450, // datatable's body's fixed height
+					footer: false // display/hide footer
+				},
+
+				// column sorting
+				sortable: false,
+				search: {
+					input: $('#generalSearch'),
+				},
+				columns: [
+
+				{
+					field: 'tanggal',
+					textAlign: 'center',
+					type:'date',
+					format: 'DD/MM/YYYY',
+				},
+				{
+					field: 'no_surat',
+					textAlign: 'center',
+				},
+				{
+					field: 'nama',
+					textAlign: 'center',
+				},
+				{
+					field: 'jumlah',
+					textAlign: 'center',
+				}
+
+				],
+			});
+
 				<?php } if($data['route'] == "admin/finance/stock/rincian_barang/(:num)") { ?>
 					$("li#stock").addClass("m-menu__item--active");
 
@@ -1005,7 +1068,6 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 			});
 
 				<?php } if($data['route'] == "admin/finance/price") { ?>
-
 					$("li#price").addClass("m-menu__item--active");
 
 					var harga_barang = {};
@@ -1129,7 +1191,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									text: res.message,
 									type: res.status
 								}).then(function(result) {
-									document.location = "<?= base_url() ?>finance/price";
+									document.location = "<?= base_url() ?>admin/finance/price";
 								});
 
 						}).fail(function(res) {
@@ -1157,7 +1219,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									text: res.message,
 									type: res.status
 								}).then(function(result) {
-									document.location = "<?= base_url() ?>finance/price";
+									document.location = "<?= base_url() ?>admin/finance/price";
 								});
 
 						}).fail(function(res) {
@@ -1184,7 +1246,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									text: res.message,
 									type: res.status
 								}).then(function(result) {
-									document.location = "<?= base_url() ?>finance/price";
+									document.location = "<?= base_url() ?>admin/finance/price";
 								});
 
 						}).fail(function(res) {
@@ -1212,7 +1274,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 									text: res.message,
 									type: res.status
 								}).then(function(result) {
-									document.location = "<?= base_url() ?>finance/price";
+									document.location = "<?= base_url() ?>admin/finance/price";
 								});
 
 						}).fail(function(res) {
@@ -1480,12 +1542,12 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 
 				# KANTOR
 
-				if($data['route'] == "kantor") { ?>
+				if($data['route'] == "admin/kantor") { ?>
 					$("li#dashboard").addClass("m-menu__item--active");
 
 				<?php }
 
-				if($data['route'] == "kantor/customer") { ?>
+				if($data['route'] == "admin/kantor/customer") { ?>
 					$("li#customer").addClass("m-menu__item--active");
 
 					var tbl_list_pelanggan = $('#tbl_list_pelanggan').mDatatable({
@@ -2732,7 +2794,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					textAlign: 'center',
 				},
 				{
-					field: 'stock',
+					field: 'jumlah',
 					textAlign: 'center',
 				},
 				{
@@ -2744,11 +2806,11 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					textAlign: 'center',
 					template: function(data, type, row, meta) {
 						var html = "";
-						if(data.stock > 7) {
+						if(data.jumlah > 7) {
 							html = "Tersedia";
-						}  else if(data.stock <= 7) {
+						}  else if(data.jumlah <= 7) {
 							html = "Hampir Habis";
-						} else if(data.stock == 0) {
+						} else if(data.jumlah == 0) {
 							html = "Habis";
 						}
 						return html;
@@ -2771,7 +2833,7 @@ var html = "<a href='<?= base_url() ?>admin/kantor/stock/rincian/"+data.id+"' cl
 			});
 
 
-var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
+var tbl_list_stock_gudang_toko = $('#tbl_list_stock_gudang_toko').mDatatable({
 				data: {
 					saveState: {cookie: false},
 					type: 'remote',
@@ -2840,7 +2902,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					textAlign: 'center',
 				},
 				{
-					field: 'stock',
+					field: 'jumlah',
 					textAlign: 'center',
 				},
 				{
@@ -2852,11 +2914,11 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					textAlign: 'center',
 					template: function(data, type, row, meta) {
 						var html = "";
-						if(data.stock > 7) {
+						if(data.jumlah > 7) {
 							html = "Tersedia";
-						}  else if(data.stock <= 7) {
+						}  else if(data.jumlah <= 7) {
 							html = "Hampir Habis";
-						} else if(data.stock == 0) {
+						} else if(data.jumlah == 0) {
 							html = "Habis";
 						}
 						return html;
@@ -3878,7 +3940,7 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					textAlign: 'center',
 				},
 				{
-					field: 'stock',
+					field: 'jumlah',
 					textAlign: 'center',
 				},
 				{
@@ -3890,11 +3952,11 @@ var tbl_rincian_stock = $('#tbl_rincian_stock').mDatatable({
 					textAlign: 'center',
 					template: function(data, type, row, meta) {
 						var html = "";
-						if(data.stock > 7) {
+						if(data.jumlah > 7) {
 							html = "Tersedia";
-						}  else if(data.stock <= 7) {
+						}  else if(data.jumlah <= 7) {
 							html = "Hampir Habis";
-						} else if(data.stock == 0) {
+						} else if(data.jumlah == 0) {
 							html = "Habis";
 						}
 						return html;
@@ -3917,7 +3979,7 @@ var html = "<a href='<?= base_url() ?>admin/gudang/stock/rincian/"+data.id+"' cl
 			});
 
 
-var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
+var tbl_list_stock_gudang_toko = $('#tbl_list_stock_gudang_toko').mDatatable({
 				data: {
 					saveState: {cookie: false},
 					type: 'remote',
@@ -3986,7 +4048,7 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					textAlign: 'center',
 				},
 				{
-					field: 'stock',
+					field: 'jumlah',
 					textAlign: 'center',
 				},
 				{
@@ -3998,11 +4060,11 @@ var tbl_list_stock_gudang_kantor = $('#tbl_list_stock_gudang_toko').mDatatable({
 					textAlign: 'center',
 					template: function(data, type, row, meta) {
 						var html = "";
-						if(data.stock > 7) {
+						if(data.jumlah > 7) {
 							html = "Tersedia";
-						}  else if(data.stock <= 7) {
+						}  else if(data.jumlah <= 7) {
 							html = "Hampir Habis";
-						} else if(data.stock == 0) {
+						} else if(data.jumlah == 0) {
 							html = "Habis";
 						}
 						return html;

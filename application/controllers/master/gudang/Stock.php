@@ -253,7 +253,9 @@ class Stock extends MY_Controller {
         $this->load->model('gudang/StockModel');
         $result = $this->StockModel->getdatarincian($id);
 
-# item masuk
+        $jumlah = $this->db->query("select sum(jumlah) as jumlah from data_invoice_masuk_list_barang where kode='".$result->kode."'")->row();        
+
+        # item masuk
 
         $item_masuk = $this->db->query("
             SELECT 
@@ -374,7 +376,7 @@ class Stock extends MY_Controller {
         $content = (object) [
             "item_masuk" => $new_item_masuk,
             "item_keluar" => $new_item_keluar,
-            "sisa" => $result->stock,
+            "sisa" => $jumlah,
             "data" => $result
         ];
 
