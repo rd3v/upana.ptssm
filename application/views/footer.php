@@ -399,7 +399,7 @@
 
 						var kode_item = $("select[name=nama_item] option:selected").val();
 						var nama_item = $("select[name=nama_item] option:selected").text();
-						var namaitem = nama_item.split(" ");
+						var namaitem = nama_item.split("(");
 
 						var jumlah_item = $("input#jumlah_item").val();
 						var satuan = $("input[name=satuan]").val();
