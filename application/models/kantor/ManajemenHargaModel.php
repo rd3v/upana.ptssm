@@ -29,19 +29,32 @@ class ManajemenHargaModel extends CI_Model {
 	}
 
 	public function submit_barang(array $request) {
+		$this->load->model('Crud');
+		$check = $this->Crud->gd('data_harga',['master_stock_id' => $request['master_stock_id']]);
+
+		if($check != null) {
+			return [
+				"state" => true,
+				"title" => "Gagal",
+				"message" => "Barang telah memiliki data harga",
+				"status" => "warning"
+			];
+		}
+
 		$result = $this->db->insert("data_harga",$request);
+
 		if($result) {
 			return [
 				"state" => true,
-				"title" => "Berhasil!",
-				"text" => "data harga item telah ditambahkan",
+				"title" => "Berhasil",
+				"message" => "data harga item telah ditambahkan",
 				"status" => "success"
 			];
 		} else {
 			return [
 				"state" => false,
 				"title" => "Gagal!",
-				"text" => "data harga item gagal ditambahkan",
+				"message" => "data harga item gagal ditambahkan",
 				"status" => "warning"
 			];
 		}
@@ -54,33 +67,46 @@ class ManajemenHargaModel extends CI_Model {
 			return [
 				"state" => true,
 				"title" => "Berhasil!",
-				"text" => "data harga item telah di update",
+				"message" => "data harga item telah di update",
 				"status" => "success"
 			];
 		} else {
 			return [
 				"state" => false,
 				"title" => "Gagal!",
-				"text" => "data harga item gagal di update",
+				"message" => "data harga item gagal di update",
 				"status" => "warning"
 			];
 		}
 	}
 
 	public function submit_jasa(array $request) {
+
+		$this->load->model('Crud');
+		$check = $this->Crud->gd('data_harga',['master_stock_id' => $request['master_stock_id']]);
+
+		if($check != null) {
+			return [
+				"state" => true,
+				"title" => "Gagal",
+				"message" => "Jasa telah memiliki data harga",
+				"status" => "warning"
+			];
+		}
+
 		$result = $this->db->insert("data_harga",$request);
 		if($result) {
 			return [
 				"state" => true,
 				"title" => "Berhasil!",
-				"text" => "data harga jasa telah ditambahkan",
+				"message" => "data harga jasa telah ditambahkan",
 				"status" => "success"
 			];
 		} else {
 			return [
 				"state" => false,
 				"title" => "Gagal!",
-				"text" => "data harga jasa gagal ditambahkan",
+				"message" => "data harga jasa gagal ditambahkan",
 				"status" => "warning"
 			];
 		}
@@ -94,14 +120,14 @@ class ManajemenHargaModel extends CI_Model {
 			return [
 				"state" => true,
 				"title" => "Berhasil!",
-				"text" => "data harga jasa telah di update",
+				"message" => "data harga jasa telah di update",
 				"status" => "success"
 			];
 		} else {
 			return [
 				"state" => false,
 				"title" => "Gagal!",
-				"text" => "data harga jasa gagal di update",
+				"message" => "data harga jasa gagal di update",
 				"status" => "warning"
 			];
 		}

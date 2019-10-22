@@ -123,16 +123,16 @@
 													<table class="table" id="tbl_list_harga_jasa">
 														<thead>
 															<tr>
-																<th>No</th>
-																<th>Kode</th>
-																<th>Nama Barang</th>
-																<th>Tipe</th>
-																<th>Merek</th>
-																<th>Harga Partai</th>
-																<th>Harga Toko</th>
-																<th>Modal</th>
-																<th>Keterangan</th>
-																<th>Aksi</th> 
+																<th class='text-center'>No</th>
+																<th class='text-center'>Kode</th>
+																<th class='text-center'>Nama Barang</th>
+																<th class='text-center'>Tipe</th>
+																<th class='text-center'>Merek</th>
+																<th class='text-center'>Harga Partai</th>
+																<th class='text-center'>Harga Toko</th>
+																<th class='text-center'>Modal</th>
+																<th class='text-center'>Keterangan</th>
+																<th class='text-center'>Aksi</th> 
 															</tr>
 														</thead>
 														<tbody></tbody>
@@ -335,7 +335,7 @@
 									Kode / Nama item
 								</label>
 								<div class="col-9">
-									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="edit_kode_item_jasa" tabindex="-1" aria-hidden="true">
+									<select style="width: 100%" class="form-control m-select2 dropdown_search select2-hidden-accessible" name="kode_item_jasa" tabindex="-1" aria-hidden="true">
 										<?php 
 											foreach ($data as $value) { 
 												if($value['kategori'] == "jasa") { ?>
@@ -352,7 +352,7 @@
 									Modal
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="number" value="" id="harga_modal">
+									<input class="form-control m-input" type="number" value="" id="harga_modal_jasa">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -360,7 +360,7 @@
 									Harga Partai
 								</label>
 								<div class="col-9">
-									<input class="form-control m-input" type="number" value="" id="harga_partai">
+									<input class="form-control m-input" type="number" value="" id="harga_partai_jasa">
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -376,7 +376,7 @@
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">
 								Tutup
 							</button>
-							<button id="btn_tambah_harga_jasa" type="button" class="btn btn-primary" data-dismiss="modal">
+							<button disabled id="btn_tambah_harga_jasa" type="button" class="btn btn-primary" data-dismiss="modal">
 								Tambah
 							</button>
 						</div>

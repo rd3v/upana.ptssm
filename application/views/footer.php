@@ -1110,34 +1110,38 @@ var tbl_rincian_stock_masuk = $('#tbl_rincian_stock_masuk').mDatatable({
 					// JASA
 
 					$("select[name='kode_item_jasa']").on("change", function() {
-						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+						console.log($(this).val());
+						if($(this).val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_toko_jasa").val()) {
 							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
 						} else {
-							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+							$("button#btn_tambah_harga_jasa").attr("disabled", true);
 						}
 					});
 
 					$("input#harga_modal_jasa").on("input", function() {
-						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+						console.log($(this).val());
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_partai_jasa").val() != "" && $("input#harga_toko_jasa").val()) {
 							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
 						} else {
-							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+							$("button#btn_tambah_harga_jasa").attr("disabled", true);
 						}
 					});
 
 					$("input#harga_partai_jasa").on("input", function() {
-						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_kantor_jasa").val()) {
+						console.log($(this).val());
+						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_toko_jasa").val()) {
 							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
 						} else {
-							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+							$("button#btn_tambah_harga_jasa").attr("disabled", true);
 						}
 					});
 
-					$("input#harga_kantor_jasa").on("input", function() {
+					$("input#harga_toko_jasa").on("input", function() {
+						console.log($(this).val());
 						if($(this).val() != "" && $("select[name=kode_item_jasa]").val() != "" && $("input#harga_modal_jasa").val() != "" && $("input#harga_partai_jasa").val()) {
 							$("button#btn_tambah_harga_jasa").removeAttr("disabled");
 						} else {
-							$("button#btn_tambah_harga_jasa").attr("disabled", "disabled");
+							$("button#btn_tambah_harga_jasa").attr("disabled", true);
 						}
 					});
 
@@ -1238,7 +1242,7 @@ var tbl_rincian_stock_masuk = $('#tbl_rincian_stock_masuk').mDatatable({
 								tipe:$("select[name=jasa]").val(),
 								modal:$("input#harga_modal_jasa").val(),
 								partai:$("input#harga_partai_jasa").val(),
-								kantor:$("input#harga_kantor_jasa").val(),
+								kantor:$("input#harga_toko_jasa").val(),
 							},
 							cache:false
 						}).done(function(res) {
@@ -1451,10 +1455,6 @@ var tbl_rincian_stock_masuk = $('#tbl_rincian_stock_masuk').mDatatable({
 				},
 				{
 					field: 'kode',
-					textAlign: 'center',
-				},
-				{
-					field: 'No Seri',
 					textAlign: 'center',
 				},
 				{
