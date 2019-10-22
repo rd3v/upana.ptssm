@@ -116,6 +116,11 @@
 								<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark "  >
 									<?php
 										switch($data['user']['accesstype']) {
+											case "master":
+												echo "<div style='padding:1.2em'>";
+												echo "<h2><b>SUPER ADMIN</b></h2>";
+												echo "</div>";
+											break;
 											case "kantor":
 												echo "<img style='display: inline; float: left; height: 60px; width: auto' src='".base_url()."assets/demo/default/media/img/misc/admin_kantor.png'>";
 											break;
@@ -172,6 +177,433 @@
 
 							<?php
 								switch($data['user']['accesstype']) {
+									case "master": ?>
+										
+										<li id="dashboard" class="m-menu__item " aria-haspopup="true" >
+											<a  href="<?= base_url() ?>admin/dashboard" class="m-menu__link ">
+												<i class="m-menu__link-icon flaticon-line-graph"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Dashboard
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										<hr>
+
+										<!-- ADMIN | KANTOR -->
+
+									<li id="order" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon flaticon-folder-2"></i>
+											<span class="m-menu__link-text">
+												ADMIN KANTOR
+											</span>
+										<i style="font-size: 1.5rem" class="m-menu__ver-arrow fa fa-caret-right"></i>
+										</a>
+									<div class="m-menu__submenu " style="">
+										<span class="m-menu__arrow"></span>
+										<ul class="m-menu__subnav">
+													
+										<!-- Manajemen Pelanggan -->
+										<li id="customer" class="m-menu__item " aria-haspopup="true" >
+											<a  href="<?= base_url() ?>admin/kantor/customer" class="m-menu__link ">
+												<i class="m-menu__link-icon fa 	fa-user-circle-o"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Manajemen Pelanggan
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+
+										<!-- Manajemen Pesanan-->
+										<li id="order" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+											<a href="#" class="m-menu__link m-menu__toggle">
+												<i class="m-menu__link-icon flaticon-folder-2"></i>
+												<span class="m-menu__link-text">
+													Manajemen Pesanan
+												</span>
+												<i style="font-size: 1.5rem" class="m-menu__ver-arrow fa fa-caret-right"></i>
+											</a>
+											<div class="m-menu__submenu " style="">
+												<span class="m-menu__arrow"></span>
+												<ul class="m-menu__subnav">
+													<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+														<span class="m-menu__link">
+															<span class="m-menu__link-text">
+																Pesanan
+															</span>
+														</span>
+													</li>
+													<li id="spk-pemasangan" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>kantor/spk-pemasangan" class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																SPK Pemasangan
+															</span>
+														</a>
+													</li>
+													<li id="spk-service" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>kantor/spk-service"  class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																SPK Service
+															</span>
+														</a>
+													</li>
+													<li id="spk-free" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>kantor/spk-free"  class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																SPK Free
+															</span>
+														</a>
+													</li>
+													<li id="spk-komplain" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>kantor/spk-komplain"  class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																SPK Komplain
+															</span>
+														</a>
+													</li>
+													<li id="spk-survey" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>kantor/spk-survey"  class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																SPK Survey
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</li>
+
+
+										<!-- Manajemen Penawaran -->
+										<li id="offer" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>kantor/penawaran" class="m-menu__link ">
+												<i class="m-menu__link-icon fa 	fa-handshake-o"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Manajemen Penawaran
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										<!-- Manajemen Stock -->
+										<li id="stock" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>kantor/stock" class="m-menu__link ">
+												<i class="m-menu__link-icon flaticon-list-1"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Manajemen Stock
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										<!-- Harga Item dan Jasa -->
+										<li id="price" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>kantor/price" class="m-menu__link ">
+												<i class="m-menu__link-icon la la-list"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Manajemen Harga
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										</ul>
+									</div>
+								</li>
+
+									<!-- ADMIN | FINANCE -->
+
+									<li id="order" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon flaticon-open-box"></i>
+											<span class="m-menu__link-text">
+												ADMIN FINANCE
+											</span>
+										<i style="font-size: 1.5rem" class="m-menu__ver-arrow fa fa-caret-right"></i>
+										</a>
+									<div class="m-menu__submenu " style="">
+										<span class="m-menu__arrow"></span>
+										<ul class="m-menu__subnav">
+											
+										<!--Invoice Masuk-->
+										<li id="invoice_masuk" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>finance/invoice/masuk" class="m-menu__link ">
+												<i class="m-menu__link-icon fa 	fa-wpforms"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Invoice Masuk
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+
+										<!-- Manajemen Barang -->
+										<!--Manajemen Invoice Keluar-->
+										<li id="invoice_keluar" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+											<a href="#" class="m-menu__link m-menu__toggle">
+												<i class="m-menu__link-icon flaticon-folder-2"></i>
+												<span class="m-menu__link-text">
+													Manajemen Invoice Keluar
+												</span>
+												<i style="font-size: 1.5rem" class="m-menu__ver-arrow fa fa-caret-right"></i>
+											</a>
+											<div class="m-menu__submenu " style="">
+												<span class="m-menu__arrow"></span>
+												<ul class="m-menu__subnav">
+													<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+														<span class="m-menu__link">
+															<span class="m-menu__link-text">
+																Manajemen Invoice Keluar
+															</span>
+														</span>
+													</li>
+													<li id="invoice_keluar_barang" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>finance/invoice/keluar/barang" class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																Invoice Barang
+															</span>
+														</a>
+													</li>
+													<li id="invoice_keluar_material" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>finance/invoice/keluar/material"  class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																Invoice Material
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</li>
+
+										<!-- Management Stock -->
+										<li id="stock" class="m-menu__item  " aria-haspopup="true" >
+											<a href="<?= base_url() ?>finance/stock" class="m-menu__link ">
+												<i class="m-menu__link-icon  flaticon-open-box"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Management Stock
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<!-- Manajemen Harga -->
+										<li id="price" class="m-menu__item" aria-haspopup="true" >
+											<a href="<?= base_url() ?>finance/price" class="m-menu__link ">
+												<i class="m-menu__link-icon la la-list"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Manajemen Harga
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										</ul>
+									</div>
+								</li>
+
+								<!-- ADMIN | GUDANG -->
+
+								<li id="order" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon fa fa-cube"></i>
+											<span class="m-menu__link-text">
+												ADMIN GUDANG
+											</span>
+										<i style="font-size: 1.5rem" class="m-menu__ver-arrow fa fa-caret-right"></i>
+										</a>
+									<div class="m-menu__submenu " style="">
+										<span class="m-menu__arrow"></span>
+										<ul class="m-menu__subnav">
+
+										<!-- Barang Masuk -->
+										<li id="barang" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>gudang/barang/masuk" class="m-menu__link ">
+												<i class="m-menu__link-icon fa fa-shopping-cart"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Barang Masuk
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<!-- Surat jalan-->
+										<li id="surat" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>gudang/surat-jalan" class="m-menu__link ">
+												<i class="m-menu__link-icon flaticon-transport"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Surat jalan
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<!-- Pengeluaran Material -->
+										<li id="material" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>gudang/pengeluaran-material" class="m-menu__link ">
+												<i class="m-menu__link-icon la 	la-stack-overflow"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Pengeluaran Material
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<!-- Inventory-->
+										<li id="inventory" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>gudang/inventory" class="m-menu__link ">
+												<i class="m-menu__link-icon fa fa-cube"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Inventory
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<!-- Stock -->
+										<li id="stock-manajemen" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>gudang/stock/manajemen" class="m-menu__link ">
+												<i class="m-menu__link-icon flaticon-list-1"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Manajemen Stock
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<!-- Master Stock -->
+										<li id="stock-master" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>gudang/stock/master" class="m-menu__link ">
+												<i class="m-menu__link-icon flaticon-open-box"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Master stock
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										
+										</ul>
+									</div>
+								</li>
+
+								<!-- ADMIN | HRD -->
+
+								<li id="order" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a href="#" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon fa fa-user-o"></i>
+											<span class="m-menu__link-text">
+												ADMIN HRD
+											</span>
+										<i style="font-size: 1.5rem" class="m-menu__ver-arrow fa fa-caret-right"></i>
+										</a>
+									<div class="m-menu__submenu " style="">
+										<span class="m-menu__arrow"></span>
+										<ul class="m-menu__subnav">
+
+										<!-- Manajemen Penugasan -->
+										<li id="manajemen-penugasan" class="m-menu__item" aria-haspopup="true" >
+											<a href="<?= base_url() ?>hrd" class="m-menu__link ">
+												<i class="m-menu__link-icon fa fa-puzzle-piece"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Manajemen Penugasan
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<!-- Kepuasan Pelanggan -->
+										<li id="kepuasan-pelanggan" class="m-menu__item" aria-haspopup="true" >
+											<a  href="<?= base_url() ?>hrd/kepuasan-pelanggan" class="m-menu__link ">
+												<i class="m-menu__link-icon fa 	fa-thumbs-up"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Kepuasan Pelanggan
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										<!-- Manajemen User -->
+										<li id="manajemen-user" class="m-menu__item  " aria-haspopup="true" >
+											<a  href="<?= base_url() ?>hrd/manajemen/user" class="m-menu__link ">
+												<i class="m-menu__link-icon fa fa-user-o"></i>
+												<span class="m-menu__link-title">
+													<span class="m-menu__link-wrap">
+														<span class="m-menu__link-text">
+															Manajemen User
+														</span>
+													</span>
+												</span>
+											</a>
+										</li>
+										
+										</ul>
+									</div>
+								</li>
+
+									<?php
+									break;
 									case "kantor": ?>
 
 										<li id="dashboard" class="m-menu__item " aria-haspopup="true" >
@@ -304,7 +736,7 @@
 												<span class="m-menu__link-title">
 													<span class="m-menu__link-wrap">
 														<span class="m-menu__link-text">
-															Manajemen Harga
+															List Harga
 														</span>
 													</span>
 												</span>
@@ -367,6 +799,49 @@
 															</i>
 															<span class="m-menu__link-text">
 																Invoice Material
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</li>
+
+										<!--new -->
+										<li id="invoice_keluar" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+											<a href="#" class="m-menu__link m-menu__toggle">
+												<i class="m-menu__link-icon flaticon-folder-2"></i>
+												<span class="m-menu__link-text">
+													Manajemen Invoice Keluar (New)
+												</span>
+												<i style="font-size: 1.5rem" class="m-menu__ver-arrow fa fa-caret-right"></i>
+											</a>
+											<div class="m-menu__submenu " style="">
+												<span class="m-menu__arrow"></span>
+												<ul class="m-menu__subnav">
+													<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+														<span class="m-menu__link">
+															<span class="m-menu__link-text">
+																Pembuatan Invoice
+															</span>
+														</span>
+													</li>
+													<li id="invoice_keluar_barang" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>finance/invoice/keluar2/pembuatan" class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																Pembuatan Invoice
+															</span>
+														</a>
+													</li>
+													<li id="invoice_keluar_material" class="m-menu__item " aria-haspopup="true">
+														<a href="<?= base_url() ?>finance/invoice/keluar2/monitoring"  class="m-menu__link ">
+															<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+																<span></span>
+															</i>
+															<span class="m-menu__link-text">
+																Monitoring Invoice
 															</span>
 														</a>
 													</li>
